@@ -2,7 +2,7 @@
 from courses.models import Course
 from django import forms
 from django.core.validators import RegexValidator
-from .models import User
+from .models import User, OTP
 from django.contrib.auth.forms import UserCreationForm
 from captcha.fields import CaptchaField
 
@@ -207,3 +207,51 @@ class StudentForm(forms.ModelForm):
                     course.students.add(user)
 
         return user
+
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField(required=True, label="Email")
+    captcha = CaptchaField()
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            raise forms.ValidationError("No account found with this email")
+        return email
+
+
+class OTPVerifyForm(forms.Form):
+    otp_code = forms.CharField(
+        max_length=6,
+        min_length=6,
+        required=True,
+        label="OTP Code",
+        widget=forms.TextInput(attrs={
+            "maxlength": "6",
+            "pattern": "[0-9]{6}",
+            "inputmode": "numeric"
+        })
+    )
+    captcha = CaptchaField()
+
+
+class ResetPasswordForm(forms.Form):
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput,
+        label="New Password"
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput,
+        label="Confirm New Password"
+    )
+    captcha = CaptchaField()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("new_password1")
+        password2 = cleaned_data.get("new_password2")
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords do not match")
+
+        return cleaned_data

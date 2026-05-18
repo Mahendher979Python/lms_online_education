@@ -20,7 +20,9 @@ urlpatterns = [
     path('trainer_view/', views.trainer_view, name='trainer_view'),
     path('student_view/', views.student_view, name='student_view'),
     path('add-student/', views.add_student, name='add_student'),
-    path('users/', views.view_users, name='view_users'),
+    path('forgot-password/', views.forgot_password_view, name='forgot_password'),
+    path('otp-verify/', views.otp_verify_view, name='otp_verify'),
+    path('reset-password/', views.reset_password_view, name='reset_password'),
     # path('get-courses/', views.get_courses, name='get_courses')
 
 

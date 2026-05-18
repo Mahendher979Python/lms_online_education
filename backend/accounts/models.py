@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
+import random
 
 
 class User(AbstractUser):
@@ -20,7 +22,9 @@ class User(AbstractUser):
 
     phone = models.CharField(
     max_length=10,
-    unique=True
+    unique=True,
+    null=True,
+    blank=True
     )
 
     # =====================================
@@ -96,3 +100,21 @@ class User(AbstractUser):
     def __str__(self):
 
         return self.username
+
+
+class OTP(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    otp_code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.otp_code}"
+
+    def is_expired(self):
+        expiry_time = timezone.now() - timezone.timedelta(minutes=10)
+        return self.created_at < expiry_time
+
+    @staticmethod
+    def generate_otp():
+        return str(random.randint(100000, 999999))

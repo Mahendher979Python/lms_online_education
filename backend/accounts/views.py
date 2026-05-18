@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from notifications.models import Notification
 from courses.models import Course
 from .forms import (
@@ -9,9 +10,12 @@ from .forms import (
     LoginForm,
     TrainerForm,
     StudentForm,
-    AdminUserCreateForm
+    AdminUserCreateForm,
+    ForgotPasswordForm,
+    OTPVerifyForm,
+    ResetPasswordForm
 )
-from .models import User
+from .models import User, OTP
 from django.db.models import Q
 
 
@@ -296,3 +300,80 @@ def delete_user(request, id):
 
         )
     return redirect('view_users')
+
+
+def forgot_password_view(request):
+    if request.method == 'POST':
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            user = User.objects.get(email=email)
+            
+            otp_code = OTP.generate_otp()
+            OTP.objects.filter(user=user, is_verified=False).delete()
+            otp = OTP.objects.create(user=user, otp_code=otp_code)
+            
+            print(f"OTP for {email}: {otp_code}")
+            
+            request.session['reset_email'] = email
+            return redirect('otp_verify')
+    else:
+        form = ForgotPasswordForm()
+    
+    return render(request, 'accounts/forgot_password.html', {'form': form})
+
+
+def otp_verify_view(request):
+    if 'reset_email' not in request.session:
+        return redirect('forgot_password')
+    
+    if request.method == 'POST':
+        form = OTPVerifyForm(request.POST)
+        if form.is_valid():
+            email = request.session['reset_email']
+            user = User.objects.get(email=email)
+            otp_code = form.cleaned_data['otp_code']
+            
+            try:
+                otp = OTP.objects.get(user=user, otp_code=otp_code, is_verified=False)
+                
+                if otp.is_expired():
+                    form.add_error('otp_code', 'OTP has expired. Please request a new one.')
+                    return render(request, 'accounts/otp_verify.html', {'form': form})
+                
+                otp.is_verified = True
+                otp.save()
+                
+                request.session['otp_verified'] = True
+                return redirect('reset_password')
+                
+            except OTP.DoesNotExist:
+                form.add_error('otp_code', 'Invalid OTP')
+    else:
+        form = OTPVerifyForm()
+    
+    return render(request, 'accounts/otp_verify.html', {'form': form})
+
+
+def reset_password_view(request):
+    if 'reset_email' not in request.session or 'otp_verified' not in request.session:
+        return redirect('forgot_password')
+    
+    if request.method == 'POST':
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            email = request.session['reset_email']
+            user = User.objects.get(email=email)
+            
+            user.set_password(form.cleaned_data['new_password1'])
+            user.save()
+            
+            del request.session['reset_email']
+            del request.session['otp_verified']
+            
+            messages.success(request, 'Password reset successfully! Please login.')
+            return redirect('login')
+    else:
+        form = ResetPasswordForm()
+    
+    return render(request, 'accounts/reset_password.html', {'form': form})

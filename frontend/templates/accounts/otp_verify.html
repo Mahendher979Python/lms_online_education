@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet"
+          href="{% static 'accounts/css/auth.css' %}">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        .field-container{
+            position: relative;
+        }
+
+        /* =========================
+           CAPTCHA FIX
+        ========================= */
+
+        .captcha-row{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .captcha-box img{
+            border-radius: 10px;
+            transform: scale(0.85);
+            transform-origin: left center;
+        }
+
+        .captcha-refresh-btn{
+            border: none;
+            background: #007bff;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .captcha-refresh-btn:hover{
+            background: #0056b3;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+
+    <div class="card">
+
+        <h2>Verify OTP</h2>
+
+        <p style="text-align: center; margin-bottom: 20px; color: #1b1b4b; font-size: 14px;">
+            OTP sent to your email. Check console for OTP (for demo).
+        </p>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {% for field in form %}
+
+                <div class="form-group">
+
+                    <label>
+                        {{ field.label }}
+                    </label>
+
+                    <!-- CAPTCHA FIELD -->
+                    {% if "captcha" in field.id_for_label %}
+
+                        <div class="field-container">
+
+                            <!-- CAPTCHA IMAGE + BUTTON ROW -->
+                            <div class="captcha-row">
+
+                                <div class="captcha-box">
+                                    {{ field }}
+                                </div>
+
+                                <button type="button"
+                                        class="captcha-refresh-btn"
+                                        title="Refresh Captcha">
+
+                                    <i class="fas fa-rotate-right"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    <!-- NORMAL FIELD -->
+                    {% else %}
+
+                        <div class="field-container">
+
+                            {{ field }}
+
+                        </div>
+
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+            <button type="submit"
+                    class="login-btn">
+
+                Verify OTP
+
+            </button>
+
+        </form>
+
+        <a href="{% url 'forgot_password' %}"
+           class="footer-link">
+
+            Resend OTP
+
+        </a>
+
+        <a href="{% url 'login' %}"
+           class="footer-link">
+
+            Back to Login
+
+        </a>
+
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // CAPTCHA REFRESH
+            const refreshBtn =
+                document.querySelector('.captcha-refresh-btn');
+
+            if(refreshBtn){
+
+                refreshBtn.addEventListener('click', function(){
+
+                    fetch('/captcha/refresh/', {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+
+                        const captchaImg =
+                            document.querySelector('img.captcha');
+
+                        if(captchaImg){
+                            captchaImg.src = data.image_url;
+                        }
+
+                        document.getElementById('id_captcha_0').value = data.key;
+                        document.getElementById('id_captcha_1').value = '';
+
+                    })
+                    .catch(err => console.log(err));
+
+                });
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
