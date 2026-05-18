@@ -8,6 +8,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('terms/', views.terms_view, name='terms'),
     path('register/', register_view, name='register'),
+    path('register/otp-verify/', views.register_otp_verify_view, name='register_otp_verify'),
     path('login/', login_view, name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('demo/', view_demo, name='demo'),

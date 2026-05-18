@@ -34,27 +34,85 @@ def register_view(request):
     form = StudentRegisterForm(request.POST or None)
 
     if form.is_valid():
-        user = form.save()
-
-# admin notifications
-        admins = User.objects.filter(role='admin')
-
-        for admin in admins:
-
-            Notification.objects.create(
-
-                recipient=admin,
-
-                sender=user,
-
-                type='admin',
-
-                message=f'New student registered: {user.username}'
-
-            )
-        return redirect('login')
+        username = form.cleaned_data['username']
+        email = form.cleaned_data['email']
+        phone = form.cleaned_data['phone']
+        password = form.cleaned_data['password1']
+        
+        otp_code = OTP.generate_otp()
+        
+        request.session['temp_user'] = {
+            'username': username,
+            'email': email,
+            'phone': phone,
+            'password': password
+        }
+        
+        try:
+            from django.core.mail import send_mail
+            from django.conf import settings
+            
+            subject = 'Registration OTP - Online Learning System'
+            message = f'Hello {username},\n\nYour OTP for registration is: {otp_code}\n\nThis OTP is valid for 10 minutes.\n\nIf you did not request this, please ignore this email.'
+            from_email = settings.EMAIL_HOST_USER
+            recipient_list = [email]
+            
+            send_mail(subject, message, from_email, recipient_list)
+            print(f"Registration OTP sent to {email}: {otp_code}")
+        except Exception as e:
+            print(f"Failed to send email: {e}")
+            print(f"Registration OTP for {email}: {otp_code}")
+        
+        request.session['registration_otp'] = otp_code
+        request.session['registration_email'] = email
+        return redirect('register_otp_verify')
 
     return render(request, 'accounts/register.html', {'form': form})
+
+
+def register_otp_verify_view(request):
+    if 'temp_user' not in request.session:
+        return redirect('register')
+    
+    if request.method == 'POST':
+        otp_form = OTPVerifyForm(request.POST)
+        if otp_form.is_valid():
+            entered_otp = otp_form.cleaned_data['otp_code']
+            session_otp = request.session.get('registration_otp')
+            
+            if entered_otp == session_otp:
+                temp_user = request.session['temp_user']
+                
+                user = User.objects.create_user(
+                    username=temp_user['username'],
+                    email=temp_user['email'],
+                    password=temp_user['password']
+                )
+                user.phone = temp_user['phone']
+                user.role = 'student'
+                user.save()
+                
+                admins = User.objects.filter(role='admin')
+                for admin in admins:
+                    Notification.objects.create(
+                        recipient=admin,
+                        sender=user,
+                        type='admin',
+                        message=f'New student registered: {user.username}'
+                    )
+                
+                del request.session['temp_user']
+                del request.session['registration_otp']
+                del request.session['registration_email']
+                
+                messages.success(request, 'Registration successful! Please login.')
+                return redirect('login')
+            else:
+                otp_form.add_error('otp_code', 'Invalid OTP')
+    else:
+        otp_form = OTPVerifyForm()
+    
+    return render(request, 'accounts/register_otp_verify.html', {'form': otp_form})
 
 
 def login_view(request):
