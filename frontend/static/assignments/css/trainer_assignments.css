@@ -1,0 +1,266 @@
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow-x:hidden !important;
+    background:#071028;
+}
+
+/* ================= PREMIUM HEADER ================= */
+
+.premium-header{
+    margin-bottom:32px;
+}
+
+.premium-header h2{
+    font-size:34px;
+    font-weight:800;
+    background:linear-gradient(135deg,#fff,#60a5fa);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.premium-header p{
+    margin-top:8px;
+    color:#9ca3af;
+}
+
+/* ================= PREMIUM GLASS CARD ================= */
+
+.premium-glass-card{
+    background:
+    linear-gradient(145deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.03));
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:24px;
+
+    padding:28px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.35);
+}
+
+.premium-glass-card h3{
+    color:#fff;
+    margin-bottom:22px;
+    font-size:22px;
+}
+
+/* ================= GRID ================= */
+
+.premium-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:24px;
+    margin-bottom:32px;
+}
+
+/* ================= PREMIUM STATS ================= */
+
+.premium-stat-card{
+    position:relative;
+    background:
+    linear-gradient(145deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.03));
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:24px;
+
+    padding:28px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.35);
+}
+
+.premium-stat-icon{
+    width:68px;
+    height:68px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    margin-bottom:18px;
+    color:#fff;
+}
+
+.blue{
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.green{
+    background:linear-gradient(135deg,#10b981,#059669);
+}
+
+.orange{
+    background:linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+.purple{
+    background:linear-gradient(135deg,#8b5cf6,#7c3aed);
+}
+
+.premium-stat-value{
+    font-size:42px;
+    font-weight:800;
+    color:#fff;
+}
+
+.premium-stat-label{
+    color:#9ca3af;
+    margin-top:8px;
+    font-weight:600;
+}
+
+/* ================= FORM ================= */
+
+.premium-form{
+    padding:28px;
+}
+
+.premium-form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:24px;
+}
+
+.premium-form-group{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.premium-form-group label{
+    font-size:14px;
+    font-weight:700;
+    color:#d1d5db;
+}
+
+.premium-form-input,
+.premium-form-select{
+    height:52px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.1);
+    padding:0 16px;
+    font-size:15px;
+    background:rgba(255,255,255,0.05);
+    color:#fff;
+    outline:none;
+}
+
+.premium-form-input:focus,
+.premium-form-select:focus{
+    border-color:#3b82f6;
+    box-shadow:0 0 0 4px rgba(59,130,246,0.2);
+}
+
+/* ================= BUTTON ================= */
+
+.premium-btn{
+    display:inline-block;
+    padding:14px 28px;
+    border-radius:14px;
+    border:none;
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+    box-shadow:0 10px 20px rgba(59,130,246,0.25);
+    transition:.3s;
+}
+
+.premium-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ================= TABLE ================= */
+
+.premium-table-box{
+    overflow-x:auto;
+}
+
+.premium-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.premium-table th{
+    padding:16px;
+    color:#60a5fa;
+    text-align:left;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+}
+
+.premium-table td{
+    padding:16px;
+    color:#d1d5db;
+    border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* ================= BADGE ================= */
+
+.premium-badge{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.premium-badge.pass{
+    background:linear-gradient(135deg,#10b981,#059669);
+    color:#fff;
+}
+
+.premium-badge.fail{
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+    color:#fff;
+}
+
+/* ================= QUESTION CARD ================= */
+
+.premium-q-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:22px;
+    margin-bottom:20px;
+}
+
+/* ================= ALERT ================= */
+
+.premium-alert{
+    padding:16px 20px;
+    border-radius:16px;
+    color:#fff;
+    margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.premium-alert.success{
+    background:linear-gradient(135deg,#10b981,#059669);
+}
+
+.premium-alert.error{
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+}
