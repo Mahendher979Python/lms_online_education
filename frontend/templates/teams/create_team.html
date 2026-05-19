@@ -1,7 +1,9 @@
 {% extends "dashboard/base.html" %}
+{% load static %}
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'teams/css/create_team.css' %}">
 <div style="width:400px;margin:50px auto;background:white;padding:20px;border-radius:10px;">
 
 <h2>Create Batch</h2>
@@ -17,5 +19,7 @@
 </form>
 
 </div>
+
+<script src="{% static 'teams/js/create_team.js' %}"></script>
 
 {% endblock %}

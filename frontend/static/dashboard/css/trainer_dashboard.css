@@ -1,321 +1,292 @@
-/* =========================
-   TRAINER DASHBOARD CSS
-========================= */
+/* ================= GLOBAL ================= */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    background:var(--bg);
-    font-family:Arial, sans-serif;
-    color:var(--text);
+body {
+    overflow-x: hidden !important;
+    background: #071028;
 }
 
-/* PAGE */
-.dashboard-wrapper{
-    width:100%;
-    padding:20px;
+/* ================= MAIN FIX ================= */
+
+.main-content,
+.dashboard-content,
+.content-wrapper,
+.container-fluid {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    padding: 20px !important;
 }
 
-/* HEADER */
-.dashboard-header{
-    margin-bottom:25px;
+/* ================= HEADER ================= */
+
+.premium-header {
+    margin-bottom: 32px;
 }
 
-.dashboard-header h2{
-    font-size:32px;
-    font-weight:700;
-    color:var(--text);
-    margin-bottom:8px;
+.premium-header h2 {
+    font-size: 34px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.dashboard-header p{
-    color:var(--text-muted);
-    font-size:15px;
+.premium-header p {
+    margin-top: 8px;
+    color: #9ca3af;
 }
 
-/* TOP CARDS */
-.dashboard-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:20px;
-    margin-bottom:35px;
+/* ================= GRID ================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
 }
 
-.card{
-    background:var(--card);
-    border-radius:18px;
-    padding:24px;
-    box-shadow:0 6px 18px rgba(15,23,42,0.08);
-    border:1px solid var(--border);
-    transition:0.3s ease;
-    position:relative;
-    overflow:hidden;
+/* ================= STAT CARD ================= */
+
+.premium-stat-card {
+    position: relative;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 28px;
+    transition: .4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
-.card::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:5px;
-    background:linear-gradient(90deg,#2563eb,#06b6d4);
+.premium-stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(59, 130, 246, 0.15);
 }
 
-.card:hover{
-    transform:translateY(-6px);
+.premium-stat-card-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 18px;
+    color: #fff;
 }
 
-.card h3{
-    font-size:18px;
-    margin-bottom:12px;
-    color:var(--text);
+.blue {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
 }
 
-.card p{
-    font-size:34px;
-    font-weight:700;
-    color:#2563eb;
+.green {
+    background: linear-gradient(135deg, #10b981, #059669);
 }
 
-/* SECTION */
-.section{
-    margin-top:40px;
+.orange {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
 }
 
-.section h3{
-    font-size:24px;
-    margin-bottom:20px;
-    color:var(--text);
+.purple {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
 }
 
-/* BUTTONS */
-.btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    padding:12px 18px;
-    border-radius:12px;
-    text-decoration:none;
-    background:#2563eb;
-    color:white;
-    font-weight:600;
-    transition:0.3s ease;
-    margin:8px 10px 8px 0;
-    border:none;
+.premium-stat-card-value {
+    font-size: 42px;
+    font-weight: 800;
+    color: #fff;
 }
 
-.btn:hover{
-    background:#1d4ed8;
-    transform:translateY(-2px);
+.premium-stat-card-label {
+    color: #9ca3af;
+    margin-top: 8px;
+    font-weight: 600;
 }
 
-/* COURSE GRID */
-.course-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:20px;
+/* ================= SECTION ================= */
+
+.premium-section {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 28px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
-.course-card{
-    background:var(--card);
-    border-radius:18px;
-    padding:24px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.07);
-    border:1px solid var(--border);
-    transition:0.3s ease;
+.premium-section h3 {
+    color: #fff;
+    margin-bottom: 22px;
+    font-size: 22px;
 }
 
-.course-card:hover{
-    transform:translateY(-5px);
+/* ================= BUTTONS ================= */
+
+.premium-btn {
+    display: inline-block;
+    padding: 14px 22px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #fff;
+    margin: 10px 10px 0 0;
+    font-weight: 600;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    transition: .3s;
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.25);
 }
 
-.course-card h3{
-    font-size:22px;
-    margin-bottom:10px;
-    color:var(--text);
+.premium-btn:hover {
+    transform: translateY(-4px);
 }
 
-.course-card p{
-    color:var(--text-muted);
-    margin-bottom:12px;
-    line-height:1.5;
+/* ================= COURSES ================= */
+
+.premium-course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
 }
 
-/* PROGRESS */
-.progress{
-    width:100%;
-    height:12px;
-    background:#e2e8f0;
-    border-radius:50px;
-    overflow:hidden;
-    margin-top:14px;
+.premium-course-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    transition: .3s;
 }
 
-.progress-fill{
-    height:100%;
-    width:0;
-    background:linear-gradient(90deg,#16a34a,#22c55e);
-    border-radius:50px;
-    transition:1s ease;
+.premium-course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
 }
 
-/* TABLE */
-.table-box{
-    width:100%;
-    overflow-x:auto;
-    border-radius:18px;
+.premium-course-card h3 {
+    color: #fff;
+    margin-bottom: 10px;
 }
 
-table{
-    width:100%;
-    min-width:650px;
-    border-collapse:collapse;
-    background:var(--card);
-    border-radius:18px;
-    overflow:hidden;
+.premium-course-card p {
+    color: #9ca3af;
 }
 
-table th{
-    background:var(--bg);
-    color:var(--accent);
-    padding:16px;
-    text-align:left;
-    font-size:15px;
-    border-bottom: 2px solid var(--border);
+/* ================= PROGRESS ================= */
+
+.premium-progress {
+    width: 100%;
+    height: 12px;
+    border-radius: 20px;
+    background: #111827;
+    overflow: hidden;
+    margin: 16px 0;
 }
 
-table td{
-    padding:16px;
-    border-bottom:1px solid var(--border);
-    color:var(--text);
+.premium-progress-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    transition: 1s ease;
 }
 
-table tr:hover{
-    background:var(--hover);
+/* ================= TABLE ================= */
+
+.premium-table-box {
+    overflow-x: auto;
 }
 
-/* BADGES */
-.badge{
-    padding:6px 12px;
-    border-radius:50px;
-    font-size:12px;
-    font-weight:700;
-    color:white;
-    display:inline-block;
+.premium-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.approved{
-    background:#16a34a;
+.premium-table th {
+    padding: 16px;
+    color: #60a5fa;
+    text-align: left;
 }
 
-.pending{
-    background:#f59e0b;
+.premium-table td {
+    padding: 16px;
+    color: #d1d5db;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* CHART GRID */
-.chart-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:20px;
-    margin-top:25px;
+.premium-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
 }
 
-.chart-box{
-    background:var(--card);
-    border-radius:18px;
-    padding:24px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.07);
-    border:1px solid var(--border);
+/* ================= CHARTS ================= */
+
+.premium-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 24px;
+    overflow: hidden !important;
 }
 
-.chart-box h3{
-    margin-bottom:20px;
-    color:var(--text);
+.premium-chart-card {
+    width: 100%;
+    height: 420px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 24px;
+    overflow: hidden !important;
+    transition: .4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
-/* CANVAS */
-canvas{
-    width:100% !important;
-    max-width:100%;
-    height:320px !important;
+.premium-chart-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(59, 130, 246, 0.15);
 }
 
-/* MOBILE */
-@media(max-width:991px){
-
-    .dashboard-wrapper{
-        padding:16px;
-    }
-
-    .dashboard-header h2{
-        font-size:28px;
-    }
-
-    .section h3{
-        font-size:22px;
-    }
-
-    .card p{
-        font-size:28px;
-    }
-
+.premium-chart-card h3 {
+    color: #fff;
+    margin-bottom: 20px;
 }
+
+.premium-chart-card canvas {
+    width: 100% !important;
+    height: 300px !important;
+    max-width: 100%;
+    max-height: 300px;
+}
+
+/* ================= MOBILE ================= */
 
 @media(max-width:768px){
 
-    .dashboard-grid,
-    .course-grid,
-    .chart-grid{
+    .dashboard-grid{
         grid-template-columns:1fr;
     }
 
-    .btn{
-        width:100%;
-        margin-right:0;
+    .premium-course-grid{
+        grid-template-columns:1fr;
     }
 
-    table{
-        min-width:600px;
+    .premium-chart-grid{
+        grid-template-columns:1fr;
     }
 
-    canvas{
-        height:260px !important;
+    .premium-chart-card{
+        height:360px;
     }
 
-}
-
-@media(max-width:480px){
-
-    .dashboard-header h2{
-        font-size:24px;
-    }
-
-    .section h3{
-        font-size:20px;
-    }
-
-    .card{
-        padding:20px;
-    }
-
-    .course-card{
-        padding:20px;
-    }
-
-    .card p{
-        font-size:24px;
-    }
-
-    table th,
-    table td{
-        padding:12px;
-        font-size:13px;
+    .premium-chart-card canvas{
+        height:240px !important;
     }
 
 }

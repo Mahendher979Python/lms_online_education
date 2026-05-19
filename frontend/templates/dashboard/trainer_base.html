@@ -4,9 +4,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Trainer Dashboard{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'dashboard/css/trainer_base.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         (function() {
             const theme = localStorage.getItem('theme') || 'dark';
@@ -81,11 +83,8 @@
             <form id="logout-post-form" action="{% url 'logout' %}" method="POST" style="display:none;">
                 {% csrf_token %}
             </form>
-            <button class="logout-btn-3d" onclick="showLogoutModal(event)" title="Logout">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
-                    <line x1="12" y1="2" x2="12" y2="12"></line>
-                </svg>
+            <button class="logout-btn-3d" onclick="showLogoutModal(event)" title="Logout" style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: all 0.3s ease;">
+                <i class="fas fa-power-off"></i>
             </button>
         </div>
     </div>

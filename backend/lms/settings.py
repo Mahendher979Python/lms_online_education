@@ -26,7 +26,10 @@ CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost,http:
 # APPLICATIONS
 INSTALLED_APPS = [
     'jazzmin',
-    'daphne',
+]
+if not DEBUG:
+    INSTALLED_APPS.append('daphne')
+INSTALLED_APPS += [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,15 +53,15 @@ INSTALLED_APPS = [
     'progress',
     'notifications',
     'enrollments',
-    'channels',
     'teams',
     'attendance',
     'ai_chat',
     'settings',
     'certificates',
     'coding_tasks',
-    
 ]
+if DEBUG:
+    INSTALLED_APPS.append('channels')
 
 # WhiteNoise for production
 if not DEBUG:

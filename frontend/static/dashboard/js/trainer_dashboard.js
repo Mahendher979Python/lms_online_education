@@ -1,81 +1,40 @@
-/* =========================
-   TRAINER DASHBOARD JS
-========================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    animateProgressBars();
-
-    initCharts();
-
-    initCardHover();
-
-});
-
-/* =========================
-   PROGRESS BAR ANIMATION
-========================= */
-
-function animateProgressBars(){
-
-    const bars = document.querySelectorAll(".progress-fill");
-
-    bars.forEach(bar => {
-
-        const width =
-            bar.getAttribute("data-width") || 0;
-
+document.addEventListener("DOMContentLoaded", function () {
+    /* ================= PROGRESS ================= */
+    document.querySelectorAll('.premium-progress-fill').forEach(fill => {
+        const progress = fill.dataset.progress;
         setTimeout(() => {
-
-            bar.style.width = width + "%";
-
+            fill.style.width = progress + '%';
         }, 300);
-
     });
 
-}
+    /* ================= COUNTER ================= */
+    document.querySelectorAll('.premium-stat-card-value').forEach(counter => {
+        const final = parseInt(counter.innerText);
+        let current = 0;
+        const increment = final / 50;
+        counter.innerText = '0';
 
-/* =========================
-   CARD ANIMATION
-========================= */
-
-function initCardHover(){
-
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
-
-        card.addEventListener("mouseenter", () => {
-
-            card.style.boxShadow =
-                "0 12px 30px rgba(37,99,235,0.15)";
-
-        });
-
-        card.addEventListener("mouseleave", () => {
-
-            card.style.boxShadow =
-                "0 6px 18px rgba(15,23,42,0.08)";
-
-        });
-
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= final) {
+                counter.innerText = final;
+                clearInterval(timer);
+            } else {
+                counter.innerText = Math.floor(current);
+            }
+        }, 30);
     });
 
-}
-
-/* =========================
-   CHARTS
-========================= */
-
-function initCharts(){
+    /* ================= DATA ================= */
+    const coursesDataEl = document.getElementById('courses-data');
+    const topicsDataEl = document.getElementById('topics-data');
+    const assignmentsDataEl = document.getElementById('assignments-data');
+    const studentsCountDataEl = document.getElementById('students-count-data');
 
     let courses = 0;
     let topics = 0;
     let assignments = 0;
-
-    const coursesDataEl = document.getElementById('courses-data');
-    const topicsDataEl = document.getElementById('topics-data');
-    const assignmentsDataEl = document.getElementById('assignments-data');
+    let students_count = 0;
 
     if (coursesDataEl) {
         try {
@@ -101,152 +60,96 @@ function initCharts(){
         }
     }
 
-    /* BAR CHART */
+    if (studentsCountDataEl) {
+        try {
+            students_count = JSON.parse(studentsCountDataEl.textContent);
+        } catch (e) {
+            console.error('Error parsing students count data:', e);
+        }
+    }
 
-    const trainerCtx =
-    document.getElementById("trainerChart");
-
-    if(trainerCtx){
-
-        new Chart(trainerCtx, {
-
-            type: "bar",
-
+    /* ================= TRAINER CHART ================= */
+    const trainerChartEl = document.getElementById('trainerChart');
+    if (trainerChartEl) {
+        new Chart(trainerChartEl, {
+            type: 'bar',
             data: {
-
-                labels: [
-                    "Courses",
-                    "Topics",
-                    "Assignments"
-                ],
-
+                labels: ['Courses', 'Topics', 'Assignments', 'Students'],
                 datasets: [{
-
-                    label: "Trainer Stats",
-
-                    data: [
-                        courses,
-                        topics,
-                        assignments
-                    ],
-
+                    label: 'Analytics',
+                    data: [courses, topics, assignments, students_count],
                     backgroundColor: [
-                        "#2563eb",
-                        "#16a34a",
-                        "#f59e0b"
+                        '#3b82f6',
+                        '#10b981',
+                        '#f59e0b',
+                        '#8b5cf6'
                     ],
-
-                    borderRadius: 10,
-                    borderWidth: 0
-
+                    borderRadius: 12
                 }]
-
             },
-
             options: {
-
                 responsive: true,
-
                 maintainAspectRatio: false,
-
                 plugins: {
-
                     legend: {
-                        display: false
+                        labels: {
+                            color: '#fff'
+                        }
                     }
-
                 },
-
                 scales: {
-
+                    x: {
+                        ticks: { color: '#d1d5db' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
                     y: {
-                        beginAtZero: true
+                        ticks: { color: '#d1d5db' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
                     }
-
                 }
-
             }
-
         });
-
     }
 
-    /* DOUGHNUT CHART */
-
-    const studentCtx =
-    document.getElementById("studentChart");
-
-    if(studentCtx){
-
-        new Chart(studentCtx, {
-
-            type: "doughnut",
-
+    /* ================= STUDENT CHART ================= */
+    const studentChartEl = document.getElementById('studentChart');
+    if (studentChartEl) {
+        new Chart(studentChartEl, {
+            type: 'line',
             data: {
-
-                labels: [
-                    "Completed",
-                    "Pending",
-                    "Not Started"
-                ],
-
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
                 datasets: [{
-
-                    data: [65,25,10],
-
-                    backgroundColor: [
-                        "#16a34a",
-                        "#f59e0b",
-                        "#ef4444"
-                    ],
-
-                    borderWidth: 0
-
+                    label: 'Progress',
+                    data: [20, 35, 45, 65, 80, 95],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59,130,246,0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#fff'
                 }]
-
             },
-
             options: {
-
                 responsive: true,
-
                 maintainAspectRatio: false,
-
                 plugins: {
-
                     legend: {
-
-                        position: "bottom"
-
+                        labels: {
+                            color: '#fff'
+                        }
                     }
-
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#d1d5db' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y: {
+                        ticks: { color: '#d1d5db' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    }
                 }
-
             }
-
         });
-
     }
-
-}
-
-/* =========================
-   RESPONSIVE TABLE SCROLL
-========================= */
-
-window.addEventListener("resize", () => {
-
-    const tableBox =
-    document.querySelector(".table-box");
-
-    if(window.innerWidth < 768){
-
-        tableBox.style.overflowX = "auto";
-
-    }else{
-
-        tableBox.style.overflowX = "visible";
-
-    }
-
 });

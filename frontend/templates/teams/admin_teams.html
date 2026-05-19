@@ -1,7 +1,9 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'teams/css/admin_teams.css' %}">
 <h2>Teams / Classes</h2>
 
 <a href="{% url 'teams:course_slides' %}">
@@ -35,5 +37,7 @@
     </tr>
     {% endfor %}
 </table>
+
+<script src="{% static 'teams/js/admin_teams.js' %}"></script>
 
 {% endblock %}
