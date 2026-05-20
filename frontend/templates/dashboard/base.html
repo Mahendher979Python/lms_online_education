@@ -29,7 +29,7 @@
     </script>
 
     <!-- PREMIUM DARK GRADIENT SIDEBAR -->
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar closed" id="sidebar">
         <!-- Logo -->
         <div style="margin-bottom: 30px; padding: 8px 12px;">
             <div style="display: flex; align-items: center; gap: 12px;">
@@ -156,12 +156,20 @@
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 
     <!-- MAIN -->
-    <div class="main" id="main">
+    <div class="main full" id="main">
         {% block content %}{% endblock %}
     </div>
 
     <script src="{% static 'dashboard/js/base.js' %}"></script>
     <script>
+        // Initialize navbar left position
+        document.addEventListener("DOMContentLoaded", function() {
+            const navbar = document.querySelector(".navbar");
+            if (navbar) {
+                navbar.style.left = "260px";
+            }
+        });
+        
         function toggleSidebar() {
             const sidebar = document.getElementById("sidebar");
             const overlay = document.getElementById("sidebar-overlay");
