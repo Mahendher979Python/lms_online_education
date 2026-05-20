@@ -4,6 +4,126 @@
 
 {% block content %}
 
+<style>
+
+body{
+    background:#f4f7fc;
+    font-family:Arial,sans-serif;
+}
+
+/* MAIN BOX */
+.settings-box{
+    max-width:950px;
+    margin:40px auto;
+    background:#fff;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.settings-header{
+    margin-bottom:35px;
+}
+
+.settings-header h2{
+    font-size:30px;
+    font-weight:700;
+    color:#111827;
+    margin-bottom:10px;
+}
+
+.settings-header p{
+    color:#6b7280;
+    font-size:15px;
+}
+
+/* FORM */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#111827;
+    font-size:14px;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    outline:none;
+    font-size:14px;
+    transition:0.3s;
+    background:white;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,0.1);
+}
+
+/* BUTTON */
+.save-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:15px 28px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    margin-top:30px;
+    transition:0.3s;
+}
+
+.save-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* SUCCESS */
+.success-msg{
+    background:#dcfce7;
+    color:#166534;
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .settings-box{
+        padding:20px;
+        margin:20px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .save-btn{
+        width:100%;
+    }
+
+}
+
+</style>
+
 <div class="settings-box">
 
     <!-- HEADER -->
@@ -58,10 +178,28 @@
                 <input type="checkbox" name="push_notifications" {% if settings_obj.push_notifications %}checked{% endif %} style="width: auto; height: 20px; cursor: pointer;">
             </div>
 
+            <!-- FINGERPRINT LOGIN -->
+            <div class="form-group" style="flex-direction: row; align-items: center; justify-content: space-between; padding: 10px 0;">
+                <label style="margin-bottom: 0;">👆 Fingerprint Login</label>
+                <input type="checkbox" name="fingerprint_login" {% if settings_obj.fingerprint_login %}checked{% endif %} style="width: auto; height: 20px; cursor: pointer;">
+            </div>
+
             <!-- TWO FACTOR AUTH -->
             <div class="form-group" style="flex-direction: row; align-items: center; justify-content: space-between; padding: 10px 0;">
                 <label style="margin-bottom: 0;">🔒 Two-Factor Authentication</label>
                 <input type="checkbox" name="two_factor_auth" {% if settings_obj.two_factor_auth %}checked{% endif %} style="width: auto; height: 20px; cursor: pointer;">
+            </div>
+
+            <!-- AUTOPLAY VIDEOS -->
+            <div class="form-group" style="flex-direction: row; align-items: center; justify-content: space-between; padding: 10px 0;">
+                <label style="margin-bottom: 0;">▶️ Autoplay Videos</label>
+                <input type="checkbox" name="autoplay_videos" {% if settings_obj.autoplay_videos %}checked{% endif %} style="width: auto; height: 20px; cursor: pointer;">
+            </div>
+
+            <!-- OFFLINE DOWNLOADS -->
+            <div class="form-group" style="flex-direction: row; align-items: center; justify-content: space-between; padding: 10px 0;">
+                <label style="margin-bottom: 0;">📥 Offline Downloads</label>
+                <input type="checkbox" name="offline_downloads" {% if settings_obj.offline_downloads %}checked{% endif %} style="width: auto; height: 20px; cursor: pointer;">
             </div>
 
             <!-- LIVE CLASS REMINDERS -->
