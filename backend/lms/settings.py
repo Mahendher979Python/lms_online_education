@@ -225,9 +225,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = PROJECT_ROOT / 'staticfiles'
 
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'frontend', 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(PROJECT_ROOT, 'frontend', 'static'),
+# ]
 
 # WhiteNoise compression and caching for production
 if not DEBUG:
