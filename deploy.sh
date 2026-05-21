@@ -81,6 +81,7 @@ cd $PROJECT_DIR
 sudo chown -R ubuntu:www-data .
 sudo chmod -R 755 .
 sudo chmod -R 775 backend/media/
+sudo chmod -R 755 staticfiles/
 
 echo "=============================================="
 echo "Deployment Complete!"
