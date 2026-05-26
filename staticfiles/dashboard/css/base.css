@@ -97,6 +97,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
+<<<<<<< HEAD
 
     width: 260px;
     height: calc(100vh - 20px);
@@ -140,6 +141,26 @@ body {
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: #3b82f6;
 }
+=======
+    width: 0;
+    height: 100vh;
+    background: var(--sidebar-bg) !important;
+    padding: 0;
+    overflow: hidden;
+    border-right: none;
+    box-shadow: 12px 0 32px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    z-index: 999;
+}
+
+.sidebar.closed {
+    width: 260px;
+    padding: 24px 16px;
+    overflow: visible;
+    border-right: none;
+}
+
+>>>>>>> 176976718af92fb8ad0d547f2f6f78e15d438279
 .sidebar a {
     display: flex;
     align-items: center;
@@ -871,7 +892,11 @@ body.dark .theme-btn-3d .moon-icon {
         display: none !important;
     }
     
+<<<<<<< HEAD
     Sidebar
+=======
+    /* Sidebar */
+>>>>>>> 176976718af92fb8ad0d547f2f6f78e15d438279
     .sidebar.closed {
         width: 100%;
         padding: 20px 16px;
