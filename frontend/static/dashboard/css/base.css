@@ -101,7 +101,9 @@ body {
     height: 100vh;
     background: var(--sidebar-bg) !important;
     padding: 0;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior:smooth;
     border-right: none;
     box-shadow: 12px 0 32px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
@@ -111,8 +113,25 @@ body {
 .sidebar.closed {
     width: 260px;
     padding: 24px 16px;
-    overflow: visible;
+    overflow-y:auto;
+    overflow-x:hidden ;
     border-right: none;
+}
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #60a5fa;
+    border-radius: 20px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
 }
 
 .sidebar a {
