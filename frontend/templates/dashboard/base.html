@@ -19,6 +19,76 @@
         })();
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ── LAYOUT FIX ── */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            z-index: 200;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.closed {
+            transform: translateX(-100%);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;           /* starts at 0 because sidebar is closed by default */
+            right: 0;
+            height: 70px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            transition: left 0.3s ease;
+        }
+
+        .navbar.shifted {
+            left: 260px;
+        }
+
+        .main {
+            margin-left: 0;    /* starts at 0 because sidebar is closed by default */
+            margin-top: 70px;
+            padding: 30px;
+            min-height: calc(100vh - 70px);
+            box-sizing: border-box;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main.shifted {
+            margin-left: 260px;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                left: 0 !important;
+            }
+            .main {
+                margin-left: 0 !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="dark">
@@ -28,7 +98,7 @@
         }
     </script>
 
-    <!-- PREMIUM DARK GRADIENT SIDEBAR -->
+    <!-- SIDEBAR -->
     <div class="sidebar closed" id="sidebar">
         <!-- Logo -->
         <div style="margin-bottom: 30px; padding: 8px 12px;">
@@ -86,9 +156,9 @@
         </a>
     </div>
 
-    <!-- PREMIUM NEUMORPHIC NAVBAR -->
-    <div class="navbar">
-        <!-- LEFT SECTION -->
+    <!-- NAVBAR -->
+    <div class="navbar" id="navbar">
+        <!-- LEFT -->
         <div style="display:flex; align-items:center; gap:10px;">
             <div onclick="toggleSidebar()" style="cursor:pointer; font-size:22px;">☰</div>
 
@@ -100,12 +170,14 @@
             </div>
         </div>
 
-        <!-- RIGHT SECTION (Profile, Notifications, Logout) -->
+        <!-- RIGHT -->
         <div style="display: flex; align-items: center; gap: 20px;">
-            <!-- Notifications Bell -->
+            <!-- Notifications -->
             <div class="notification-wrapper" style="position: relative;">
-                <a href="{% url 'admin_notifications' %}" class="notif-btn-3d" title="Notifications" style="width: 48px; height: 48px; border-radius: 50%; background: var(--card); border: none; box-shadow: var(--shadow-light); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #f59e0b; transition: all 0.3s ease; text-decoration: none;">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <a href="{% url 'admin_notifications' %}" class="notif-btn-3d" title="Notifications"
+                    style="width: 48px; height: 48px; border-radius: 50%; background: var(--card); border: none; box-shadow: var(--shadow-light); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #f59e0b; transition: all 0.3s ease; text-decoration: none;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
@@ -113,10 +185,10 @@
                 </a>
             </div>
 
-            <!-- Theme Toggle Button -->
+            <!-- Theme Toggle -->
             <button class="theme-btn-3d" onclick="toggleDark()" title="Toggle Dark/Light Mode">
-                <!-- Sun Icon -->
-                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
                     <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -127,8 +199,8 @@
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                 </svg>
-                <!-- Moon Icon -->
-                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
             </button>
@@ -142,66 +214,56 @@
                 <i class="fas fa-chevron-down" style="color: var(--text-muted); font-size: 12px;"></i>
             </div>
 
-            <!-- Logout Button -->
+            <!-- Logout -->
             <form id="logout-post-form" action="{% url 'logout' %}" method="POST" style="display: none;">
                 {% csrf_token %}
             </form>
-            <button class="logout-btn-3d" onclick="showLogoutModal(event)" style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; box-shadow: var(--shadow-light); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: all 0.3s ease;">
+            <button class="logout-btn-3d" onclick="showLogoutModal(event)"
+                style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; box-shadow: var(--shadow-light); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: all 0.3s ease;">
                 <i class="fas fa-power-off"></i>
             </button>
         </div>
     </div>
 
-    <!-- Sidebar Overlay for Mobile -->
+    <!-- Mobile Overlay -->
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 
-    <!-- MAIN -->
-    <div class="main full" id="main">
+    <!-- MAIN CONTENT -->
+    <div class="main" id="main">
         {% block content %}{% endblock %}
     </div>
 
     <script src="{% static 'dashboard/js/base.js' %}"></script>
     <script>
-        // Initialize navbar left position
-        document.addEventListener("DOMContentLoaded", function() {
-            const navbar = document.querySelector(".navbar");
-            if (navbar) {
-                navbar.style.left = "260px";
-            }
-        });
-        
         function toggleSidebar() {
             const sidebar = document.getElementById("sidebar");
-            const overlay = document.getElementById("sidebar-overlay");
             const main = document.getElementById("main");
-            const navbar = document.querySelector(".navbar");
-            
-            sidebar.classList.toggle("closed");
-            overlay.classList.toggle("active");
-            main.classList.toggle("full");
-            
-            if (navbar) {
-                if (navbar.style.left === "260px") {
-                    navbar.style.left = "0px";
+            const navbar = document.getElementById("navbar");
+            const overlay = document.getElementById("sidebar-overlay");
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                sidebar.classList.toggle("open");
+                overlay.classList.toggle("active");
+            } else {
+                const isOpen = !sidebar.classList.contains("closed");
+                if (isOpen) {
+                    // Close sidebar
+                    sidebar.classList.add("closed");
+                    main.classList.remove("shifted");
+                    navbar.classList.remove("shifted");
                 } else {
-                    navbar.style.left = "260px";
+                    // Open sidebar
+                    sidebar.classList.remove("closed");
+                    main.classList.add("shifted");
+                    navbar.classList.add("shifted");
                 }
             }
         }
 
         function closeSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            const overlay = document.getElementById("sidebar-overlay");
-            const main = document.getElementById("main");
-            const navbar = document.querySelector(".navbar");
-            
-            sidebar.classList.remove("closed");
-            overlay.classList.remove("active");
-            main.classList.remove("full");
-            
-            if (navbar) {
-                navbar.style.left = "0px";
-            }
+            document.getElementById("sidebar").classList.remove("open");
+            document.getElementById("sidebar-overlay").classList.remove("active");
         }
 
         function toggleDark() {
@@ -221,14 +283,34 @@
                     } else {
                         badge.style.display = "none";
                     }
-                });
+                })
+                .catch(() => {});
         }
 
         setInterval(loadNotifications, 5000);
         loadNotifications();
+
+        function showLogoutModal(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById("logout-confirm-modal").classList.add("active");
+        }
+
+        function closeLogoutModal() {
+            document.getElementById("logout-confirm-modal").classList.remove("active");
+        }
+
+        function confirmLogout() {
+            const form = document.getElementById("logout-post-form");
+            if (form) {
+                form.submit();
+            } else {
+                window.location.href = "/en/logout/";
+            }
+        }
     </script>
 
-    <!-- 3D LOGOUT CONFIRMATION MODAL -->
+    <!-- LOGOUT MODAL -->
     <div id="logout-confirm-modal" class="modal-overlay-3d" onclick="closeLogoutModal()">
         <div class="modal-card-3d" onclick="event.stopPropagation()">
             <div class="modal-icon-3d">
