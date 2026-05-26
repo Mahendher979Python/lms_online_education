@@ -8,3 +8,5 @@ channels
 whitenoise
 Pillow
 reportlab
+psycopg2-binary
+gunicorn
