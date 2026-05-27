@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP | LMS</title>
+
+    <link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="otp-page">
+
+    <!-- Animated background blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <div class="overlay"></div>
+
+    <!-- Beautiful Header Navbar -->
+    <header class="landing-header">
+        <div class="nav-container">
+            <a href="{% url 'index' %}" class="nav-logo">
+                <img src="{% static 'accounts/images/spylogo.png' %}" alt="LMS Logo" class="logo-img">
+                <span class="logo-text">LMS</span>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="{% url 'index' %}" class="nav-link">Home</a>
+                <a href="{% url 'courses' %}" class="nav-link">Courses</a>
+                <a href="{% url 'about' %}" class="nav-link">About Us</a>
+                <a href="{% url 'services' %}" class="nav-link">Services</a>
+                <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
+                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                <div class="mobile-nav-buttons">
+                    <a href="{% url 'login' %}" class="nav-btn-link">Login</a>
+                    <a href="{% url 'register' %}" class="nav-btn-pill">Get Started</a>
+                </div>
+            </nav>
+
+            <div class="nav-buttons">
+                <a href="{% url 'login' %}" class="nav-btn-link">Login</a>
+                <a href="{% url 'register' %}" class="nav-btn-pill">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="auth-wrapper">
+        <div class="card">
+
+            <h2>Verify Access</h2>
+            <div class="card-subtitle">OTP has been sent to your email</div>
+
+            <p style="text-align: center; margin-top: 0; margin-bottom: 25px; color: #64748b; font-size: 14px; font-weight: 500; line-height: 1.5;">
+                For demo testing, please check your server's backend console output to retrieve the active verification code.
+            </p>
+
+            {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        <!-- NORMAL FIELD (OTP CODE) -->
+                        <div class="field-container">
+                            <i class="fas fa-key prefix-icon"></i>
+                            {{ field }}
+                        </div>
+
+                        {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="submit-btn">
+                    Verify Code <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; margin-top: 24px;">
+                <a href="{% url 'forgot_password' %}" class="footer-link" style="margin-top: 0;">
+                    Didn't get the code? <span class="highlight">Resend OTP</span>
+                </a>
+                
+                <a href="{% url 'login' %}" class="footer-link" style="margin-top: 0;">
+                    Back to <span class="highlight">Sign in</span>
+                </a>
+
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 10px;">
+                    <a href="{% url 'terms_page' %}" class="footer-link" style="margin-top: 0;">
+                        Terms of Service
+                    </a>
+                    <a href="{% url 'conditions_page' %}" class="footer-link" style="margin-top: 0;">
+                        Conditions
+                    </a>
+                </div>
+            </div>
+
+        </div> <!-- End of Card -->
+
+        <div class="copyright-footer">
+            © 2026 LMS. All rights reserved.
+        </div>
+    </div> <!-- End of Auth Wrapper -->
+
+    <!-- JavaScript Interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // CAPTCHA REFRESH
+            const refreshBtn = document.querySelector('.captcha-refresh-btn');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    fetch('/captcha/refresh/', {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const captchaImg = document.querySelector('img.captcha');
+                        if (captchaImg) {
+                            captchaImg.src = data.image_url;
+                        }
+                        const captchaHash = document.getElementById('id_captcha_0');
+                        const captchaInput = document.getElementById('id_captcha_1');
+                        if (captchaHash) captchaHash.value = data.key;
+                        if (captchaInput) captchaInput.value = '';
+                    })
+                    .catch(err => console.log(err));
+                });
+            }
+
+        });
+
+        // Mobile Menu Toggle
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuToggle = document.getElementById("menuToggle");
+            const navMenu = document.getElementById("navMenu");
+
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", function() {
+                    menuToggle.classList.toggle("active");
+                    navMenu.classList.toggle("active");
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

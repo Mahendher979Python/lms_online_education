@@ -1,0 +1,95 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'dashboard/css/admin_dashboard.css' %}">
+
+<!-- ================= HEADER ================= -->
+
+<div class="premium-header">
+    <h2>🎯 Admin Dashboard</h2>
+    <p>Welcome, {{ request.user.username }} | Advanced Analytics & Insights</p>
+</div>
+
+<!-- ================= TOP CARDS ================= -->
+
+<div class="dashboard-grid">
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-card-icon blue">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </div>
+        <div class="premium-stat-card-value">{{ trainers }}</div>
+        <div class="premium-stat-card-label">Trainers</div>
+    </div>
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-card-icon green">
+            <i class="fas fa-user-friends"></i>
+        </div>
+        <div class="premium-stat-card-value">{{ students }}</div>
+        <div class="premium-stat-card-label">Students</div>
+    </div>
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-card-icon orange">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="premium-stat-card-value">{{ courses }}</div>
+        <div class="premium-stat-card-label">Courses</div>
+    </div>
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-card-icon pink">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="premium-stat-card-value">{{ assignments }}</div>
+        <div class="premium-stat-card-label">Assignments</div>
+    </div>
+
+</div>
+
+<!-- ================= CHARTS ================= -->
+
+<div class="premium-chart-grid">
+
+    <div class="premium-chart-card">
+
+        <h3>
+            📊 Users Overview
+        </h3>
+
+        <canvas id="adminUserChart"></canvas>
+
+    </div>
+
+    <div class="premium-chart-card">
+
+        <h3>
+            📈 Trainers vs Students
+        </h3>
+
+        <canvas id="adminRoleChart"></canvas>
+
+    </div>
+
+    <div class="premium-chart-card">
+
+        <h3>
+            📉 Courses Stats
+        </h3>
+
+        <canvas id="adminCourseChart"></canvas>
+
+    </div>
+
+</div>
+
+{{ trainers|json_script:"trainers-data" }}
+{{ students|json_script:"students-data" }}
+{{ courses|json_script:"courses-data" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'dashboard/js/admin_dashboard.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+@import 'base.css';
+
+/* ==========================================
+   LAYOUT FIX
+========================================== */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    z-index: 200;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+}
+
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    transition: left 0.3s ease;
+}
+
+.navbar.shifted {
+    left: 260px;
+}
+
+.main {
+    margin-left: 0;
+    margin-top: 70px;
+    padding: 30px;
+    min-height: calc(100vh - 70px);
+    box-sizing: border-box;
+    transition: margin-left 0.3s ease;
+}
+
+.main.shifted {
+    margin-left: 260px;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+/* ==========================================
+   STUDENT SPECIFIC
+========================================== */
+
+#dropdown {
+    width: 320px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        left: 0 !important;
+    }
+    .main {
+        margin-left: 0 !important;
+    }
+    .navbar .username {
+        display: none !important;
+    }
+}

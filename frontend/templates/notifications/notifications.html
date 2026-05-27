@@ -1,0 +1,93 @@
+{% extends 'dashboard/student_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'notifications/css/notifications.css' %}">
+
+<div class="notify-wrapper">
+
+    <div class="notify-top">
+
+        <div class="notify-title">
+            🔔 Notifications
+        </div>
+
+        <button class="mark-all-btn"
+                onclick="markAllRead()">
+
+            Mark All Read
+
+        </button>
+
+    </div>
+
+    {% for n in notifications %}
+
+    <div class="notification-card {% if not n.is_read %}unread{% endif %}">
+
+        <div class="notify-icon">
+
+            {% if n.type == 'payment' %}
+                💳
+            {% elif n.type == 'assignment_submitted' %}
+                📄
+            {% elif n.type == 'assignment_review' %}
+                ⭐
+            {% elif n.type == 'message' %}
+                💬
+            {% elif n.type == 'progress' %}
+                📈
+            {% elif n.type == 'enrollment' %}
+                🎓
+            {% else %}
+                🔔
+            {% endif %}
+
+        </div>
+
+        <div class="notify-content">
+
+            <div class="notify-type">
+                {{ n.type }}
+            </div>
+
+            <div class="notify-message">
+                {{ n.message }}
+            </div>
+
+            {% if n.course_name %}
+            <div class="course-box">
+                📚 {{ n.course_name }}
+            </div>
+            {% endif %}
+
+            <div class="notify-time">
+                {{ n.created_at|date:"d M Y h:i A" }}
+            </div>
+
+        </div>
+
+        {% if n.is_read %}
+        <div class="read-badge">
+            Read
+        </div>
+        {% endif %}
+
+    </div>
+
+    {% empty %}
+
+    <div class="empty-box">
+
+        🔕 No notifications found
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<script src="{% static 'notifications/js/notifications.js' %}"></script>
+
+{% endblock %}

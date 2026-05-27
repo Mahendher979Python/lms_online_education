@@ -1,0 +1,211 @@
+{% extends 'dashboard/trainer_base.html' %}
+{% load static %}
+
+{% block title %}Trainer Assignments | LMS{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'assignments/css/trainer_assignments.css' %}">
+
+{% if messages %}
+    {% for msg in messages %}
+    <div class="premium-alert {% if 'error' in msg.tags %}error{% else %}success{% endif %}">
+        {{ msg }}
+        <button style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;" onclick="this.parentElement.remove()">×</button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<!-- ================= HEADER ================= -->
+
+<div class="premium-header">
+    <h2>🎯 Trainer Assignments</h2>
+    <p>Welcome, {{ request.user.username }} | Manage your courses and assignments</p>
+</div>
+
+<!-- ================= STATS ================= -->
+
+<div class="premium-grid">
+    <div class="premium-stat-card">
+        <div class="premium-stat-icon blue">
+            <i class="fas fa-book"></i>
+        </div>
+        <div class="premium-stat-value">{{ assignments|length }}</div>
+        <div class="premium-stat-label">Total Assignments</div>
+    </div>
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-icon green">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="premium-stat-value">{{ submissions|length }}</div>
+        <div class="premium-stat-label">Submissions</div>
+    </div>
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-icon orange">
+            <i class="fas fa-user-check"></i>
+        </div>
+        <div class="premium-stat-value">{{ student_perf|length }}</div>
+        <div class="premium-stat-label">Active Students</div>
+    </div>
+</div>
+
+<!-- ================= CREATE ASSIGNMENT ================= -->
+
+<div class="premium-glass-card">
+    <h3>📝 Create New Assignment</h3>
+
+    <form method="POST" action="{% url 'assignments:trainer_create_assignment' %}" enctype="multipart/form-data" class="premium-form">
+        {% csrf_token %}
+
+        <div class="premium-form-grid">
+            <div class="premium-form-group" style="grid-column:span 2;">
+                <label>Assignment Title</label>
+                <input type="text" name="title" class="premium-form-input" placeholder="e.g. Python Basics Quiz" required>
+            </div>
+
+            <div class="premium-form-group">
+                <label>Course</label>
+                <select name="course" class="premium-form-select" required>
+                    <option value="" disabled selected>Select Course</option>
+                    {% for c in courses %}
+                    <option value="{{ c.id }}">{{ c.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="premium-form-group">
+                <label>Topic</label>
+                <select name="topic" class="premium-form-select" required>
+                    <option value="" disabled selected>Select Topic</option>
+                    {% for t in topics %}
+                    <option value="{{ t.id }}">{{ t.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="premium-form-group">
+                <label>Exam Type</label>
+                <select name="test_type" id="testType" onchange="toggleType(this.value)" class="premium-form-select" required>
+                    <option value="mcq">MCQ Quiz</option>
+                    <option value="pdf">PDF Upload</option>
+                    <option value="gform">Google Form</option>
+                </select>
+            </div>
+
+            <div class="premium-form-group">
+                <label>Total Max Marks</label>
+                <input type="number" name="total_marks" value="100" min="1" class="premium-form-input" required>
+            </div>
+
+            <div class="premium-form-group">
+                <label>Passing Marks</label>
+                <input type="number" name="pass_marks" value="40" min="1" class="premium-form-input" required>
+            </div>
+        </div>
+
+        <div id="mcqSection" style="margin-top:24px;">
+            <h3 style="margin-bottom:16px; font-size:18px;">MCQ Questions</h3>
+            <div id="questionsContainer"></div>
+            <button type="button" class="premium-btn" style="margin-top:12px;" onclick="addQuestion()">+ Add Question</button>
+        </div>
+
+        <div id="pdfSection" style="margin-top:24px; display:none;">
+            <div class="premium-form-group">
+                <label>Upload Question Paper (PDF)</label>
+                <input type="file" name="pdf_file" accept=".pdf" class="premium-form-input">
+            </div>
+        </div>
+
+        <div id="gformSection" style="margin-top:24px; display:none;">
+            <div class="premium-form-group">
+                <label>Google Form URL</label>
+                <input type="url" name="google_form_link" placeholder="https://forms.gle/..." class="premium-form-input">
+            </div>
+        </div>
+
+        <div style="margin-top:28px;">
+            <button type="submit" class="premium-btn">🚀 Publish Assignment</button>
+        </div>
+    </form>
+</div>
+
+<!-- ================= STUDENT PERFORMANCE ================= -->
+
+<div class="premium-glass-card">
+    <h3>📊 Student Performance</h3>
+    <div class="premium-table-box">
+        <table class="premium-table">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Avg Score</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in student_perf %}
+                <tr>
+                    <td><strong>{{ data.user.username }}</strong></td>
+                    <td>{{ data.percentage }}%</td>
+                    <td>
+                        <span class="premium-badge {% if data.percentage >= 40 %}pass{% else %}fail{% endif %}">
+                            {% if data.percentage >= 40 %}Stable{% else %}At Risk{% endif %}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ================= SUBMISSIONS ================= -->
+
+<div class="premium-glass-card">
+    <h3>✅ Evaluate Submissions</h3>
+    <div class="premium-table-box">
+        <table class="premium-table">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Proof</th>
+                    <th>Result</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in submissions %}
+                <tr>
+                    <td>{{ s.student.username }}</td>
+                    <td>
+                        {% if s.assignment.test_type != 'mcq' %}
+                        {% if s.pdf_answer %}
+                        <a href="{{ s.pdf_answer.url }}" target="_blank" style="color:#60a5fa;">View File</a>
+                        {% else %}
+                        <span style="color:#9ca3af;">No Upload</span>
+                        {% endif %}
+                        {% else %}
+                        <span class="premium-badge" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">MCQ Auto</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="premium-badge {% if s.is_passed %}pass{% else %}fail{% endif %}">
+                            {{ s.is_passed|yesno:"PASS,FAIL" %}
+                        </span>
+                    </td>
+                    <td>
+                        {% if s.assignment.test_type != 'mcq' %}
+                        <a href="{% url 'assignments:trainer_grade_submission' s.id %}" class="premium-btn" style="padding:10px 16px; font-size:13px;">Evaluate</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="{% static 'assignments/js/trainer_assignments.js' %}"></script>
+
+{% endblock %}

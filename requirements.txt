@@ -1,0 +1,13 @@
+Django==5.2.13
+python-dotenv
+django-jazzmin
+daphne
+django-allauth
+django-recaptcha
+django-simple-captcha
+channels
+whitenoise
+Pillow
+reportlab
+psycopg2-binary
+gunicorn
