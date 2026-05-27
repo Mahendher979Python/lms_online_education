@@ -5,8 +5,11 @@ from courses.models import Course, Topic
 from assignments.models import Assignment
 from assignments.models import  Submission
 <<<<<<< HEAD
+<<<<<<< HEAD
 from certificates.models import Certificate
 from progress.models import Progress
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 
@@ -96,6 +99,7 @@ def student_dashboard(request):
     topics = Topic.objects.filter(course__in=courses)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     # =========================
     # PROGRESS (Average across ALL assignments)
     # Treat not-submitted assignments as 0%
@@ -159,12 +163,17 @@ def student_dashboard(request):
 
         c.progress = int(round(c_percent_total / c_total))
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     total_assignments = assignments.count()
     completed_assignments = assignments.filter(status="completed").count()
 
     progress_percent = int(
         (completed_assignments / total_assignments) * 100
     ) if total_assignments > 0 else 0
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 
     return render(request, "dashboard/student_dashboard.html", {
@@ -176,9 +185,15 @@ def student_dashboard(request):
         "total_assignments": total_assignments,
         "total_topics": topics.count(),
 <<<<<<< HEAD
+<<<<<<< HEAD
         "certificates": certificates,
         "progress_percent": progress_percent,
     })
+=======
+        "completed_assignments": completed_assignments,
+        "progress_percent": progress_percent,
+    })
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
         "completed_assignments": completed_assignments,
         "progress_percent": progress_percent,

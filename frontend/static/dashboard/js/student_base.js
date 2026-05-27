@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* =========================================
    DOM LOADED
 ========================================= */
@@ -198,6 +199,8 @@ window.addEventListener("resize", function () {
     }
 });
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
     const main = document.getElementById("main");
@@ -381,5 +384,9 @@ function confirmLogout() {
     } else {
         window.location.href = "/en/logout/";
     }
+<<<<<<< HEAD
+}
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 }
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b

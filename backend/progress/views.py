@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from assignments.models import Assignment, Submission
 <<<<<<< HEAD
+<<<<<<< HEAD
 from coding_tasks.models import CodingSubmission,CodingTask
 from attendance.models import Attendance
 from django.db.models import (
@@ -20,12 +21,17 @@ from django.db.models import (
 from coding_tasks.models import CodingSubmission
 from django.db.models import Sum
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
+from coding_tasks.models import CodingSubmission
+from django.db.models import Sum
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 from courses.models import Course
 from accounts.models import User
 from notifications.utils import send_notification
 from .models import Progress
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 def _get_attendance_percent_map(user_ids):
     """
@@ -138,12 +144,15 @@ def _attach_progress_metrics(progress_rows):
 
 =======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 def _compute_course_progress(student, course):
     """
     Compute progress for a single (student, course) pair based on assignments
     submissions + coding submissions. This is used as a fallback when no
     Progress record exists (so existing behavior continues to work).
     """
+<<<<<<< HEAD
 <<<<<<< HEAD
     # =========================
     # Assignments: average % across ALL assignments (missing = 0)
@@ -153,6 +162,8 @@ def _compute_course_progress(student, course):
 
     submissions = (
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     assignments = Assignment.objects.filter(course=course)
     total_assignments = assignments.count()
 
@@ -174,11 +185,15 @@ def _compute_course_progress(student, course):
     # Score should reflect both assignment scores (MCQ auto-graded + PDF/GForm trainer-graded)
     # and coding task scores.
     assignment_score = (
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
         Submission.objects.filter(
             student=student,
             assignment__in=assignments,
             status__in=["submitted", "graded"],
+<<<<<<< HEAD
 <<<<<<< HEAD
         )
         .select_related("assignment")
@@ -211,12 +226,17 @@ def _compute_course_progress(student, course):
     # Score is shown as a 0-100 value (overall average)
     score = progress_percent
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
         ).aggregate(total=Sum("score"))["total"]
         or 0
     )
 
     coding_score = coding.aggregate(total=Sum("score"))["total"] or 0
     score = int(assignment_score) + int(coding_score)
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 
     return {
@@ -266,8 +286,11 @@ def student_progress(request):
         progress_list.append(p)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     _attach_progress_metrics(progress_list)
 
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     return render(request, 'progress/student_progress.html', {
@@ -312,8 +335,11 @@ def trainer_progress(request):
             progress_rows.append(p)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     _attach_progress_metrics(progress_rows)
 
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     return render(request, 'progress/trainer_progress.html', {'progress': progress_rows})
@@ -330,13 +356,19 @@ def admin_progress(request):
         return redirect('login')
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     # Admin view should show all student-course progress.
     # Prefer saved Progress records; fall back to computed values.
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     # Admin view: show progress for all enrolled (student, course) pairs.
     # If a saved Progress record doesn't exist, compute it on the fly so the page
     # doesn't look "empty".
     courses = Course.objects.all().prefetch_related("students")
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     students = User.objects.filter(role="student")
 
@@ -345,9 +377,15 @@ def admin_progress(request):
 
     progress_rows = []
 <<<<<<< HEAD
+<<<<<<< HEAD
     for student in students:
         student_courses = Course.objects.filter(students=student)
         for course in student_courses:
+=======
+    # Build rows only for enrolled students (avoid showing random combinations)
+    for course in courses:
+        for student in course.students.filter(role="student"):
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
     # Build rows only for enrolled students (avoid showing random combinations)
     for course in courses:
@@ -367,8 +405,11 @@ def admin_progress(request):
             progress_rows.append(p)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     _attach_progress_metrics(progress_rows)
 
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     return render(request, 'progress/admin_progress.html', {'progress': progress_rows})

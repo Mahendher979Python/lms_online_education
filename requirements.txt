@@ -5,6 +5,10 @@ daphne
 django-allauth
 django-recaptcha
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+django-simple-captcha
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
 django-simple-captcha
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b

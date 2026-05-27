@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* =========================================
    STUDENT BASE CSS
 ========================================= */
@@ -559,6 +560,8 @@ body:not(.dark) .moon-icon{
 
         width:90%;
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 @import 'base.css';
 
 /* ==========================================
@@ -640,6 +643,9 @@ body:not(.dark) .moon-icon{
     }
     .navbar .username {
         display: none !important;
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     }
 }

@@ -22,7 +22,11 @@
             <i class="fas fa-book"></i>
         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div class="premium-stat-card-value">{{ total_courses|default:0 }}</div>
+=======
+        <div class="premium-stat-card-value">{{ request.user.courses.count }}</div>
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
         <div class="premium-stat-card-value">{{ request.user.courses.count }}</div>
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -42,7 +46,11 @@
             <i class="fas fa-trophy"></i>
         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div class="premium-stat-card-value">{{ certificates|default:0 }}</div>
+=======
+        <div class="premium-stat-card-value">{{ certificates }}</div>
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
         <div class="premium-stat-card-value">{{ certificates }}</div>
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -68,7 +76,11 @@
     <div class="premium-course-grid">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         {% for course in courses %}
+=======
+        {% for course in request.user.courses.all %}
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
         {% for course in request.user.courses.all %}
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -181,9 +193,15 @@
 </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 {{ total_courses|default:0|json_script:"courses-data" }}
 {{ total_assignments|json_script:"assignments-data" }}
 {{ certificates|default:0|json_script:"certificates-data" }}
+=======
+{{ request.user.courses.count|json_script:"courses-data" }}
+{{ total_assignments|json_script:"assignments-data" }}
+{{ certificates|json_script:"certificates-data" }}
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
 {{ request.user.courses.count|json_script:"courses-data" }}
 {{ total_assignments|json_script:"assignments-data" }}

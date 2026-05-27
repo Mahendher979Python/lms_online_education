@@ -632,7 +632,10 @@ button[type="submit"]:hover i,
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 /* Inline legal panels shown inside the login card */
 .login-panel {
     display: flex;
@@ -695,6 +698,9 @@ button[type="submit"]:hover i,
 }
 
 >>>>>>> 7783240fc9d765a835dba1becb00cde7e0172336
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 /* ==================================
    RESPONSIVENESS AND TABLET STYLING
@@ -866,6 +872,10 @@ button[type="submit"]:hover i,
     align-items: center;
     transition: all 0.3s ease;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    perspective: 900px;
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
     perspective: 900px;
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -911,6 +921,10 @@ button[type="submit"]:hover i,
     align-items: center;
     gap: 32px;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    transform-style: preserve-3d;
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
     transform-style: preserve-3d;
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -923,10 +937,13 @@ button[type="submit"]:hover i,
     color: rgba(255, 255, 255, 0.75); /* Soft light gray color */
     text-decoration: none;
 <<<<<<< HEAD
+<<<<<<< HEAD
     transition: all 0.25s ease;
     position: relative;
     padding: 6px 0;
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     position: relative;
     padding: 6px 0;
     border-radius: 8px;
@@ -934,6 +951,9 @@ button[type="submit"]:hover i,
     transform-style: preserve-3d;
     transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
     will-change: transform;
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 }
 
@@ -950,6 +970,7 @@ button[type="submit"]:hover i,
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .nav-link:hover {
     color: #ffffff;
 }
@@ -959,6 +980,8 @@ button[type="submit"]:hover i,
 }
 
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 .nav-link:hover,
 .nav-link:focus-visible,
 .nav-link.active {
@@ -977,6 +1000,9 @@ button[type="submit"]:hover i,
     transform: translateY(-1px) translateZ(10px) rotateX(7deg) scale(0.98);
 }
 
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 /* Desktop Action Buttons */
 .nav-buttons {
@@ -1085,6 +1111,10 @@ button[type="submit"]:hover i,
         z-index: 1000;
         border-left: 1px solid rgba(255, 255, 255, 0.08);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        perspective: 900px;
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
         perspective: 900px;
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -1101,6 +1131,10 @@ button[type="submit"]:hover i,
         color: rgba(255, 255, 255, 0.85);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        transform-origin: left center;
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
         transform-origin: left center;
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -1111,14 +1145,20 @@ button[type="submit"]:hover i,
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     .nav-link:hover {
         color: #ffffff;
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     .nav-link:hover,
     .nav-link:focus-visible,
     .nav-link.active {
         color: #ffffff;
         transform: translateX(8px) translateZ(18px) rotateY(-12deg);
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     }
     
@@ -1174,7 +1214,12 @@ button[type="submit"]:hover i,
 }
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7783240fc9d765a835dba1becb00cde7e0172336
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
 }
 >>>>>>> 7783240fc9d765a835dba1becb00cde7e0172336

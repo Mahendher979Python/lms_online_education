@@ -27,7 +27,11 @@ body {
 /* Header Correction */
 .navbar {
 <<<<<<< HEAD
+<<<<<<< HEAD
     font-family: var(--font-outfit);
+=======
+    font-family: 'Inter', sans-serif;
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
     font-family: 'Inter', sans-serif;
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -37,7 +41,11 @@ body {
 
 .nav-links a {
 <<<<<<< HEAD
+<<<<<<< HEAD
     font-family: var(--font-outfit);
+=======
+    font-family: 'Inter', sans-serif;
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
     font-family: 'Inter', sans-serif;
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -46,11 +54,17 @@ body {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 .nav-links a.active {
     color: #ffffff;
 }
 
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 /* Dynamic Page Hero Section */
 .page-hero {

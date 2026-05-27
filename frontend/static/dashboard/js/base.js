@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 function syncSidebarLayout() {
     const sidebar = document.getElementById("sidebar");
     const main = document.getElementById("main");
@@ -27,13 +28,21 @@ function syncSidebarLayout() {
    SIDEBAR TOGGLE
 ========================================== */
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
+/* ==========================================
+   SIDEBAR TOGGLE
+========================================== */
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
     const main = document.getElementById("main");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     const navbar = document.getElementById("navbar");
     const isMobile = window.innerWidth <= 768;
 
@@ -53,6 +62,9 @@ function toggleSidebar() {
             main.classList.add("shifted");
             navbar.classList.add("shifted");
 =======
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     const overlay = document.getElementById("sidebar-overlay");
     if (!sidebar || !main) return;
@@ -60,12 +72,15 @@ function toggleSidebar() {
     sidebar.classList.toggle("closed");
     main.classList.toggle("full");
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (overlay && window.innerWidth >= 769) overlay.classList.remove("active");
     syncSidebarLayout();
 }
 
 function closeSidebar() {
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     if (overlay) overlay.classList.toggle("active");
     const navbar = document.querySelector(".navbar");
     if (navbar) {
@@ -89,6 +104,9 @@ function closeSidebar() {
 ========================================== */
 
 =======
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     const sidebar = document.getElementById("sidebar");
     const main = document.getElementById("main");
@@ -97,21 +115,28 @@ function closeSidebar() {
     if (main) main.classList.remove("full");
     if (overlay) overlay.classList.remove("active");
 <<<<<<< HEAD
+<<<<<<< HEAD
     syncSidebarLayout();
 }
 
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     const navbar = document.querySelector(".navbar");
     if (navbar) navbar.style.left = "0px";
 }
 
 >>>>>>> 0b4d033f75e47fcd700689babb32ce299e149377
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 function toggleDark() {
     const isDark = document.body.classList.toggle("dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /* TOGGLE DROPDOWN */
 function toggleDropdown(e) {
@@ -123,6 +148,8 @@ function toggleDropdown(e) {
 
 /* CLOSE OUTSIDE */
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 /* ==========================================
    DROPDOWN
 ========================================== */
@@ -140,6 +167,9 @@ function toggleDropdown(e) {
 >>>>>>> 0b4d033f75e47fcd700689babb32ce299e149377
 }
 
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 document.addEventListener("click", function () {
     const d = document.getElementById("dropdown");
@@ -147,10 +177,13 @@ document.addEventListener("click", function () {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* LOAD NOTIFICATIONS */
 function loadNotifications() {
     fetch("/notifications/")
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 /* ==========================================
    NOTIFICATIONS
 ========================================== */
@@ -201,6 +234,9 @@ function loadNotifications() {
         })
         .catch(() => {}); // silently ignore errors
 =======
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
     .then(res => res.json())
     .then(data => {
@@ -248,11 +284,14 @@ function loadNotifications() {
     })
     .catch(() => {});
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     syncSidebarLayout();
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 >>>>>>> 0b4d033f75e47fcd700689babb32ce299e149377
 }
 
@@ -266,6 +305,9 @@ document.addEventListener("DOMContentLoaded", function () {
             navbar.style.left = "0px";
         }
     }
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 
     loadNotifications();
@@ -273,16 +315,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 window.addEventListener("resize", function () {
     syncSidebarLayout();
 });
 
 /* CSRF */
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 /* ==========================================
    CSRF
 ========================================== */
 
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 function getCookie(name) {
     let cookieValue = null;
@@ -296,12 +344,18 @@ function getCookie(name) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* 3D LOGOUT MODAL ACTION HANDLERS */
 =======
+=======
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 /* ==========================================
    LOGOUT MODAL
 ========================================== */
 
+<<<<<<< HEAD
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+=======
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 function showLogoutModal(e) {
     if (e) {
@@ -310,9 +364,13 @@ function showLogoutModal(e) {
     }
     const modal = document.getElementById("logout-confirm-modal");
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (modal) {
         modal.classList.add("active");
     }
+=======
+    if (modal) modal.classList.add("active");
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
     if (modal) modal.classList.add("active");
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -321,9 +379,13 @@ function showLogoutModal(e) {
 function closeLogoutModal() {
     const modal = document.getElementById("logout-confirm-modal");
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (modal) {
         modal.classList.remove("active");
     }
+=======
+    if (modal) modal.classList.remove("active");
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
     if (modal) modal.classList.remove("active");
 >>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
@@ -335,10 +397,16 @@ function confirmLogout() {
         form.submit();
     } else {
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Fallback to simple redirect if form is not found
         window.location.href = "/en/logout/";
     }
 }
+=======
+        window.location.href = "/en/logout/";
+    }
+}
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
 =======
         window.location.href = "/en/logout/";
     }
