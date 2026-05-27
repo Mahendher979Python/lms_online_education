@@ -1,0 +1,205 @@
+{% extends 'dashboard/trainer_base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'dashboard/css/trainer_dashboard.css' %}">
+
+<!-- ================= HEADER ================= -->
+
+<div class="premium-header">
+    <h2>👨‍🏫 Trainer Dashboard</h2>
+    <p>Welcome, {{ request.user.username }}</p>
+</div>
+
+<!-- ================= TOP CARDS ================= -->
+
+<div class="dashboard-grid">
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-card-icon blue">
+            <i class="fas fa-book"></i>
+        </div>
+        <div class="premium-stat-card-value">{{ courses|length }}</div>
+        <div class="premium-stat-card-label">Courses</div>
+    </div>
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-card-icon green">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="premium-stat-card-value">{{ topics|length }}</div>
+        <div class="premium-stat-card-label">Topics</div>
+    </div>
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-card-icon orange">
+            <i class="fas fa-tasks"></i>
+        </div>
+        <div class="premium-stat-card-value">{{ assignments|length }}</div>
+        <div class="premium-stat-card-label">Assignments</div>
+    </div>
+
+    <div class="premium-stat-card">
+        <div class="premium-stat-card-icon purple">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="premium-stat-card-value">{{ students_count|default:0 }}</div>
+        <div class="premium-stat-card-label">Students</div>
+    </div>
+
+</div>
+
+<!-- ================= QUICK ACTIONS ================= -->
+
+<div class="premium-section">
+
+    <h3>⚡ Quick Actions</h3>
+
+    <a href="{% url 'trainer_create_topic' %}" class="premium-btn">
+        Create Topic
+    </a>
+
+    <a href="{% url 'assignments:trainer_assignments' %}" class="premium-btn">
+        Assignments
+    </a>
+
+    <a href="{% url 'trainer_attendance' %}" class="premium-btn">
+        Attendance
+    </a>
+
+    <a href="{% url 'trainer_progress' %}" class="premium-btn">
+        Student Progress
+    </a>
+
+</div>
+
+<!-- ================= COURSES ================= -->
+
+<div class="premium-section">
+
+    <h3>📚 Your Courses</h3>
+
+    <div class="premium-course-grid">
+
+        {% for c in courses %}
+
+        <div class="premium-course-card">
+
+            <h3>{{ c.title }}</h3>
+
+            <p>{{ c.description|truncatechars:80 }}</p>
+
+            <p>Topics: <b>{{ c.topic_set.count }}</b></p>
+
+            <div class="premium-progress">
+
+                <div class="premium-progress-fill"
+                data-progress="{{ c.progress|default:0 }}">
+                </div>
+
+            </div>
+
+            <p>Progress {{ c.progress|default:0 }}%</p>
+
+        </div>
+
+        {% empty %}
+
+        <p style="color:#9ca3af;">No Courses Found</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<!-- ================= ASSIGNMENTS ================= -->
+
+<div class="premium-section">
+
+    <h3>📝 Recent Assignments</h3>
+
+    <div class="premium-table-box">
+
+        <table class="premium-table">
+
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Course</th>
+                    <th>Status</th>
+                    <th>Total Marks</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for a in assignments|slice:":5" %}
+
+                <tr>
+
+                    <td>{{ a.title }}</td>
+
+                    <td>{{ a.course }}</td>
+
+                    <td>
+                        <span class="premium-badge">
+                            {{ a.status }}
+                        </span>
+                    </td>
+
+                    <td>{{ a.total_marks }}</td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="4">No Assignments</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ================= CHARTS ================= -->
+
+<div class="premium-chart-grid">
+
+    <div class="premium-chart-card">
+
+        <h3>
+            📊 Trainer Analytics
+        </h3>
+
+        <canvas id="trainerChart"></canvas>
+
+    </div>
+
+    <div class="premium-chart-card">
+
+        <h3>
+            📈 Student Progress
+        </h3>
+
+        <canvas id="studentChart"></canvas>
+
+    </div>
+
+</div>
+
+{{ courses|length|json_script:"courses-data" }}
+{{ topics|length|json_script:"topics-data" }}
+{{ assignments|length|json_script:"assignments-data" }}
+{{ students_count|default:0|json_script:"students-count-data" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'dashboard/js/trainer_dashboard.js' %}"></script>
+
+{% endblock %}

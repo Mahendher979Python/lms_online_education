@@ -1,0 +1,84 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'courses/css/trainer_create_topic.css' %}">
+
+<div class="form-container">
+
+    <h2>📘 Create Topic</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Topic Name -->
+        <div class="form-group">
+            <label>Topic Name</label>
+            <input type="text" name="name" placeholder="Enter topic name" required>
+        </div>
+
+        <!-- Course -->
+        <div class="form-group">
+            <label>Assign Course</label>
+            <select name="course" required>
+                <option value="">-- Select Course --</option>
+                {% for c in courses %}
+                    <option value="{{ c.id }}">{{ c.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="row">
+
+            <div class="form-group">
+                <label>🎥 Video</label>
+                <input type="file" name="video" accept="video/*">
+            </div>
+
+            <div class="form-group">
+                <label>📄 PDF Material</label>
+                <input type="file" name="pdf" accept="application/pdf">
+            </div>
+
+            <div class="form-group">
+                <label>🖼 Thumbnail</label>
+                <input type="file" name="thumbnail" accept="image/*">
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn">
+            ➕ Create Topic
+        </button>
+
+    </form>
+
+    <h3 style="margin-top: 40px; margin-bottom: 20px;">📚 Existing Topics</h3>
+
+    {% if topics %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+            {% for topic in topics %}
+                <div class="card" style="background: var(--card); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-light);">
+                    <h4 style="margin: 0 0 10px; color: var(--text);">{{ topic.name }}</h4>
+                    <p style="margin: 5px 0; color: var(--text-muted); font-size: 14px;">Course: {{ topic.course.title }}</p>
+                    <p style="margin: 5px 0; color: var(--text-muted); font-size: 13px;">Created: {{ topic.created_at|date:"M d, Y" }}</p>
+                    {% if topic.created_by %}
+                        <p style="margin: 5px 0; color: var(--text-muted); font-size: 13px;">By: {{ topic.created_by.username }}</p>
+                    {% endif %}
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <a href="{% url 'edit_topic' topic.id %}" style="flex: 1; padding: 8px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; text-align: center; border-radius: 8px; text-decoration: none; font-size: 14px;">Edit</a>
+                        <form method="post" action="{% url 'delete_topic' topic.id %}" style="flex: 1;">
+                            {% csrf_token %}
+                            <button type="submit" style="width: 100%; padding: 8px; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align: center; color: var(--text-muted);">No topics created yet!</p>
+    {% endif %}
+
+</div>
+{% endblock %}

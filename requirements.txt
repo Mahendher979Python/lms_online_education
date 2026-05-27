@@ -1,0 +1,16 @@
+Django==5.2.13
+python-dotenv
+django-jazzmin
+daphne
+django-allauth
+django-recaptcha
+<<<<<<< HEAD
+=======
+django-simple-captcha
+>>>>>>> 6b52b9bc0b1e9f5483366f3a07c3ebb731af950b
+channels
+whitenoise
+Pillow
+reportlab
+psycopg2-binary
+gunicorn
