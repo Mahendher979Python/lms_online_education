@@ -26,7 +26,7 @@
             <a href="{% url 'about' %}" class="nav-link">About Us</a>
             <a href="{% url 'services' %}" class="nav-link">Services</a>
             <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
-            <a href="{% url 'contact' %}" class="nav-link active" style="color: var(--primary-color);">Contact</a>
+            <a href="{% url 'contact' %}" class="nav-link active">Contact</a>
         </nav>
 
         <form class="searchbar" role="search" action="{% url 'courses' %}" method="GET">
@@ -56,7 +56,7 @@
             <a href="{% url 'about' %}" class="sidebar-link">About Us</a>
             <a href="{% url 'services' %}" class="sidebar-link">Services</a>
             <a href="{% url 'faq' %}" class="sidebar-link">FAQs</a>
-            <a href="{% url 'contact' %}" class="sidebar-link">Contact</a>
+            <a href="{% url 'contact' %}" class="sidebar-link active">Contact</a>
         </nav>
         <form class="sidebar-searchbar" role="search" action="{% url 'courses' %}" method="GET">
             <input type="search" name="search" placeholder="Search courses..." aria-label="Search courses">

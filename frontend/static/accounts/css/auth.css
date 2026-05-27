@@ -859,6 +859,7 @@ button[type="submit"]:hover i,
     display: flex;
     align-items: center;
     transition: all 0.3s ease;
+    perspective: 900px;
 }
 
 .nav-container {
@@ -900,6 +901,7 @@ button[type="submit"]:hover i,
     display: flex;
     align-items: center;
     gap: 32px;
+    transform-style: preserve-3d;
 }
 
 .nav-link {
@@ -908,9 +910,13 @@ button[type="submit"]:hover i,
     font-weight: 500;
     color: rgba(255, 255, 255, 0.75); /* Soft light gray color */
     text-decoration: none;
-    transition: all 0.25s ease;
     position: relative;
     padding: 6px 0;
+    border-radius: 8px;
+    transform: translateZ(0) rotateX(0) rotateY(0);
+    transform-style: preserve-3d;
+    transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
+    will-change: transform;
 }
 
 .nav-link::after {
@@ -925,12 +931,22 @@ button[type="submit"]:hover i,
     border-radius: 99px;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link.active {
     color: #ffffff;
+    text-shadow: 0 8px 18px rgba(56, 189, 248, 0.34);
+    transform: translateY(-3px) translateZ(18px) rotateX(12deg);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.active::after {
     width: 100%;
+}
+
+.nav-link:active {
+    transform: translateY(-1px) translateZ(10px) rotateX(7deg) scale(0.98);
 }
 
 /* Desktop Action Buttons */
@@ -1039,6 +1055,7 @@ button[type="submit"]:hover i,
         transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         z-index: 1000;
         border-left: 1px solid rgba(255, 255, 255, 0.08);
+        perspective: 900px;
     }
     
     .nav-menu.active {
@@ -1051,14 +1068,18 @@ button[type="submit"]:hover i,
         padding: 8px 0;
         color: rgba(255, 255, 255, 0.85);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transform-origin: left center;
     }
 
     .nav-link::after {
         background: #38bdf8;
     }
     
-    .nav-link:hover {
+    .nav-link:hover,
+    .nav-link:focus-visible,
+    .nav-link.active {
         color: #ffffff;
+        transform: translateX(8px) translateZ(18px) rotateY(-12deg);
     }
     
     .nav-buttons {
