@@ -33,6 +33,11 @@
             <input type="search" name="search" placeholder="Search courses..." aria-label="Search courses">
         </form>
 
+        <div class="nav-actions">
+            <a class="button-secondary" href="{% url 'login' %}">Login</a>
+            <a class="button-secondary" href="{% url 'register' %}">Register</a>
+        </div>
+
         <button class="hamburger-btn" aria-label="Toggle menu">
             <i class="fas fa-bars"></i>
         </button>
@@ -56,6 +61,10 @@
         <form class="sidebar-searchbar" role="search" action="{% url 'courses' %}" method="GET">
             <input type="search" name="search" placeholder="Search courses..." aria-label="Search courses">
         </form>
+        <div class="sidebar-actions">
+            <a class="button-secondary" href="{% url 'login' %}">Login</a>
+            <a class="button-secondary" href="{% url 'register' %}">Register</a>
+        </div>
     </aside>
 
     <main>

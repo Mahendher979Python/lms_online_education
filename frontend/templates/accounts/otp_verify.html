@@ -106,12 +106,31 @@
                     Didn't get the code? <span class="highlight">Resend OTP</span>
                 </a>
                 
+
+                        // Terms Modal handlers (OTP page)
+                        const termsLink = document.getElementById('terms-link');
+                        const termsModalOverlay = document.getElementById('terms-modal-overlay');
+                        const termsCloseBtn = document.getElementById('terms-close-btn');
+                        const termsCloseBtnBottom = document.getElementById('terms-close-btn-bottom');
+
+                        if (termsLink) {
+                            termsLink.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                termsModalOverlay.classList.add('active');
+                            });
+                        }
+
+                        const dropModal = () => {
+                            termsModalOverlay.classList.remove('active');
+                        };
+
+                        [termsCloseBtn, termsCloseBtnBottom].forEach(el => el && el.addEventListener('click', dropModal));
                 <a href="{% url 'login' %}" class="footer-link" style="margin-top: 0;">
                     Back to <span class="highlight">Sign in</span>
                 </a>
 
                 <div style="display: flex; gap: 15px; justify-content: center; margin-top: 10px;">
-                    <a href="{% url 'terms_page' %}" class="footer-link" style="margin-top: 0;">
+                    <a href="#" id="terms-link" class="footer-link" style="margin-top: 0;">
                         Terms of Service
                     </a>
                     <a href="{% url 'conditions_page' %}" class="footer-link" style="margin-top: 0;">
@@ -128,6 +147,25 @@
     </div> <!-- End of Auth Wrapper -->
 
     <!-- JavaScript Interactions -->
+    <!-- Terms Modal (inline for OTP page) -->
+    <div class="terms-modal-overlay" id="terms-modal-overlay">
+        <div class="terms-modal">
+            <button class="terms-close-btn" id="terms-close-btn"><i class="fas fa-times"></i></button>
+            <h2>Terms &amp; Conditions</h2>
+            <div class="terms-meta" style="color:var(--text-muted); font-size:12px; text-align:center;">Last updated: May 18, 2026</div>
+            <div class="terms-content">
+                <p>Welcome to LMS. By signing up, you explicitly agree to the usage layout frameworks established below:</p>
+                <h3 style="margin-top:15px; font-size:14px; color:var(--text-main);">1. Account Protection</h3>
+                <p style="font-size:13px; color:var(--text-muted);">Keep your security passkeys guarded. Sharing login attributes violates system security rules.</p>
+                <h3 style="margin-top:15px; font-size:14px; color:var(--text-main);">2. Content Guidelines</h3>
+                <p style="font-size:13px; color:var(--text-muted);">Abuse filters will remove any corrupted components, scripts, or malicious content payloads.</p>
+            </div>
+            <div class="terms-modal-footer" style="text-align:right;">
+                <button class="login-btn" id="terms-close-btn-bottom" style="width:auto; display:inline-flex; padding:8px 20px;">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
