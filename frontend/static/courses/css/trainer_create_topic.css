@@ -1,20 +1,31 @@
-/* ===== PAGE ===== */
-body{
-    margin:0;
-    padding:0;
-    font-family: Arial, sans-serif;
-    background:#f1f5f9;
+/* ===== FORM CONTAINER ===== */
+<<<<<<< HEAD
+.form-container {
+    width: 90%;
+    max-width: 720px;
+    margin: 40px auto;
+    background: var(--card);
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-light);
+    animation: fadeIn 0.4s ease;
 }
 
-/* ===== FORM CONTAINER ===== */
+/* ===== TITLE ===== */
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--text);
+    font-size: 28px;
+=======
 .form-container{
     width:90%;
     max-width:720px;
     margin:40px auto;
-    background:#fff;
+    background:var(--card);
     padding:28px;
     border-radius:16px;
-    box-shadow:0 8px 22px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow-light);
     animation:fadeIn 0.4s ease;
 }
 
@@ -22,21 +33,60 @@ body{
 .form-container h2{
     text-align:center;
     margin-bottom:24px;
-    color:#0f172a;
+    color:var(--text);
     font-size:28px;
+>>>>>>> 0b4d033f75e47fcd700689babb32ce299e149377
 }
 
 /* ===== FORM GROUP ===== */
-.form-group{
-    margin-bottom:18px;
+.form-container .form-group {
+    margin-bottom: 18px;
 }
 
 /* ===== LABEL ===== */
+<<<<<<< HEAD
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 14px;
+}
+
+/* ===== INPUTS ===== */
+.form-container input,
+.form-container textarea,
+.form-container select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: 0.3s ease;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* ===== INPUT FOCUS ===== */
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ===== FILE INPUT ===== */
+.form-container input[type="file"] {
+    padding: 10px;
+    background: var(--bg);
+=======
 label{
     display:block;
     margin-bottom:8px;
     font-weight:600;
-    color:#334155;
+    color:var(--text);
     font-size:14px;
 }
 
@@ -47,135 +97,143 @@ select{
     width:100%;
     padding:12px;
     border-radius:10px;
-    border:1px solid #cbd5e1;
+    border:1px solid var(--border);
     font-size:14px;
     box-sizing:border-box;
     transition:0.3s ease;
-    background:#fff;
+    background:var(--bg);
+    color:var(--text);
 }
 
 /* ===== INPUT FOCUS ===== */
 input:focus,
 textarea:focus,
 select:focus{
-    border-color:#2563eb;
+    border-color:var(--accent);
     outline:none;
-    box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+    box-shadow:0 0 0 3px var(--accent-glow);
 }
 
 /* ===== FILE INPUT ===== */
 input[type="file"]{
     padding:10px;
-    background:#f8fafc;
+    background:var(--bg);
+>>>>>>> 0b4d033f75e47fcd700689babb32ce299e149377
 }
 
 /* ===== ROW ===== */
-.row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
+.form-container .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
 }
 
 /* ===== BUTTON ===== */
-.btn{
-    width:100%;
-    padding:14px;
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
-    color:white;
-    border:none;
-    border-radius:12px;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s ease;
+.form-container .btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-top: 8px;
 }
 
 /* ===== BUTTON HOVER ===== */
-.btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(37,99,235,0.3);
+.form-container .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
 
 /* ===== HINT ===== */
+<<<<<<< HEAD
+.form-container .hint {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+=======
 .hint{
     margin-top:6px;
     font-size:12px;
-    color:#64748b;
+    color:var(--text-muted);
+>>>>>>> 0b4d033f75e47fcd700689babb32ce299e149377
 }
 
 /* ===== FILE SELECTED ===== */
-.file-selected{
-    border-color:#16a34a !important;
-    background:#f0fdf4 !important;
+.form-container .file-selected {
+    border-color: #16a34a !important;
+    background: #f0fdf4 !important;
 }
 
 /* ===== ANIMATION ===== */
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-    to{
-        opacity:1;
-        transform:translateY(0);
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 /* ===== TABLET ===== */
-@media(max-width:768px){
-
-    .form-container{
-        width:92%;
-        padding:22px;
-        margin:25px auto;
+@media (max-width: 768px) {
+    .form-container {
+        width: 92%;
+        padding: 22px;
+        margin: 25px auto;
     }
 
-    .form-container h2{
-        font-size:24px;
+    .form-container h2 {
+        font-size: 24px;
     }
 
-    .row{
-        grid-template-columns:1fr;
+    .form-container .row {
+        grid-template-columns: 1fr;
     }
 
-    input,
-    textarea,
-    select{
-        padding:11px;
-        font-size:14px;
+    .form-container input,
+    .form-container textarea,
+    .form-container select {
+        padding: 11px;
+        font-size: 14px;
     }
 
-    .btn{
-        padding:13px;
+    .form-container .btn {
+        padding: 13px;
     }
 }
 
 /* ===== MOBILE ===== */
-@media(max-width:480px){
-
-    .form-container{
-        width:94%;
-        padding:18px;
-        border-radius:14px;
+@media (max-width: 480px) {
+    .form-container {
+        width: 94%;
+        padding: 18px;
+        border-radius: 14px;
     }
 
-    .form-container h2{
-        font-size:21px;
+    .form-container h2 {
+        font-size: 21px;
     }
 
-    label{
-        font-size:13px;
+    .form-container label {
+        font-size: 13px;
     }
 
-    input,
-    textarea,
-    select{
-        padding:10px;
-        font-size:13px;
+    .form-container input,
+    .form-container textarea,
+    .form-container select {
+        padding: 10px;
+        font-size: 13px;
     }
 
-    .btn{
-        font-size:14px;
-        padding:12px;
+    .form-container .btn {
+        font-size: 14px;
+        padding: 12px;
     }
 }
