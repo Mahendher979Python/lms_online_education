@@ -1,0 +1,98 @@
+<footer class="footer">
+
+    <div>
+        <h3>LMS eLearning</h3>
+
+        <p>
+            Online courses, live classes, exams,
+            and learning tools for modern education.
+        </p>
+
+        <div class="social-links">
+
+            <a href="https://facebook.com"
+               target="_blank"
+               rel="noopener"
+               aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <a href="https://instagram.com"
+               target="_blank"
+               rel="noopener"
+               aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <a href="https://linkedin.com"
+               target="_blank"
+               rel="noopener"
+               aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+
+            <a href="https://youtube.com"
+               target="_blank"
+               rel="noopener"
+               aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+
+        </div>
+    </div>
+
+    <div>
+        <h3>Courses</h3>
+
+        <a href="{% url 'courses' %}?filter=development">
+            Web Development
+        </a>
+
+        <a href="{% url 'courses' %}?filter=business">
+            Business Skills
+        </a>
+
+        <a href="{% url 'courses' %}?filter=data">
+            Data Analytics
+        </a>
+
+        <a href="{% url 'index' %}#blog">
+            Blog
+        </a>
+    </div>
+
+    <div>
+        <h3>Navigation</h3>
+
+        <a href="{% url 'about' %}">Our Platform</a>
+        <a href="{% url 'services' %}">LMS Services</a>
+        <a href="{% url 'faq' %}">Help & FAQs</a>
+        <a href="{% url 'contact' %}">Contact Us</a>
+    </div>
+
+    <div>
+        <h3>Support</h3>
+
+        <a href="mailto:support@lmslearning.com">
+            support@lmslearning.com
+        </a>
+
+        <a href="tel:9998887776">
+            9998887776
+        </a>
+
+        <a href="{% url 'faq' %}">
+            Help Center
+        </a>
+    </div>
+
+    <div>
+        <h3>Legal</h3>
+
+        <a href="#privacy-notice">Privacy Notice</a>
+        <a href="{% url 'terms_page' %}">Terms</a>
+        <a href="{% url 'conditions_page' %}">Conditions</a>
+        <a href="#cookies">Cookies</a>
+    </div>
+
+</footer>

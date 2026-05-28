@@ -45,9 +45,6 @@
                 <a class="button-secondary button-secondary-solid" href="{% url 'manage_users' %}">Admin Portal</a>
             {% endif %}
             <a class="button-secondary button-secondary-outline" href="{% url 'logout' %}">Logout</a>
-        {% else %}
-            <a class="button-secondary button-secondary-solid" href="{% url 'login' %}">Login</a>
-            <a class="button-secondary button-secondary-outline" href="{% url 'register' %}">Register</a>
         {% endif %}
     </div>
 
@@ -89,9 +86,6 @@
                 <a class="button-secondary button-secondary-solid" href="{% url 'manage_users' %}">Admin Portal</a>
             {% endif %}
             <a class="button-secondary button-secondary-outline" href="{% url 'logout' %}">Logout</a>
-        {% else %}
-            <a class="button-secondary button-secondary-solid" href="{% url 'login' %}">Login</a>
-            <a class="button-secondary button-secondary-outline" href="{% url 'register' %}">Register</a>
         {% endif %}
     </div>
 
@@ -153,12 +147,7 @@
 </main>
 
 <!-- ================= FOOTER ================= -->
-<footer class="footer">
-    <div>
-        <h3>LMS eLearning</h3>
-        <p>Modern online learning platform.</p>
-    </div>
-</footer>
+{% include "accounts/partials/footer.html" %}
 
 <script>
 const hamburgerBtn = document.querySelector('.hamburger-btn');

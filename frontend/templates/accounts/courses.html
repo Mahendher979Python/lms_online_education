@@ -65,18 +65,6 @@
                     Logout
                 </a>
 
-            {% else %}
-
-                <a class="button-secondary button-secondary-solid"
-                    href="{% url 'login' %}">
-                    Login
-                </a>
-
-                <a class="button-secondary button-secondary-outline"
-                    href="{% url 'register' %}">
-                    Register
-                </a>
-
             {% endif %}
         </div>
 
@@ -140,18 +128,6 @@
                 <a class="button-secondary button-secondary-outline"
                     href="{% url 'logout' %}">
                     Logout
-                </a>
-
-            {% else %}
-
-                <a class="button-secondary button-secondary-solid"
-                    href="{% url 'login' %}">
-                    Login
-                </a>
-
-                <a class="button-secondary button-secondary-outline"
-                    href="{% url 'register' %}">
-                    Register
                 </a>
 
             {% endif %}
@@ -266,36 +242,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-
-        <div>
-            <h3>LMS eLearning</h3>
-
-            <p>
-                Online courses, live classes, exams,
-                and learning tools for modern education.
-            </p>
-
-            <div class="social-links">
-                <a href="https://facebook.com" target="_blank" rel="noopener">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-
-                <a href="https://instagram.com" target="_blank" rel="noopener">
-                    <i class="fab fa-instagram"></i>
-                </a>
-
-                <a href="https://linkedin.com" target="_blank" rel="noopener">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-
-                <a href="https://youtube.com" target="_blank" rel="noopener">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
-        </div>
-
-    </footer>
+    {% include "accounts/partials/footer.html" %}
 
     <!-- JS -->
     <script src="{% static 'accounts/js/pages.js' %}"></script>
