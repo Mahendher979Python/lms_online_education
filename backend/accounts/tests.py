@@ -4,6 +4,17 @@ from django.urls import reverse
 
 @override_settings(ALLOWED_HOSTS=['*'])
 class AuthLegalLinksTests(TestCase):
+    def test_login_page_uses_register_style_legal_panels(self):
+        response = self.client.get('/login/', follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="terms-link"')
+        self.assertContains(response, 'id="conditions-link"')
+        self.assertContains(response, 'id="terms-panel"')
+        self.assertContains(response, 'id="conditions-panel"')
+        self.assertNotContains(response, f'href="{reverse("terms_page")}"')
+        self.assertNotContains(response, f'href="{reverse("conditions_page")}"')
+
     def test_register_page_uses_login_style_legal_panels(self):
         response = self.client.get('/register/', follow=True)
 
