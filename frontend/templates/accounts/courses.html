@@ -1,280 +1,115 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Courses | LMS eLearning</title>
+{% block title %}Explore Courses | LMS eLearning{% endblock %}
 
-    <!-- CSS Dependencies -->
-    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
+{% endblock %}
 
-<body>
+{% block content %}
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="page-hero-content">
+        <p class="eyebrow">Course Directory</p>
 
-    <!-- Premium Global Header Navbar -->
-    <header class="navbar">
+        <h1>
+            Expand Your Potential with
+            <span>Accredited Courses</span>
+        </h1>
 
-        <a class="logo" href="{% url 'index' %}" aria-label="LMS home">
-            <img src="{% static 'accounts/images/spylogo.png' %}" class="logo-img"
-                style="height: 38px; width: auto;" alt="Logo">
-            <span class="logo-text">LMS</span>
-        </a>
+        <p>
+            Browse our catalog of highly practical courses built by field
+            practitioners. Learn development, executive business planning,
+            data insight structures, and complete actual coding assessments.
+        </p>
+    </div>
+</section>
 
-        <nav class="nav-links" id="mainNavbarLinks" aria-label="Main navigation">
-            <a href="{% url 'index' %}" class="nav-link">Home</a>
-            <a href="{% url 'courses' %}" class="nav-link active">Courses</a>
-            <a href="{% url 'about' %}" class="nav-link">About Us</a>
-            <a href="{% url 'services' %}" class="nav-link">Services</a>
-            <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
-            <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-        </nav>
+<!-- Course Browser -->
+<section class="courses-browser">
 
-        <form class="searchbar" role="search" action="{% url 'courses' %}" method="GET">
-            <input type="search" name="search" id="headerSearch"
-                placeholder="Search courses..." aria-label="Search courses">
-        </form>
+    <div class="browser-header">
 
-        <div class="nav-actions">
-            {% if user.is_authenticated %}
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">
+                All Categories
+            </button>
 
-                {% if user.role == 'student' %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'student_view' %}">
-                        Dashboard
-                    </a>
+            <button class="filter-btn" data-filter="development">
+                Web Development
+            </button>
 
-                {% elif user.role == 'trainer' %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'trainer_view' %}">
-                        Dashboard
-                    </a>
+            <button class="filter-btn" data-filter="business">
+                Business &amp; Management
+            </button>
 
-                {% else %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'manage_users' %}">
-                        Admin Portal
-                    </a>
-                {% endif %}
-
-                <a class="button-secondary button-secondary-outline"
-                    href="{% url 'logout' %}">
-                    Logout
-                </a>
-
-            {% endif %}
-        </div>
-
-        <button class="hamburger-btn" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-
-    </header>
-
-    <!-- Sidebar -->
-    <div class="sidebar-overlay"></div>
-
-    <aside class="sidebar">
-
-        <div class="sidebar-close">
-            <button class="close-btn" aria-label="Close menu">
-                <i class="fas fa-times"></i>
+            <button class="filter-btn" data-filter="data">
+                Data Science &amp; Analytics
             </button>
         </div>
 
-        <nav class="sidebar-nav" aria-label="Mobile navigation">
-            <a href="{% url 'index' %}" class="sidebar-link">Home</a>
-            <a href="{% url 'courses' %}" class="sidebar-link active">Courses</a>
-            <a href="{% url 'about' %}" class="sidebar-link">About Us</a>
-            <a href="{% url 'services' %}" class="sidebar-link">Services</a>
-            <a href="{% url 'faq' %}" class="sidebar-link">FAQs</a>
-            <a href="{% url 'contact' %}" class="sidebar-link">Contact</a>
-        </nav>
+        <div class="search-filter-box">
+            <i class="fas fa-search"></i>
 
-        <form class="sidebar-searchbar" role="search"
-            action="{% url 'courses' %}" method="GET">
-
-            <input type="search" name="search" id="sidebarSearch"
-                placeholder="Search courses..."
-                aria-label="Search courses">
-        </form>
-
-        <div class="sidebar-actions">
-
-            {% if user.is_authenticated %}
-
-                {% if user.role == 'student' %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'student_view' %}">
-                        Dashboard
-                    </a>
-
-                {% elif user.role == 'trainer' %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'trainer_view' %}">
-                        Dashboard
-                    </a>
-
-                {% else %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'manage_users' %}">
-                        Admin Portal
-                    </a>
-                {% endif %}
-
-                <a class="button-secondary button-secondary-outline"
-                    href="{% url 'logout' %}">
-                    Logout
-                </a>
-
-            {% endif %}
+            <input type="text"
+                id="coursesSearchInput"
+                placeholder="Filter by keywords...">
         </div>
 
-    </aside>
+    </div>
 
-    <!-- Main Content -->
-    <main>
+    <!-- Courses Grid -->
+    <div class="courses-page-grid">
 
-        <!-- Hero Section -->
-        <section class="page-hero">
-            <div class="page-hero-content">
-                <p class="eyebrow">Course Directory</p>
+        <!-- Course 1 -->
+        <article class="premium-course-card"
+            data-category="development">
 
-                <h1>
-                    Expand Your Potential with
-                    <span>Accredited Courses</span>
-                </h1>
+            <div class="card-banner">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80"
+                    alt="Web Development Course Banner">
+
+                <span class="card-tag">Bestseller</span>
+            </div>
+
+            <div class="card-body">
+
+                <div class="card-meta-top">
+                    <span>
+                        <i class="far fa-clock"></i> 48 Hours
+                    </span>
+
+                    <span>
+                        <i class="far fa-file-alt"></i> 32 Lessons
+                    </span>
+                </div>
+
+                <h3>Full Stack JavaScript Mastery</h3>
 
                 <p>
-                    Browse our catalog of highly practical courses built by field
-                    practitioners. Learn development, executive business planning,
-                    data insight structures, and complete actual coding assessments.
+                    Master HTML5, CSS3, ES6 JavaScript, React,
+                    Node.js, and Express to build real dynamic applications.
                 </p>
-            </div>
-        </section>
 
-        <!-- Course Browser -->
-        <section class="courses-browser">
+                <div class="card-rating">
+                    <span class="stars">
+                        <i class="fas fa-star"></i> 4.8
+                    </span>
 
-            <div class="browser-header">
-
-                <div class="filter-group">
-                    <button class="filter-btn active" data-filter="all">
-                        All Categories
-                    </button>
-
-                    <button class="filter-btn" data-filter="development">
-                        Web Development
-                    </button>
-
-                    <button class="filter-btn" data-filter="business">
-                        Business &amp; Management
-                    </button>
-
-                    <button class="filter-btn" data-filter="data">
-                        Data Science &amp; Analytics
-                    </button>
-                </div>
-
-                <div class="search-filter-box">
-                    <i class="fas fa-search"></i>
-
-                    <input type="text"
-                        id="coursesSearchInput"
-                        placeholder="Filter by keywords...">
+                    <span class="rating-count">
+                        (3,420 Students)
+                    </span>
                 </div>
 
             </div>
+        </article>
 
-            <!-- Courses Grid -->
-            <div class="courses-page-grid">
+    </div>
 
-                <!-- Course 1 -->
-                <article class="premium-course-card"
-                    data-category="development">
+</section>
+{% endblock %}
 
-                    <div class="card-banner">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80"
-                            alt="Web Development Course Banner">
-
-                        <span class="card-tag">Bestseller</span>
-                    </div>
-
-                    <div class="card-body">
-
-                        <div class="card-meta-top">
-                            <span>
-                                <i class="far fa-clock"></i> 48 Hours
-                            </span>
-
-                            <span>
-                                <i class="far fa-file-alt"></i> 32 Lessons
-                            </span>
-                        </div>
-
-                        <h3>Full Stack JavaScript Mastery</h3>
-
-                        <p>
-                            Master HTML5, CSS3, ES6 JavaScript, React,
-                            Node.js, and Express to build real dynamic applications.
-                        </p>
-
-                        <div class="card-rating">
-                            <span class="stars">
-                                <i class="fas fa-star"></i> 4.8
-                            </span>
-
-                            <span class="rating-count">
-                                (3,420 Students)
-                            </span>
-                        </div>
-
-                    </div>
-                </article>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    {% include "accounts/partials/footer.html" %}
-
-    <!-- JS -->
-    <script src="{% static 'accounts/js/pages.js' %}"></script>
-
-    <script>
-
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarOverlay = document.querySelector('.sidebar-overlay');
-        const closeBtn = document.querySelector('.close-btn');
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
-
-            document.body.style.overflow =
-                sidebar.classList.contains('active')
-                    ? 'hidden'
-                    : '';
-        }
-
-        hamburgerBtn.addEventListener('click', toggleSidebar);
-        closeBtn.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', toggleSidebar);
-        });
-
-    </script>
-
-</body>
-
-</html>
+{% block extra_js %}
+<script src="{% static 'accounts/js/pages.js' %}"></script>
+{% endblock %}

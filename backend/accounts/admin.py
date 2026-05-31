@@ -13,16 +13,25 @@ from .models import User, Contact
 class CustomUserAdmin(UserAdmin):
     model = User
 
-    # ❌ DO NOT add email again (already exists)
+    # Update fieldsets to include all custom fields
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('role', 'phone')}),
+        ('Profile Info', {'fields': ('phone', 'gender', 'dob', 'address', 'bio', 'profile_image')}),
+        ('Trainer Info', {'fields': ('specialization', 'experience', 'qualification')}),
+        ('Student & Trainer Relations', {'fields': ('trainer', 'courses')}),
+        ('Role', {'fields': ('role',)}),
     )
 
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('role', 'phone')}),
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'email', 'password1', 'password2', 'role', 'phone'),
+        }),
     )
 
-    list_display = ('username', 'email', 'role')
+    list_display = ('username', 'email', 'role', 'date_joined')
+    list_filter = ('role', 'is_staff', 'is_superuser', 'date_joined')
+    search_fields = ('username', 'email', 'phone')
+    filter_horizontal = ('courses',)
 
 
 class ContactAdmin(admin.ModelAdmin):

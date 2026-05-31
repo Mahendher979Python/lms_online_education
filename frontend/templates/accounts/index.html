@@ -1,388 +1,629 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LMS eLearning Home</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
-<body>
-
-    <!-- Navbar -->
-    <header class="navbar">
-        <a class="logo" href="{% url 'index' %}" aria-label="LMS home">
-            <img src="{% static 'accounts/images/spylogo.png' %}"
-                class="logo-img"
-                style="height: 38px; width: auto;"
-                alt="Logo">
-            <span class="logo-text">LMS</span>
-        </a>
-
-        <nav class="nav-links" id="mainNavbarLinks" aria-label="Main navigation">
-            <a href="{% url 'index' %}" class="nav-link active">Home</a>
-            <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-            <a href="{% url 'about' %}" class="nav-link">About Us</a>
-            <a href="{% url 'services' %}" class="nav-link">Services</a>
-            <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
-            <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-        </nav>
-
-        <form class="searchbar" role="search" action="{% url 'courses' %}" method="GET">
-            <input type="search"
-                name="search"
-                placeholder="Search courses..."
-                aria-label="Search courses">
-        </form>
-
-        <div class="nav-actions">
-            {% if user.is_authenticated %}
-            {% else %}
-                <a class="button-secondary" href="{% url 'login' %}">Sign in</a>
-            {% endif %}
-        </div>
-
-        <button class="hamburger-btn" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-    </header>
-
-    <!-- Mobile Sidebar -->
-    <div class="sidebar-overlay"></div>
-
-    <aside class="sidebar">
-
-        <div class="sidebar-close">
-            <button class="close-btn" aria-label="Close menu">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <nav class="sidebar-nav" aria-label="Mobile navigation">
-            <a href="{% url 'index' %}" class="sidebar-link active">Home</a>
-            <a href="{% url 'courses' %}" class="sidebar-link">Courses</a>
-            <a href="{% url 'about' %}" class="sidebar-link">About Us</a>
-            <a href="{% url 'services' %}" class="sidebar-link">Services</a>
-            <a href="{% url 'faq' %}" class="sidebar-link">FAQs</a>
-            <a href="{% url 'contact' %}" class="sidebar-link">Contact</a>
-        </nav>
-
-        <form class="sidebar-searchbar"
-            role="search"
-            action="{% url 'courses' %}"
-            method="GET">
-
-            <input type="search"
-                name="search"
-                placeholder="Search courses..."
-                aria-label="Search courses">
-        </form>
-
-        <div class="sidebar-actions">
-            {% if user.is_authenticated %}
-            {% else %}
-                <a class="button-secondary" href="{% url 'login' %}">Sign in</a>
-            {% endif %}
-        </div>
-
-    </aside>
-
-    <!-- Main Content -->
-    <main id="home">
-
-        <!-- Hero Section -->
-        <section class="hero">
-
-            <div class="hero-content">
-                <p class="eyebrow">LMS eLearning Platform</p>
-
-                <h1>
-                    Learn smarter with online courses,
-                    exams, and live classes.
-                </h1>
-
-                <p class="hero-text">
-                    Access quality learning resources,
-                    track your progress, join instructor-led
-                    sessions, and complete assignments
-                    from one simple LMS dashboard.
-                </p>
-
-                <div class="hero-actions">
-                    <a class="btn btn-solid" href="{% url 'student_view' %}">
-                        Get Started
-                    </a>
-
-                    <a class="btn btn-outline" href="{% url 'trainer_view' %}">
-                        Demo
-                    </a>
-
-                    <a class="btn btn-light" href="#courses">
-                        Explore Courses
-                    </a>
-                </div>
-            </div>
-
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80"
-                    alt="Students learning together online">
-            </div>
-
-        </section>
-
-        <!-- Marquee -->
-        <section class="image-marquee" aria-label="Learning gallery">
-
-            <div class="marquee-track">
-
-                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=700&q=80"
-                    alt="Online learning workspace">
-
-                <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=700&q=80"
-                    alt="Students studying together">
-
-                <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=700&q=80"
-                    alt="Student using laptop for learning">
-
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80"
-                    alt="Group learning session">
-
-            </div>
-
-        </section>
-
-        <!-- Courses -->
-        <section class="section" id="courses">
-
-            <div class="section-heading">
-                <p class="eyebrow">Courses</p>
-
-                <h2>Explore Popular Courses</h2>
-
-                <p>
-                    Start learning with practical courses
-                    built for students, instructors,
-                    and working professionals.
-                </p>
-            </div>
-
-            <div class="course-grid">
-
-                <article class="course-card">
-
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
-                        alt="Web Development">
-
-                    <div class="course-content">
-                        <span>Beginner</span>
-
-                        <h3>Web Development</h3>
-
-                        <p>
-                            Learn HTML, CSS, JavaScript,
-                            and responsive website design.
-                        </p>
-                    </div>
-
-                </article>
-
-                <article class="course-card">
-
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80"
-                        alt="Business Skills">
-
-                    <div class="course-content">
-                        <span>Professional</span>
-
-                        <h3>Business Skills</h3>
-
-                        <p>
-                            Improve leadership,
-                            communication, and planning.
-                        </p>
-                    </div>
-
-                </article>
-
-                <article class="course-card">
-
-                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80"
-                        alt="Data Analytics">
-
-                    <div class="course-content">
-                        <span>Advanced</span>
-
-                        <h3>Data Analytics</h3>
-
-                        <p>
-                            Practice dashboards,
-                            spreadsheets, and analytics.
-                        </p>
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-        <!-- About -->
-        <section class="section split-section" id="about">
-
-            <div>
-
-                <p class="eyebrow">About Us</p>
-
-                <h2>
-                    Built for simple and effective
-                    online learning.
-                </h2>
-
-                <p>
-                    Our LMS helps students attend
-                    live classes, explore courses,
-                    submit exams, and stay organized.
-                </p>
-
-            </div>
-
-            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80"
-                alt="Students studying">
-
-        </section>
-
-        <!-- Contact -->
-        <section class="section contact-section" id="contact">
-
-            <div class="section-heading">
-
-                <p class="eyebrow">Contact Us</p>
-
-                <h2>
-                    Need help with your learning journey?
-                </h2>
-
-                <p>
-                    Email, call, or visit us to learn more
-                    about courses and platform support.
-                </p>
-
-            </div>
-
-            <div class="contact-grid">
-
-                <div>
-                    <h3>Email</h3>
-                    <p>support@lmslearning.com</p>
-                </div>
-
-                <div>
-                    <h3>Phone</h3>
-                    <p>9998887776</p>
-                </div>
-
-                <div>
-                    <h3>Location</h3>
-                    <p>Digital Learning Campus, India</p>
-                </div>
-
-            </div>
-
-        </section>
-
-        <section class="section" id="blog">
-
-            <div class="section-heading">
-                <p class="eyebrow">From the Blog</p>
-
-                <h2>Fresh insights for modern learners</h2>
-
-                <p>
-                    Explore practical tips, course updates,
-                    and learning stories that help students
-                    stay motivated and informed.
-                </p>
-            </div>
-
-            <div class="course-grid">
-
-                <article class="course-card">
-                    <div class="course-content">
-                        <span>Learning Tips</span>
-                        <h3>How to build a daily study habit</h3>
-                        <p>
-                            Simple routines that improve focus,
-                            retention, and steady progress on any
-                            course.
-                        </p>
-                    </div>
-                </article>
-
-                <article class="course-card">
-                    <div class="course-content">
-                        <span>Productivity</span>
-                        <h3>Using LMS tools for better course completion</h3>
-                        <p>
-                            Learn how dashboards, reminders, and
-                            progress tracking keep learners on pace.
-                        </p>
-                    </div>
-                </article>
-
-                <article class="course-card">
-                    <div class="course-content">
-                        <span>Community</span>
-                        <h3>Why learner communities boost motivation</h3>
-                        <p>
-                            Discover how peer support and shared goals
-                            make online learning more engaging.
-                        </p>
-                    </div>
-                </article>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    {% include "accounts/partials/footer.html" %}
-
-    <!-- Sidebar Script -->
-    <script>
-
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarOverlay = document.querySelector('.sidebar-overlay');
-        const closeBtn = document.querySelector('.close-btn');
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
-
-            document.body.style.overflow =
-                sidebar.classList.contains('active')
-                ? 'hidden'
-                : '';
+{% extends 'base.html' %}
+
+{% block title %}LMS eLearning Home{% endblock %}
+
+{% block extra_css %}
+    <style>
+        /* 3D Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
         }
 
-        hamburgerBtn.addEventListener('click', toggleSidebar);
-        closeBtn.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
 
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', toggleSidebar);
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content h1 {
+            color: #ffffff;
+            text-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .hero-text {
+            color: #cbd5e1;
+        }
+
+        .hero-3d-scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Floating 3D Elements */
+        .floating-element {
+            position: absolute;
+            transform-style: preserve-3d;
+            animation: floatAnimation 6s ease-in-out infinite;
+        }
+
+        .floating-1 {
+            top: 15%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-2 {
+            top: 60%;
+            right: 5%;
+            animation-delay: 1.5s;
+        }
+
+        .floating-3 {
+            top: 35%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+
+        .floating-book {
+            width: 80px;
+            height: 100px;
+            transform-style: preserve-3d;
+            animation: rotate3d 10s linear infinite;
+        }
+
+        .book-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            border-radius: 8px;
+            backface-visibility: visible;
+        }
+
+        .book-front {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            transform: translateZ(20px);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .book-back {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: rotateY(180deg) translateZ(20px);
+        }
+
+        .book-right {
+            width: 40px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            transform: rotateY(90deg) translateZ(40px);
+        }
+
+        .book-left {
+            width: 40px;
+            background: linear-gradient(135deg, #1e40af, #1d4ed8);
+            transform: rotateY(-90deg) translateZ(40px);
+        }
+
+        .book-top {
+            height: 40px;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            transform: rotateX(90deg) translateZ(50px);
+        }
+
+        .book-bottom {
+            height: 40px;
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: rotateX(-90deg) translateZ(50px);
+        }
+
+        /* Floating Gradient Orb */
+        .gradient-orb {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed, #4c1d95);
+            box-shadow: 
+                0 0 60px rgba(124, 58, 237, 0.6),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            animation: orbPulse 4s ease-in-out infinite;
+        }
+
+        /* Floating Code Cube */
+        .code-cube {
+            width: 60px;
+            height: 60px;
+            transform-style: preserve-3d;
+            animation: spinSlow 15s linear infinite;
+        }
+
+        .cube-side {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(16, 185, 129, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            backface-visibility: visible;
+        }
+
+        .code-front { transform: translateZ(30px); }
+        .code-back { transform: rotateY(180deg) translateZ(30px); }
+        .code-right { transform: rotateY(90deg) translateZ(30px); }
+        .code-left { transform: rotateY(-90deg) translateZ(30px); }
+        .code-top { transform: rotateX(90deg) translateZ(30px); }
+        .code-bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+        /* Particles Container */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: particleFloat 8s linear infinite;
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% {
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+            }
+        }
+
+        @keyframes rotate3d {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        @keyframes orbPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 0 60px rgba(124, 58, 237, 0.6),
+                    inset 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 
+                    0 0 80px rgba(124, 58, 237, 0.8),
+                    inset 0 0 40px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 3D Course Cards */
+        .course-card {
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.2),
+                0 0 30px rgba(56, 189, 248, 0.2);
+        }
+
+        /* Button 3D Effects */
+        .button-secondary {
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+
+        .button-secondary:hover {
+            transform: translateY(-3px) translateZ(10px);
+            box-shadow: 
+                0 10px 25px rgba(37, 99, 235, 0.4),
+                0 0 20px rgba(56, 189, 248, 0.3);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section with 3D Elements -->
+    <section class="hero" id="home">
+        <!-- Particles -->
+        <div class="particles-container" id="particles"></div>
+
+        <!-- Floating 3D Elements -->
+        <div class="floating-element floating-1">
+            <div class="floating-book">
+                <div class="book-face book-front">📚</div>
+                <div class="book-face book-back">📖</div>
+                <div class="book-face book-right"></div>
+                <div class="book-face book-left"></div>
+                <div class="book-face book-top"></div>
+                <div class="book-face book-bottom"></div>
+            </div>
+        </div>
+
+        <div class="floating-element floating-2">
+            <div class="gradient-orb"></div>
+        </div>
+
+        <div class="floating-element floating-3">
+            <div class="code-cube">
+                <div class="cube-side code-front">&lt;/&gt;</div>
+                <div class="cube-side code-back">{ }</div>
+                <div class="cube-side code-right">++</div>
+                <div class="cube-side code-left">//</div>
+                <div class="cube-side code-top">&lt;?&gt;</div>
+                <div class="cube-side code-bottom">##</div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <p class="eyebrow" style="color: #38bdf8;">🚀 LMS eLearning Platform</p>
+
+            <h1>
+                Learn smarter with
+                <span style="background: linear-gradient(135deg, #38bdf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    online courses
+                </span>,
+                exams, and live classes.
+            </h1>
+
+            <p class="hero-text">
+                Access quality learning resources,
+                track your progress, join instructor-led
+                sessions, and complete assignments
+                from one simple LMS dashboard.
+            </p>
+
+            <div class="hero-actions">
+                <a class="button-secondary" href="{% url 'student_view' %}">
+                    🔥 Get Started
+                </a>
+
+                <a class="button-secondary-outline" href="{% url 'trainer_view' %}">
+                    🎬 Demo
+                </a>
+
+                <a class="button-secondary-light" href="#courses">
+                    📖 Explore Courses
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80"
+                alt="Students learning together online"
+                style="border-radius: 16px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);">
+        </div>
+    </section>
+
+    <!-- Marquee with enhanced styling -->
+    <section class="image-marquee" aria-label="Learning gallery" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+
+        <div class="marquee-track">
+
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=700&q=80"
+                alt="Online learning workspace">
+
+            <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=700&q=80"
+                alt="Students studying together">
+
+            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=700&q=80"
+                alt="Student using laptop for learning">
+
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80"
+                alt="Group learning session">
+
+        </div>
+
+    </section>
+
+    <!-- Courses with gradient background -->
+    <section class="section" id="courses" style="background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);">
+
+        <div class="section-heading">
+            <p class="eyebrow">Courses</p>
+
+            <h2>Explore Popular Courses</h2>
+
+            <p>
+                Start learning with practical courses
+                built for students, instructors,
+                and working professionals.
+            </p>
+        </div>
+
+        <div class="course-grid">
+
+            <article class="course-card">
+
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
+                    alt="Web Development">
+
+                <div class="course-content">
+                    <span>Beginner</span>
+
+                    <h3>Web Development</h3>
+
+                    <p>
+                        Learn HTML, CSS, JavaScript,
+                        and responsive website design.
+                    </p>
+                </div>
+
+            </article>
+
+            <article class="course-card">
+
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80"
+                    alt="Business Skills">
+
+                <div class="course-content">
+                    <span>Professional</span>
+
+                    <h3>Business Skills</h3>
+
+                    <p>
+                        Improve leadership,
+                        communication, and planning.
+                    </p>
+                </div>
+
+            </article>
+
+            <article class="course-card">
+
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80"
+                    alt="Data Analytics">
+
+                <div class="course-content">
+                    <span>Advanced</span>
+
+                    <h3>Data Analytics</h3>
+
+                    <p>
+                        Practice dashboards,
+                        spreadsheets, and analytics.
+                    </p>
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- About -->
+    <section class="section split-section" id="about">
+
+        <div>
+
+            <p class="eyebrow">About Us</p>
+
+            <h2>
+                Built for simple and effective
+                online learning.
+            </h2>
+
+            <p>
+                Our LMS helps students attend
+                live classes, explore courses,
+                submit exams, and stay organized.
+            </p>
+
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80"
+            alt="Students studying">
+
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact-section" id="contact">
+
+        <div class="section-heading">
+
+            <p class="eyebrow">Contact Us</p>
+
+            <h2>
+                Need help with your learning journey?
+            </h2>
+
+            <p>
+                Email, call, or visit us to learn more
+                about courses and platform support.
+            </p>
+
+        </div>
+
+        <div class="contact-grid">
+
+            <div>
+                <h3>Email</h3>
+                <p>support@lmslearning.com</p>
+            </div>
+
+            <div>
+                <h3>Phone</h3>
+                <p>9998887776</p>
+            </div>
+
+            <div>
+                <h3>Location</h3>
+                <p>Digital Learning Campus, India</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="section" id="blog">
+
+        <div class="section-heading">
+            <p class="eyebrow">From the Blog</p>
+
+            <h2>Fresh insights for modern learners</h2>
+
+            <p>
+                Explore practical tips, course updates,
+                and learning stories that help students
+                stay motivated and informed.
+            </p>
+        </div>
+
+        <div class="course-grid">
+
+            <article class="course-card">
+                <div class="course-content">
+                    <span>Learning Tips</span>
+                    <h3>How to build a daily study habit</h3>
+                    <p>
+                        Simple routines that improve focus,
+                        retention, and steady progress on any
+                        course.
+                    </p>
+                </div>
+            </article>
+
+            <article class="course-card">
+                <div class="course-content">
+                    <span>Productivity</span>
+                    <h3>Using LMS tools for better course completion</h3>
+                    <p>
+                        Learn how dashboards, reminders, and
+                        progress tracking keep learners on pace.
+                    </p>
+                </div>
+            </article>
+
+            <article class="course-card">
+                <div class="course-content">
+                    <span>Community</span>
+                    <h3>Why learner communities boost motivation</h3>
+                    <p>
+                        Discover how peer support and shared goals
+                        make online learning more engaging.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Create floating particles
+    function createParticles() {
+        const container = document.getElementById('particles');
+        if (!container) return;
+
+        const particleCount = 50;
+        const colors = ['#38bdf8', '#a78bfa', '#10b981', '#f472b6', '#fbbf24'];
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Random properties
+            const size = Math.random() * 6 + 2;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 8;
+            const duration = Math.random() * 4 + 6;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = left + '%';
+            particle.style.animationDelay = delay + 's';
+            particle.style.animationDuration = duration + 's';
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+            
+            container.appendChild(particle);
+        }
+    }
+
+    // Mouse parallax effect for 3D elements
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX / window.innerWidth - 0.5;
+        const mouseY = e.clientY / window.innerHeight - 0.5;
+        
+        const floatingElements = document.querySelectorAll('.floating-element');
+        floatingElements.forEach((el, index) => {
+            const speed = (index + 1) * 10;
+            el.style.transform = `translateY(-20px) translateX(${mouseX * speed}px) rotateX(${mouseY * 10}deg) rotateY(${mouseX * 10}deg)`;
         });
+    });
 
-    </script>
+    // 3D tilt effect for course cards
+    const courseCards = document.querySelectorAll('.course-card');
+    courseCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    });
 
-</body>
-
-</html>
+    // Initialize particles on load
+    document.addEventListener('DOMContentLoaded', createParticles);
+</script>
+{% endblock %}

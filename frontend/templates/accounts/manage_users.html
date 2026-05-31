@@ -6,112 +6,79 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="{% static 'accounts/css/manage_user.css' %}">
 
-<!-- Animated glassmorphic background blobs -->
+<!-- Background gradient orbs -->
 <div class="bg-blob blob-1"></div>
 <div class="bg-blob blob-2"></div>
 <div class="bg-blob blob-3"></div>
 
 <h2 class="page-title">
-    <span>👨‍💻 User Management</span>
+    <span><i class="fas fa-users-cog"></i> User Management</span>
 </h2>
-
-
 
 <div class="users-container">
 
-    <!-- TRAINER CARD -->
-
+    <!-- Trainer Card -->
     <div class="user-card">
-
-        <div class="circle"></div>
-        <div class="circle"></div>
-
         <div class="user-icon">
-            👨‍🏫
+            <i class="fas fa-chalkboard-teacher"></i>
         </div>
-
         <h3>Trainer</h3>
-
         <p>
-            Manage trainers, create courses,
+            Manage trainers, create courses, 
             monitor student progress and conduct live classes.
         </p>
-
-    
         <div class="user-actions">
-
             <a href="{% url 'add_trainer' %}">
                 <button class="action-btn primary-btn">
-                    ➕ Add Trainer
+                    <i class="fas fa-plus"></i> Add Trainer
                 </button>
             </a>
-
             <a href="{% url 'trainer_view' %}">
                 <button class="action-btn secondary-btn">
-                    👀 View Trainers
+                    <i class="fas fa-eye"></i> View Trainers
                 </button>
             </a>
-
         </div>
-
     </div>
 
-    <!-- STUDENT CARD -->
-
+    <!-- Student Card -->
     <div class="user-card">
-
-        <div class="circle"></div>
-        <div class="circle"></div>
-
         <div class="user-icon">
-            🎓
+            <i class="fas fa-graduation-cap"></i>
         </div>
-
         <h3>Student</h3>
-
         <p>
-            Add students, assign courses,
+            Add students, assign courses, 
             track attendance and monitor learning activity.
         </p>
-
-      
-
         <div class="user-actions">
-
             <a href="{% url 'add_student' %}">
                 <button class="action-btn primary-btn">
-                    ➕ Add Student
+                    <i class="fas fa-plus"></i> Add Student
                 </button>
             </a>
-
             <a href="{% url 'student_view' %}">
                 <button class="action-btn secondary-btn">
-                    👀 View Students
+                    <i class="fas fa-eye"></i> View Students
                 </button>
             </a>
-
         </div>
-
     </div>
 
 </div>
 
-<!-- GLOBAL ACTIONS -->
-
+<!-- Global Actions -->
 <div class="global-actions">
-
     <a href="{% url 'add_user' %}">
         <button class="global-btn">
-            ➕ Add User
+            <i class="fas fa-user-plus"></i> Add User
         </button>
     </a>
-
     <a href="{% url 'view_users' %}">
         <button class="global-btn">
-            📋 View All Users
+            <i class="fas fa-list"></i> View All Users
         </button>
     </a>
-
 </div>
 
 <script src="{% static 'accounts/js/manage_users.js' %}"></script>

@@ -1,221 +1,38 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | LMS eLearning</title>
+{% block title %}About Us | LMS eLearning{% endblock %}
 
-    <!-- CSS Dependencies -->
-    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
+{% endblock %}
 
-<body>
+{% block content %}
+<!-- Hero Section -->
+<section class="page-hero">
 
-    <!-- Premium Global Header Navbar -->
-    <header class="navbar">
+    <div class="page-hero-content">
 
-        <a class="logo" href="{% url 'index' %}" aria-label="LMS home">
-            <img src="{% static 'accounts/images/spylogo.png' %}"
-                 class="logo-img"
-                 style="height: 38px; width: auto;"
-                 alt="Logo">
-            <span class="logo-text">LMS</span>
-        </a>
+        <p class="eyebrow">Who We Are</p>
 
-        <nav class="nav-links" id="mainNavbarLinks" aria-label="Main navigation">
-            <a href="{% url 'index' %}" class="nav-link">Home</a>
-            <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-            <a href="{% url 'about' %}"
-               class="nav-link active">
-                About Us
-            </a>
-            <a href="{% url 'services' %}" class="nav-link">Services</a>
-            <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
-            <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-        </nav>
+        <h1>
+            Empowering Learners Through
+            <span>Innovative eLearning</span>
+            Systems
+        </h1>
 
-        <form class="searchbar"
-              role="search"
-              action="{% url 'courses' %}"
-              method="GET">
+        <p>
+            We are dedicated to building a digital bridge that connects
+            students, certified industry trainers, and global businesses
+            through interactive learning pathways, smart analytics,
+            and complete skill mastery ecosystems.
+        </p>
 
-            <input type="search"
-                   name="search"
-                   placeholder="Search courses..."
-                   aria-label="Search courses">
-        </form>
+    </div>
 
-        <div class="nav-actions">
+</section>
+{% endblock %}
 
-            {% if user.is_authenticated %}
-
-                {% if user.role == 'student' %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'student_view' %}">
-                        Dashboard
-                    </a>
-
-                {% elif user.role == 'trainer' %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'trainer_view' %}">
-                        Dashboard
-                    </a>
-
-                {% else %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'manage_users' %}">
-                        Admin Portal
-                    </a>
-                {% endif %}
-
-                <a class="button-secondary button-secondary-outline"
-                   href="{% url 'logout' %}">
-                    Logout
-                </a>
-
-            {% endif %}
-
-        </div>
-
-        <button class="hamburger-btn" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-
-    </header>
-
-    <!-- Sidebar -->
-    <div class="sidebar-overlay"></div>
-
-    <aside class="sidebar">
-
-        <div class="sidebar-close">
-            <button class="close-btn" aria-label="Close menu">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <nav class="sidebar-nav" aria-label="Mobile navigation">
-            <a href="{% url 'index' %}" class="sidebar-link">Home</a>
-            <a href="{% url 'courses' %}" class="sidebar-link">Courses</a>
-            <a href="{% url 'about' %}" class="sidebar-link active">About Us</a>
-            <a href="{% url 'services' %}" class="sidebar-link">Services</a>
-            <a href="{% url 'faq' %}" class="sidebar-link">FAQs</a>
-            <a href="{% url 'contact' %}" class="sidebar-link">Contact</a>
-        </nav>
-
-        <form class="sidebar-searchbar"
-              role="search"
-              action="{% url 'courses' %}"
-              method="GET">
-
-            <input type="search"
-                   name="search"
-                   placeholder="Search courses..."
-                   aria-label="Search courses">
-        </form>
-
-        <div class="sidebar-actions">
-
-            {% if user.is_authenticated %}
-
-                {% if user.role == 'student' %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'student_view' %}">
-                        Dashboard
-                    </a>
-
-                {% elif user.role == 'trainer' %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'trainer_view' %}">
-                        Dashboard
-                    </a>
-
-                {% else %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'manage_users' %}">
-                        Admin Portal
-                    </a>
-                {% endif %}
-
-                <a class="button-secondary button-secondary-outline"
-                   href="{% url 'logout' %}">
-                    Logout
-                </a>
-
-            {% endif %}
-
-        </div>
-
-    </aside>
-
-    <main>
-
-        <!-- Hero Section -->
-        <section class="page-hero">
-
-            <div class="page-hero-content">
-
-                <p class="eyebrow">Who We Are</p>
-
-                <h1>
-                    Empowering Learners Through
-                    <span>Innovative eLearning</span>
-                    Systems
-                </h1>
-
-                <p>
-                    We are dedicated to building a digital bridge that connects
-                    students, certified industry trainers, and global businesses
-                    through interactive learning pathways, smart analytics,
-                    and complete skill mastery ecosystems.
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- Premium Unified Footer -->
-    {% include "accounts/partials/footer.html" %}
-
-    </footer>
-
-    <!-- JS Scripts -->
-    <script src="{% static 'accounts/js/pages.js' %}"></script>
-
-    <script>
-
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarOverlay = document.querySelector('.sidebar-overlay');
-        const closeBtn = document.querySelector('.close-btn');
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
-
-            document.body.style.overflow =
-                sidebar.classList.contains('active')
-                ? 'hidden'
-                : '';
-        }
-
-        hamburgerBtn.addEventListener('click', toggleSidebar);
-        closeBtn.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', toggleSidebar);
-        });
-
-    </script>
-
-</body>
-
-</html>
+{% block extra_js %}
+<script src="{% static 'accounts/js/pages.js' %}"></script>
+{% endblock %}

@@ -2,81 +2,122 @@
 {% block content %}
 {% load static %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="{% static 'courses/css/trainer_create_topic.css' %}">
 
-<div class="form-container">
+<!-- Background gradient orbs -->
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+<div class="bg-blob blob-3"></div>
 
-    <h2>📘 Create Topic</h2>
+<!-- Page wrapper -->
+<div class="page-wrapper">
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+    <div class="main-container">
+        
+        <!-- Form Container -->
+        <div class="form-container">
 
-        <!-- Topic Name -->
-        <div class="form-group">
-            <label>Topic Name</label>
-            <input type="text" name="name" placeholder="Enter topic name" required>
-        </div>
-
-        <!-- Course -->
-        <div class="form-group">
-            <label>Assign Course</label>
-            <select name="course" required>
-                <option value="">-- Select Course --</option>
-                {% for c in courses %}
-                    <option value="{{ c.id }}">{{ c.title }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- Upload Section -->
-        <div class="row">
-
-            <div class="form-group">
-                <label>🎥 Video</label>
-                <input type="file" name="video" accept="video/*">
+            <div class="header-buttons">
+                <a href="{% url 'trainer_courses' %}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
             </div>
 
-            <div class="form-group">
-                <label>📄 PDF Material</label>
-                <input type="file" name="pdf" accept="application/pdf">
-            </div>
+            <h2><i class="fas fa-book"></i> Create Topic</h2>
 
-            <div class="form-group">
-                <label>🖼 Thumbnail</label>
-                <input type="file" name="thumbnail" accept="image/*">
-            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
 
-        </div>
+                <!-- Topic Name -->
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Topic Name</label>
+                    <input type="text" name="name" placeholder="Enter topic name" required>
+                </div>
 
-        <button type="submit" class="btn">
-            ➕ Create Topic
-        </button>
+                <!-- Course -->
+                <div class="form-group">
+                    <label><i class="fas fa-layer-group"></i> Assign Course</label>
+                    <select name="course" required>
+                        <option value="">-- Select Course --</option>
+                        {% for c in courses %}
+                            <option value="{{ c.id }}">{{ c.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-    </form>
-
-    <h3 style="margin-top: 40px; margin-bottom: 20px;">📚 Existing Topics</h3>
-
-    {% if topics %}
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
-            {% for topic in topics %}
-                <div class="card" style="background: var(--card); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-light);">
-                    <h4 style="margin: 0 0 10px; color: var(--text);">{{ topic.name }}</h4>
-                    <p style="margin: 5px 0; color: var(--text-muted); font-size: 14px;">Course: {{ topic.course.title }}</p>
-                    <p style="margin: 5px 0; color: var(--text-muted); font-size: 13px;">Created: {{ topic.created_at|date:"M d, Y" }}</p>
-                    <div style="display: flex; gap: 10px; margin-top: 15px;">
-                        <a href="{% url 'edit_topic' topic.id %}" style="flex: 1; padding: 8px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; text-align: center; border-radius: 8px; text-decoration: none; font-size: 14px;">Edit</a>
-                        <form method="post" action="{% url 'delete_topic' topic.id %}" style="flex: 1;">
-                            {% csrf_token %}
-                            <button type="submit" style="width: 100%; padding: 8px; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">Delete</button>
-                        </form>
+                <!-- Upload Section -->
+                <div class="upload-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-video"></i> Video</label>
+                        <input type="file" name="video" accept="video/*">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-file-pdf"></i> PDF Material</label>
+                        <input type="file" name="pdf" accept="application/pdf">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-image"></i> Thumbnail</label>
+                        <input type="file" name="thumbnail" accept="image/*">
                     </div>
                 </div>
-            {% endfor %}
+
+                <button type="submit" class="btn">
+                    <i class="fas fa-plus"></i> Create Topic
+                </button>
+
+            </form>
+
         </div>
-    {% else %}
-        <p style="text-align: center; color: var(--text-muted);">No topics created yet!</p>
-    {% endif %}
+
+        <!-- Table Container -->
+        <div class="table-container">
+            <h3><i class="fas fa-list"></i> Existing Topics</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Topic Name</th>
+                            <th>Course</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if topics %}
+                            {% for topic in topics %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ topic.name }}</td>
+                                <td>{{ topic.course.title }}</td>
+                                <td>{{ topic.created_at|date:"M d, Y" }}</td>
+                                <td class="action-buttons">
+                                    <a href="{% url 'edit_topic' topic.id %}" class="edit-btn">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <form method="post" action="{% url 'delete_topic' topic.id %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="delete-btn">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="no-data">No topics created yet!</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
 
 </div>
+
 <script src="{% static 'courses/js/trainer_create_topic.js' %}"></script>
 {% endblock %}

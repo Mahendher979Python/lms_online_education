@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cookies Policy | LMS{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="page-hero-content">
+        <p class="eyebrow">Legal</p>
+        <h1>
+            Cookies
+            <span>Policy</span>
+        </h1>
+        <p>
+            Last updated: May 18, 2026. Learn about our cookies policy.
+        </p>
+    </div>
+</section>
+
+<!-- Content Section -->
+<section class="section" style="padding: 60px 5%;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div class="content-card" style="background: white; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); padding: 50px;">
+            <h2 style="font-size: 2rem; color: #1a1a2e; margin-bottom: 24px;">1. What Are Cookies</h2>
+            <p style="font-size: 1.05rem; color: #444; line-height: 1.8; margin-bottom: 20px;">
+                Cookies are small text files stored on your device that help us improve your experience on our platform.
+            </p>
+
+            <h2 style="font-size: 2rem; color: #1a1a2e; margin: 40px 0 24px;">2. How We Use Cookies</h2>
+            <ul style="font-size: 1.05rem; color: #444; line-height: 2; margin-left: 24px; margin-bottom: 20px;">
+                <li>To remember your preferences</li>
+                <li>To analyze website traffic</li>
+                <li>To enhance our service</li>
+            </ul>
+
+            <h2 style="font-size: 2rem; color: #1a1a2e; margin: 40px 0 24px;">3. Managing Cookies</h2>
+            <p style="font-size: 1.05rem; color: #444; line-height: 1.8;">
+                You can manage or disable cookies in your browser settings, though this may affect your experience.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'accounts/js/pages.js' %}"></script>
+{% endblock %}

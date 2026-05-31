@@ -1,17 +1,17 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     // --------------------------------------------------------------------------
-    // 1. COURSES PAGE FILTERING & SEARCH ENGINE
+    // 1. COURSES PAGE FILTERING & SEARCH
     // --------------------------------------------------------------------------
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const courseCards = document.querySelectorAll('.premium-course-card');
-    const coursesSearchInput = document.getElementById('coursesSearchInput');
+    const coursesSearchInput = document.getElementById('coursesSearch');
+    const courseCards = document.querySelectorAll('.course-card');
 
     function filterCourses() {
         const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
         const searchQuery = coursesSearchInput ? coursesSearchInput.value.toLowerCase().trim() : '';
 
         courseCards.forEach(card => {
-            const category = card.dataset.category || '';
+            const category = card.dataset.category;
             const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
             const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
 
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filterButtons.length > 0) {
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                filterButtons.forEach(b => b.classList.remove('active'));
+                filterButtons.forEach(b => b.classList.remove('active'));       
                 btn.classList.add('active');
                 filterCourses();
             });
@@ -46,23 +46,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------------------------
     // 2. FAQ PAGE ACCORDION AND LIVE FAQ SEARCH
     // --------------------------------------------------------------------------
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    const accordionHeaders = document.querySelectorAll('.accordion-header');    
     const faqSearchInput = document.getElementById('faqSearch');
-    const accordionItems = document.querySelectorAll('.accordion-item');
-    const categoryTitles = document.querySelectorAll('.faq-category-title');
+    // Get both old and new elements
+    const accordionItems = document.querySelectorAll('.accordion-item, .faq-3d-card');        
+    const categoryTitles = document.querySelectorAll('.faq-category-title');    
 
     // Toggle Expandable Accordion
     if (accordionHeaders.length > 0) {
         accordionHeaders.forEach(header => {
             header.addEventListener('click', () => {
-                const item = header.parentElement;
-                const collapse = item.querySelector('.accordion-collapse');
+                // Find the correct parent item (could be .accordion-item or .faq-3d-card)
+                let item = header.parentElement;
+                while (item && !item.classList.contains('accordion-item') && !item.classList.contains('faq-3d-card')) {
+                    item = item.parentElement;
+                }
+                if (!item) return;
+                
+                const collapse = item.querySelector('.accordion-collapse');     
                 const isOpen = item.classList.contains('active');
 
-                // Close other accordions in the same list
-                const siblingGroup = item.closest('.faq-accordion-group');
+                // Close other accordions in the same group
+                const siblingGroup = item.closest('.faq-accordion-group, .faq-3d-grid');      
                 if (siblingGroup) {
-                    siblingGroup.querySelectorAll('.accordion-item').forEach(sibling => {
+                    siblingGroup.querySelectorAll('.accordion-item, .faq-3d-card').forEach(sibling => {
                         if (sibling !== item) {
                             sibling.classList.remove('active');
                             const sibCollapse = sibling.querySelector('.accordion-collapse');
@@ -78,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     item.classList.add('active');
                     if (collapse) {
-                        // Using scrollHeight for smooth height transition
+                        // Using scrollHeight for smooth height transition      
                         collapse.style.maxHeight = collapse.scrollHeight + 'px';
                     }
                 }
@@ -95,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const question = item.querySelector('.accordion-header h3')?.textContent.toLowerCase() || '';
                 const answer = item.querySelector('.accordion-body')?.textContent.toLowerCase() || '';
 
-                if (question.includes(query) || answer.includes(query)) {
+                if (question.includes(query) || answer.includes(query)) {       
                     item.style.display = 'block';
                 } else {
                     item.style.display = 'none';
@@ -105,11 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide section category titles if no matching questions exist in that category
             categoryTitles.forEach(title => {
                 const nextGroup = title.nextElementSibling;
-                if (nextGroup && nextGroup.classList.contains('faq-accordion-group')) {
-                    const visibleItems = nextGroup.querySelectorAll('.accordion-item[style="display: block;"]').length;
-                    const totalItems = nextGroup.querySelectorAll('.accordion-item').length;
-                    const hiddenItems = nextGroup.querySelectorAll('.accordion-item[style="display: none;"]').length;
-                    
+                if (nextGroup && (nextGroup.classList.contains('faq-accordion-group') || nextGroup.classList.contains('faq-3d-grid'))) {
+                    const visibleItems = nextGroup.querySelectorAll('.accordion-item[style="display: block;"], .faq-3d-card[style="display: block;"]').length;
+                    const totalItems = nextGroup.querySelectorAll('.accordion-item, .faq-3d-card').length;
+                    const hiddenItems = nextGroup.querySelectorAll('.accordion-item[style="display: none;"], .faq-3d-card[style="display: none;"]').length;
+
                     if (hiddenItems === totalItems) {
                         title.style.display = 'none';
                         nextGroup.style.display = 'none';
@@ -130,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (contactForm) {
         const inputs = contactForm.querySelectorAll('input[required], textarea[required]');
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const submitBtn = contactForm.querySelector('button[type="submit"]');   
 
         function validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -139,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function checkFormValidity() {
             let isValid = true;
-            
+
             inputs.forEach(input => {
                 const errorMsg = input.parentElement.parentElement.querySelector('.input-error-msg');
                 let inputValid = true;
@@ -168,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (input.value.trim()) {
                     if (input.type === 'email') {
                         if (validateEmail(input.value)) {
-                            if (errorMsg) errorMsg.style.display = 'none';
+                            if (errorMsg) errorMsg.style.display = 'none';      
                             input.style.borderColor = '#cbd5e1';
                         } else {
                             if (errorMsg) {
@@ -188,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorMsg = input.parentElement.parentElement.querySelector('.input-error-msg');
                 if (!input.value.trim()) {
                     if (errorMsg) {
-                        errorMsg.textContent = 'This field is required';
+                        errorMsg.textContent = 'This field is required';        
                         errorMsg.style.display = 'block';
                     }
                     input.style.borderColor = '#ef4444';
@@ -232,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!input.value.trim()) {
                         const errorMsg = input.parentElement.parentElement.querySelector('.input-error-msg');
                         if (errorMsg) {
-                            errorMsg.textContent = 'This field is required';
+                            errorMsg.textContent = 'This field is required';    
                             errorMsg.style.display = 'block';
                         }
                         input.style.borderColor = '#ef4444';

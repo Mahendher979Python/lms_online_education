@@ -1,0 +1,16 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Page Not Found - LMS{% endblock %}
+
+{% block content %}
+<section style="text-align: center; padding: 80px 20px;">
+    <h1 style="font-size: 80px; color: #2563eb;">404</h1>
+    <h2 style="margin: 20px 0; color: #1e293b;">Page Not Found</h2>
+    <p style="color: #64748b; margin-bottom: 30px;">The page you are looking for doesn't exist or has been moved.</p>
+    <a href="{% url 'index' %}" 
+       style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border-radius: 999px; text-decoration: none;">
+        Go Back Home
+    </a>
+</section>
+{% endblock %}

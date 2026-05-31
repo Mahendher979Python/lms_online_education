@@ -40,6 +40,14 @@ def conditions_page(request):
     return render(request, 'accounts/conditions_page.html')
 
 
+def privacy_page(request):
+    return render(request, 'accounts/privacy_page.html')
+
+
+def cookies_page(request):
+    return render(request, 'accounts/cookies_page.html')
+
+
 def about_us(request):
     return render(request, 'accounts/about_us.html')
 
@@ -218,17 +226,17 @@ def login_view(request):
             login(request, user)
 
             role_redirects = {
+                'superadmin': 'admin_dashboard',
                 'admin': 'admin_dashboard',
                 'trainer': 'trainer_dashboard',
                 'student': 'student_dashboard'
             }
 
             return redirect(role_redirects.get(user.role, 'login'))
+        else:
+            form.add_error(None, 'Invalid username or password')
 
-    return render(request, 'accounts/login.html', {
-        'form': form,
-        'error': 'Invalid username or password'
-    })
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 @login_required
@@ -552,3 +560,16 @@ def reset_password_view(request):
         form = ResetPasswordForm()
     
     return render(request, 'accounts/reset_password.html', {'form': form})
+
+
+# Custom Error Views
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
+
+
+def custom_403(request, exception):
+    return render(request, '403.html', status=403)
+
+
+def custom_500(request):
+    return render(request, '500.html', status=500)

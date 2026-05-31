@@ -1,170 +1,58 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services | LMS eLearning</title>
+{% block title %}Our Services | LMS eLearning{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
+{% endblock %}
 
-<body>
-
-<!-- ================= NAVBAR ================= -->
-<header class="navbar">
-
-    <a class="logo" href="{% url 'index' %}">
-        <img src="{% static 'accounts/images/spylogo.png' %}" class="logo-img" style="height:38px;" alt="Logo">
-        <span class="logo-text">LMS</span>
-    </a>
-
-    <nav class="nav-links" id="mainNavbarLinks">
-        <a href="{% url 'index' %}" class="nav-link">Home</a>
-        <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-        <a href="{% url 'about' %}" class="nav-link">About Us</a>
-        <a href="{% url 'services' %}" class="nav-link active">Services</a>
-        <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
-        <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-    </nav>
-
-    <form class="searchbar" action="{% url 'courses' %}" method="GET">
-        <input type="search" name="search" placeholder="Search courses...">
-    </form>
-
-    <div class="nav-actions">
-        {% if user.is_authenticated %}
-            {% if user.role == 'student' %}
-                <a class="button-secondary button-secondary-solid" href="{% url 'student_view' %}">Dashboard</a>
-            {% elif user.role == 'trainer' %}
-                <a class="button-secondary button-secondary-solid" href="{% url 'trainer_view' %}">Dashboard</a>
-            {% else %}
-                <a class="button-secondary button-secondary-solid" href="{% url 'manage_users' %}">Admin Portal</a>
-            {% endif %}
-            <a class="button-secondary button-secondary-outline" href="{% url 'logout' %}">Logout</a>
-        {% endif %}
+{% block content %}
+<section class="page-hero">
+    <div class="page-hero-content">
+        <p class="eyebrow">Platform Capabilities</p>
+        <h1>Comprehensive Services for <span>Accredited Learning</span></h1>
+        <p>From live classes to certifications, we support both trainers and students.</p>
     </div>
+</section>
 
-    <button class="hamburger-btn">
-        <i class="fas fa-bars"></i>
-    </button>
-</header>
+<section class="services-section">
+    <div class="services-grid">
+        <article class="service-card">
+            <div class="service-icon"><i class="fas fa-video"></i></div>
+            <h3>Interactive Live Classes</h3>
+            <p>Attend live sessions and interact with trainers.</p>
+        </article>
 
-<div class="sidebar-overlay"></div>
+        <article class="service-card">
+            <div class="service-icon"><i class="fas fa-file-signature"></i></div>
+            <h3>Gamified Coding & Exams</h3>
+            <p>Timed coding challenges and instant feedback.</p>
+        </article>
 
-<aside class="sidebar">
+        <article class="service-card">
+            <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Smart Progress Analytics</h3>
+            <p>Track learning progress with analytics dashboards.</p>
+        </article>
 
-    <div class="sidebar-close">
-        <button class="close-btn">
-            <i class="fas fa-times"></i>
-        </button>
+        <article class="service-card">
+            <div class="service-icon"><i class="fas fa-brain"></i></div>
+            <h3>AI Learning Assistant</h3>
+            <p>AI-powered help for concepts and quizzes.</p>
+        </article>
+
+        <article class="service-card">
+            <div class="service-icon"><i class="fas fa-comments"></i></div>
+            <h3>Direct Instructor Support</h3>
+            <p>Communicate directly with mentors.</p>
+        </article>
+
+        <article class="service-card">
+            <div class="service-icon"><i class="fas fa-award"></i></div>
+            <h3>Verifiable Certificates</h3>
+            <p>Get certificates after course completion.</p>
+        </article>
     </div>
-
-    <nav class="sidebar-nav">
-        <a href="{% url 'index' %}" class="sidebar-link">Home</a>
-        <a href="{% url 'courses' %}" class="sidebar-link">Courses</a>
-        <a href="{% url 'about' %}" class="sidebar-link">About Us</a>
-        <a href="{% url 'services' %}" class="sidebar-link active">Services</a>
-        <a href="{% url 'faq' %}" class="sidebar-link">FAQs</a>
-        <a href="{% url 'contact' %}" class="sidebar-link">Contact</a>
-    </nav>
-
-    <form class="sidebar-searchbar" action="{% url 'courses' %}" method="GET">
-        <input type="search" name="search" placeholder="Search courses...">
-    </form>
-
-    <div class="sidebar-actions">
-        {% if user.is_authenticated %}
-            {% if user.role == 'student' %}
-                <a class="button-secondary button-secondary-solid" href="{% url 'student_view' %}">Dashboard</a>
-            {% elif user.role == 'trainer' %}
-                <a class="button-secondary button-secondary-solid" href="{% url 'trainer_view' %}">Dashboard</a>
-            {% else %}
-                <a class="button-secondary button-secondary-solid" href="{% url 'manage_users' %}">Admin Portal</a>
-            {% endif %}
-            <a class="button-secondary button-secondary-outline" href="{% url 'logout' %}">Logout</a>
-        {% endif %}
-    </div>
-
-</aside>
-
-<!-- ================= MAIN ================= -->
-<main>
-
-    <section class="page-hero">
-        <div class="page-hero-content">
-            <p class="eyebrow">Platform Capabilities</p>
-            <h1>Comprehensive Services for <span>Accredited Learning</span></h1>
-            <p>From live classes to certifications, we support both trainers and students.</p>
-        </div>
-    </section>
-
-    <section class="services-section">
-        <div class="services-grid">
-
-            <article class="service-card">
-                <div class="service-icon"><i class="fas fa-video"></i></div>
-                <h3>Interactive Live Classes</h3>
-                <p>Attend live sessions and interact with trainers.</p>
-            </article>
-
-            <article class="service-card">
-                <div class="service-icon"><i class="fas fa-file-signature"></i></div>
-                <h3>Gamified Coding & Exams</h3>
-                <p>Timed coding challenges and instant feedback.</p>
-            </article>
-
-            <article class="service-card">
-                <div class="service-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>Smart Progress Analytics</h3>
-                <p>Track learning progress with analytics dashboards.</p>
-            </article>
-
-            <article class="service-card">
-                <div class="service-icon"><i class="fas fa-brain"></i></div>
-                <h3>AI Learning Assistant</h3>
-                <p>AI-powered help for concepts and quizzes.</p>
-            </article>
-
-            <article class="service-card">
-                <div class="service-icon"><i class="fas fa-comments"></i></div>
-                <h3>Direct Instructor Support</h3>
-                <p>Communicate directly with mentors.</p>
-            </article>
-
-            <article class="service-card">
-                <div class="service-icon"><i class="fas fa-award"></i></div>
-                <h3>Verifiable Certificates</h3>
-                <p>Get certificates after course completion.</p>
-            </article>
-
-        </div>
-    </section>
-
-</main>
-
-<!-- ================= FOOTER ================= -->
-{% include "accounts/partials/footer.html" %}
-
-<script>
-const hamburgerBtn = document.querySelector('.hamburger-btn');
-const sidebar = document.querySelector('.sidebar');
-const overlay = document.querySelector('.sidebar-overlay');
-const closeBtn = document.querySelector('.close-btn');
-
-function toggleSidebar() {
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-    document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-}
-
-hamburgerBtn.addEventListener('click', toggleSidebar);
-closeBtn.addEventListener('click', toggleSidebar);
-overlay.addEventListener('click', toggleSidebar);
-</script>
-
-</body>
-</html>
+</section>
+{% endblock %}

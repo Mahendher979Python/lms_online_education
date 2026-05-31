@@ -1,191 +1,104 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
 
-    <link rel="stylesheet"
-          href="{% static 'accounts/css/auth.css' %}">
+{% block title %}Verify Registration OTP | LMS{% endblock %}
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock %}
 
-    <style>
+{% block footer %}{% endblock %}
 
-        .field-container{
-            position: relative;
-        }
+{% block content %}
+<div class="shape shape1"></div>
+<div class="shape shape2"></div>
 
-        /* =========================
-           CAPTCHA FIX
-        ========================= */
+<div class="auth-container">
+    <div class="auth-left">
+        <h3>Complete Registration</h3>
+        <p>Enter the OTP we sent to your email to complete your registration.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/4896/4896578.png" alt="Illustration" class="auth-illustration">
+    </div>
 
-        .captcha-row{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 5px;
-        }
-
-        .captcha-box img{
-            border-radius: 10px;
-            transform: scale(0.85);
-            transform-origin: left center;
-        }
-
-        .captcha-refresh-btn{
-            border: none;
-            background: #007bff;
-            color: white;
-            padding: 8px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .captcha-refresh-btn:hover{
-            background: #0056b3;
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    <div class="overlay"></div>
-
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
-
-    <div class="card">
-
+    <div class="auth-right">
         <h2>Verify Registration OTP</h2>
+        <p class="card-subtitle">OTP sent to your email. Check console for OTP (for demo).</p>
 
-        <p style="text-align: center; margin-bottom: 20px; color: #1b1b4b; font-size: 14px;">
-            OTP sent to your email. Check console for OTP (for demo).
-        </p>
+        <div class="login-panel">
+            <form method="post">
+                {% csrf_token %}
 
-        <form method="post">
-
-            {% csrf_token %}
-
-            {% for field in form %}
-
+                {% for field in form %}
                 <div class="form-group">
+                    <label>{{ field.label }}</label>
 
-                    <label>
-                        {{ field.label }}
-                    </label>
-
-                    <!-- CAPTCHA FIELD -->
                     {% if "captcha" in field.id_for_label %}
-
-                        <div class="field-container">
-
-                            <!-- CAPTCHA IMAGE + BUTTON ROW -->
-                            <div class="captcha-row">
-
-                                <div class="captcha-box">
-                                    {{ field }}
-                                </div>
-
-                                <button type="button"
-                                        class="captcha-refresh-btn"
-                                        title="Refresh Captcha">
-
-                                    <i class="fas fa-rotate-right"></i>
-
-                                </button>
-
+                    <div class="field-container">
+                        <div class="captcha-row">
+                            <div class="captcha-box">
+                                {{ field }}
                             </div>
-
+                            <button type="button" class="captcha-refresh-btn" title="Refresh Captcha">
+                                <i class="fas fa-rotate-right"></i>
+                            </button>
                         </div>
-
-                    <!-- NORMAL FIELD -->
+                    </div>
                     {% else %}
-
-                        <div class="field-container">
-
-                            {{ field }}
-
-                        </div>
-
+                    <div class="field-container">
+                        <i class="fas fa-key prefix-icon"></i>
+                        {{ field }}
+                    </div>
                     {% endif %}
 
                     {% if field.errors %}
-                        <ul class="errorlist">
-                            {% for error in field.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
                     {% endif %}
-
                 </div>
+                {% endfor %}
 
-            {% endfor %}
+                <button type="submit" class="login-btn">
+                    Verify OTP <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
 
-            <button type="submit"
-                    class="login-btn">
-
-                Verify OTP
-
-            </button>
-
-        </form>
-
-        <a href="{% url 'register' %}"
-           class="footer-link">
-
-            Back to Register
-
-        </a>
-
+            <a href="{% url 'register' %}" class="footer-link">
+                Back to Register
+            </a>
+        </div>
     </div>
+</div>
 
-    <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
+{% endblock %}
 
-            // CAPTCHA REFRESH
-            const refreshBtn =
-                document.querySelector('.captcha-refresh-btn');
-
-            if(refreshBtn){
-
-                refreshBtn.addEventListener('click', function(){
-
-                    fetch('/captcha/refresh/', {
-                        method: 'GET',
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-
-                        const captchaImg =
-                            document.querySelector('img.captcha');
-
-                        if(captchaImg){
-                            captchaImg.src = data.image_url;
-                        }
-
-                        document.getElementById('id_captcha_0').value = data.key;
-                        document.getElementById('id_captcha_1').value = '';
-
-                    })
-                    .catch(err => console.log(err));
-
-                });
-
-            }
-
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const refreshBtn = document.querySelector(".captcha-refresh-btn");
+    if (refreshBtn) {
+        refreshBtn.addEventListener("click", function() {
+            fetch("/captcha/refresh/", {
+                method: "GET",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const captchaImg = document.querySelector("img.captcha");
+                if (captchaImg) {
+                    captchaImg.src = data.image_url;
+                }
+                document.getElementById("id_captcha_0").value = data.key;
+                document.getElementById("id_captcha_1").value = "";
+            })
+            .catch(err => console.log(err));
         });
-
-    </script>
-
-</body>
-</html>
+    }
+});
+</script>
+{% endblock %}

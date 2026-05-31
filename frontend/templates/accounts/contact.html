@@ -1,449 +1,244 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | LMS eLearning</title>
+{% block title %}Contact Us | LMS eLearning{% endblock %}
 
-    <!-- CSS Dependencies -->
-    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
+{% endblock %}
 
-<body>
+{% block content %}
+<!-- Hero Section -->
+<section class="page-hero">
 
-    <!-- Premium Global Header Navbar -->
-    <header class="navbar">
+    <div class="page-hero-content">
 
-        <a class="logo" href="{% url 'index' %}" aria-label="LMS home">
-            <img src="{% static 'accounts/images/spylogo.png' %}"
-                 class="logo-img"
-                 style="height: 38px; width: auto;"
-                 alt="Logo">
+        <p class="eyebrow">Connect With Us</p>
 
-            <span class="logo-text">LMS</span>
-        </a>
+        <h1>
+            We'd Love to
+            <span>Hear From You</span>
+        </h1>
 
-        <!-- Desktop Navigation -->
-        <nav class="nav-links"
-             id="mainNavbarLinks"
-             aria-label="Main navigation">
+        <p>
+            Have operational queries, billing questions, or feedback?
+            Send our student support team a direct message and we'll
+            reply within 24 hours.
+        </p>
 
-            <a href="{% url 'index' %}" class="nav-link">Home</a>
-            <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-            <a href="{% url 'about' %}" class="nav-link">About Us</a>
-            <a href="{% url 'services' %}" class="nav-link">Services</a>
-            <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
+    </div>
 
-            <a href="{% url 'contact' %}"
-               class="nav-link active">
-                Contact
-            </a>
+</section>
 
-        </nav>
+<!-- Contact Layout -->
+<section class="contact-layout-split">
 
-        <!-- Search -->
-        <form class="searchbar"
-              role="search"
-              action="{% url 'courses' %}"
-              method="GET">
+    <!-- Contact Details -->
+    <div class="contact-details-panel">
 
-            <input type="search"
-                   name="search"
-                   placeholder="Search courses..."
-                   aria-label="Search courses">
-        </form>
+        <!-- Email -->
+        <div class="contact-meta-card">
 
-        <!-- Navbar Actions -->
-        <div class="nav-actions">
+            <div class="contact-meta-icon">
+                <i class="fas fa-envelope"></i>
+            </div>
 
-            {% if user.is_authenticated %}
+            <div class="contact-meta-text">
 
-                {% if user.role == 'student' %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'student_view' %}">
-                        Dashboard
-                    </a>
-
-                {% elif user.role == 'trainer' %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'trainer_view' %}">
-                        Dashboard
-                    </a>
-
-                {% else %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'manage_users' %}">
-                        Admin Portal
-                    </a>
-
-                {% endif %}
-
-                <a class="button-secondary button-secondary-outline"
-                   href="{% url 'logout' %}">
-                    Logout
-                </a>
-
-            {% endif %}
-
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <button class="hamburger-btn" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-
-    </header>
-
-    <!-- Sidebar Overlay -->
-    <div class="sidebar-overlay"></div>
-
-    <!-- Mobile Sidebar -->
-    <aside class="sidebar">
-
-        <div class="sidebar-close">
-            <button class="close-btn" aria-label="Close menu">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar-nav" aria-label="Mobile navigation">
-
-            <a href="{% url 'index' %}" class="sidebar-link">Home</a>
-            <a href="{% url 'courses' %}" class="sidebar-link">Courses</a>
-            <a href="{% url 'about' %}" class="sidebar-link">About Us</a>
-            <a href="{% url 'services' %}" class="sidebar-link">Services</a>
-            <a href="{% url 'faq' %}" class="sidebar-link">FAQs</a>
-
-            <a href="{% url 'contact' %}"
-               class="sidebar-link active">
-                Contact
-            </a>
-
-        </nav>
-
-        <!-- Sidebar Search -->
-        <form class="sidebar-searchbar"
-              role="search"
-              action="{% url 'courses' %}"
-              method="GET">
-
-            <input type="search"
-                   name="search"
-                   placeholder="Search courses..."
-                   aria-label="Search courses">
-        </form>
-
-        <!-- Sidebar Actions -->
-        <div class="sidebar-actions">
-
-            {% if user.is_authenticated %}
-
-                {% if user.role == 'student' %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'student_view' %}">
-                        Dashboard
-                    </a>
-
-                {% elif user.role == 'trainer' %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'trainer_view' %}">
-                        Dashboard
-                    </a>
-
-                {% else %}
-                    <a class="button-secondary button-secondary-solid"
-                       href="{% url 'manage_users' %}">
-                        Admin Portal
-                    </a>
-
-                {% endif %}
-
-                <a class="button-secondary button-secondary-outline"
-                   href="{% url 'logout' %}">
-                    Logout
-                </a>
-
-            {% endif %}
-
-        </div>
-
-    </aside>
-
-    <main>
-
-        <!-- Hero Section -->
-        <section class="page-hero">
-
-            <div class="page-hero-content">
-
-                <p class="eyebrow">Connect With Us</p>
-
-                <h1>
-                    We'd Love to
-                    <span>Hear From You</span>
-                </h1>
+                <h3>Email Student Support</h3>
 
                 <p>
-                    Have operational queries, billing questions, or feedback?
-                    Send our student support team a direct message and we'll
-                    reply within 24 hours.
+                    For course questions, billing,
+                    and credentials:
+                </p>
+
+                <a href="mailto:support@lmslearning.com">
+                    support@lmslearning.com
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Phone -->
+        <div class="contact-meta-card">
+
+            <div class="contact-meta-icon">
+                <i class="fas fa-phone-alt"></i>
+            </div>
+
+            <div class="contact-meta-text">
+
+                <h3>Call Support Desk</h3>
+
+                <p>
+                    Available Mon-Fri,
+                    9:00 AM - 6:00 PM IST:
+                </p>
+
+                <a href="tel:9998887776">
+                    +91 9998887776
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Location -->
+        <div class="contact-meta-card">
+
+            <div class="contact-meta-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+
+            <div class="contact-meta-text">
+
+                <h3>Digital HQ Campus</h3>
+
+                <p>
+                    Digital Learning Campus, sector 4,<br>
+                    Tech Hub, Hyderabad, India
                 </p>
 
             </div>
 
-        </section>
+        </div>
 
-        <!-- Contact Layout -->
-        <section class="contact-layout-split">
+    </div>
 
-            <!-- Contact Details -->
-            <div class="contact-details-panel">
+    <!-- Contact Form -->
+    <div class="contact-form-panel">
+
+        <h2>Send Us a Message</h2>
+
+        <p class="subtitle">
+            Complete the fields below to open a support ticket.
+        </p>
+
+        {% if messages %}
+            {% for message in messages %}
+
+                <div class="success-toast"
+                     style="display: flex; margin-bottom: 20px;">
+
+                    <i class="fas fa-check-circle"></i>
+
+                    <div class="success-toast-content">
+                        <h4>Success!</h4>
+                        <p>{{ message }}</p>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+        {% endif %}
+
+        <form id="premiumContactForm"
+              method="POST"
+              novalidate>
+
+            {% csrf_token %}
+
+            <div class="form-row">
+
+                <!-- Full Name -->
+                <div class="form-group-premium">
+
+                    <label for="contactName">
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper-premium">
+                        <i class="fas fa-user"></i>
+                        {{ form.name }}
+                    </div>
+
+                    {% if form.name.errors %}
+                        <span class="input-error-msg"
+                              style="display: block;">
+                            {{ form.name.errors.0 }}
+                        </span>
+                    {% endif %}
+
+                </div>
 
                 <!-- Email -->
-                <div class="contact-meta-card">
+                <div class="form-group-premium">
 
-                    <div class="contact-meta-icon">
+                    <label for="contactEmail">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper-premium">
                         <i class="fas fa-envelope"></i>
+                        {{ form.email }}
                     </div>
 
-                    <div class="contact-meta-text">
-
-                        <h3>Email Student Support</h3>
-
-                        <p>
-                            For course questions, billing,
-                            and credentials:
-                        </p>
-
-                        <a href="mailto:support@lmslearning.com">
-                            support@lmslearning.com
-                        </a>
-
-                    </div>
-
-                </div>
-
-                <!-- Phone -->
-                <div class="contact-meta-card">
-
-                    <div class="contact-meta-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-
-                    <div class="contact-meta-text">
-
-                        <h3>Call Support Desk</h3>
-
-                        <p>
-                            Available Mon-Fri,
-                            9:00 AM - 6:00 PM IST:
-                        </p>
-
-                        <a href="tel:9998887776">
-                            +91 9998887776
-                        </a>
-
-                    </div>
-
-                </div>
-
-                <!-- Location -->
-                <div class="contact-meta-card">
-
-                    <div class="contact-meta-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-
-                    <div class="contact-meta-text">
-
-                        <h3>Digital HQ Campus</h3>
-
-                        <p>
-                            Digital Learning Campus, sector 4,<br>
-                            Tech Hub, Hyderabad, India
-                        </p>
-
-                    </div>
+                    {% if form.email.errors %}
+                        <span class="input-error-msg"
+                              style="display: block;">
+                            {{ form.email.errors.0 }}
+                        </span>
+                    {% endif %}
 
                 </div>
 
             </div>
 
-            <!-- Contact Form -->
-            <div class="contact-form-panel">
+            <!-- Subject -->
+            <div class="form-group-premium">
 
-                <h2>Send Us a Message</h2>
+                <label for="contactSubject">
+                    Subject
+                </label>
 
-                <p class="subtitle">
-                    Complete the fields below to open a support ticket.
-                </p>
+                <div class="input-wrapper-premium">
+                    <i class="fas fa-info-circle"></i>
+                    {{ form.subject }}
+                </div>
 
-                {% if messages %}
-                    {% for message in messages %}
-
-                        <div class="success-toast"
-                             style="display: flex; margin-bottom: 20px;">
-
-                            <i class="fas fa-check-circle"></i>
-
-                            <div class="success-toast-content">
-                                <h4>Success!</h4>
-                                <p>{{ message }}</p>
-                            </div>
-
-                        </div>
-
-                    {% endfor %}
+                {% if form.subject.errors %}
+                    <span class="input-error-msg"
+                          style="display: block;">
+                        {{ form.subject.errors.0 }}
+                    </span>
                 {% endif %}
 
-                <form id="premiumContactForm"
-                      method="POST"
-                      novalidate>
+            </div>
 
-                    {% csrf_token %}
+            <!-- Message -->
+            <div class="form-group-premium">
 
-                    <div class="form-row">
+                <label for="contactMessage">
+                    Message Details
+                </label>
 
-                        <!-- Full Name -->
-                        <div class="form-group-premium">
+                <div class="input-wrapper-premium">
+                    {{ form.message }}
+                </div>
 
-                            <label for="contactName">
-                                Full Name
-                            </label>
-
-                            <div class="input-wrapper-premium">
-                                <i class="fas fa-user"></i>
-                                {{ form.name }}
-                            </div>
-
-                            {% if form.name.errors %}
-                                <span class="input-error-msg"
-                                      style="display: block;">
-                                    {{ form.name.errors.0 }}
-                                </span>
-                            {% endif %}
-
-                        </div>
-
-                        <!-- Email -->
-                        <div class="form-group-premium">
-
-                            <label for="contactEmail">
-                                Email Address
-                            </label>
-
-                            <div class="input-wrapper-premium">
-                                <i class="fas fa-envelope"></i>
-                                {{ form.email }}
-                            </div>
-
-                            {% if form.email.errors %}
-                                <span class="input-error-msg"
-                                      style="display: block;">
-                                    {{ form.email.errors.0 }}
-                                </span>
-                            {% endif %}
-
-                        </div>
-
-                    </div>
-
-                    <!-- Subject -->
-                    <div class="form-group-premium">
-
-                        <label for="contactSubject">
-                            Subject
-                        </label>
-
-                        <div class="input-wrapper-premium">
-                            <i class="fas fa-info-circle"></i>
-                            {{ form.subject }}
-                        </div>
-
-                        {% if form.subject.errors %}
-                            <span class="input-error-msg"
-                                  style="display: block;">
-                                {{ form.subject.errors.0 }}
-                            </span>
-                        {% endif %}
-
-                    </div>
-
-                    <!-- Message -->
-                    <div class="form-group-premium">
-
-                        <label for="contactMessage">
-                            Message Details
-                        </label>
-
-                        <div class="input-wrapper-premium">
-                            {{ form.message }}
-                        </div>
-
-                        {% if form.message.errors %}
-                            <span class="input-error-msg"
-                                  style="display: block;">
-                                {{ form.message.errors.0 }}
-                            </span>
-                        {% endif %}
-
-                    </div>
-
-                    <!-- Submit -->
-                    <button type="submit" class="btn-premium-send">
-                        Send Message
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-
-                </form>
+                {% if form.message.errors %}
+                    <span class="input-error-msg"
+                          style="display: block;">
+                        {{ form.message.errors.0 }}
+                    </span>
+                {% endif %}
 
             </div>
 
-        </section>
+            <!-- Submit -->
+            <button type="submit" class="btn-premium-send">
+                Send Message
+                <i class="fas fa-paper-plane"></i>
+            </button>
 
-    </main>
+        </form>
 
-    <!-- Footer -->
-    {% include "accounts/partials/footer.html" %}
+    </div>
 
-    <!-- Scripts -->
-    <script src="{% static 'accounts/js/pages.js' %}"></script>
+</section>
+{% endblock %}
 
-    <script>
-
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarOverlay = document.querySelector('.sidebar-overlay');
-        const closeBtn = document.querySelector('.close-btn');
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-
-        function toggleSidebar() {
-
-            sidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
-
-            document.body.style.overflow =
-                sidebar.classList.contains('active')
-                ? 'hidden'
-                : '';
-        }
-
-        hamburgerBtn.addEventListener('click', toggleSidebar);
-        closeBtn.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', toggleSidebar);
-        });
-
-    </script>
-
-</body>
-
-</html>
+{% block extra_js %}
+<script src="{% static 'accounts/js/pages.js' %}"></script>
+{% endblock %}

@@ -1,240 +1,91 @@
+{% extends 'base.html' %}
 {% load static %}
-{# {% load socialaccount %} #}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | LMS</title>
+{% block title %}Login | LMS{% endblock %}
 
-    <!-- Unified 3D Framework Stylesheet -->
-    <link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
-    <!-- FontAwesome Elements -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock %}
 
-<body>
+{% block footer %}{% endblock %}
 
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
+{% block content %}
+<div class="shape shape1"></div>
+<div class="shape shape2"></div>
 
-
-    <header class="landing-header">
-        <div class="nav-container">
-            <a href="{% url 'index' %}" class="nav-logo">
-                <img src="{% static 'accounts/images/spylogo.png' %}" class="logo-img" alt="Logo">
-                <span class="logo-text">LMS</span>
-            </a>
-
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-
-            <nav class="nav-menu" id="navMenu">
-                <a href="{% url 'index' %}" class="nav-link">Home</a>
-                <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-                <a href="{% url 'about' %}" class="nav-link">About Us</a>
-                <a href="{% url 'services' %}" class="nav-link">Services</a>
-                <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
-                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <div class="auth-wrapper">
-        <div class="card" id="interactiveCard">
-
-            <h2>Welcome Back</h2>
-            <div class="card-subtitle">Sign in to continue your path</div>
-
-            <div class="login-panel" id="login-panel">
-                <form method="POST">
-                    {% csrf_token %}
-
-                    {% if form.non_field_errors %}
-                    <div class="non-field-errors">
-                        {{ form.non_field_errors }}
-                    </div>
-                    {% endif %}
-
-                    <div class="form-group">
-                        <label>Email / Username</label>
-                        <div class="field-container">
-                            <i class="fas fa-envelope prefix-icon"></i>
-                            {{ form.username }}
-                        </div>
-                        {{ form.username.errors }}
-                    </div>
-
-                    <div class="form-group">
-                        <label>Password</label>
-                        <div class="field-container">
-                            <i class="fas fa-lock prefix-icon"></i>
-                            {{ form.password }}
-                            <i class="fas fa-eye toggle-password"></i>
-                        </div>
-                        {{ form.password.errors }}
-                    </div>
-
-                    <a href="{% url 'forgot_password' %}" class="forgot-password-link">Forgot Password?</a>
-
-                    <button type="submit" class="login-btn">
-                        Login <i class="fas fa-arrow-right"></i>
-                    </button>
-                </form>
-
-                {% comment %}
-                <div class="or-divider">OR</div>
-
-                <a href="{% provider_login_url 'google' %}" class="google-btn">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
-                    Continue with Google
-                </a>
-                {% endcomment %}
-
-                <a href="{% url 'register' %}" class="footer-link">
-                    Don't have an account? <span class="highlight">Register</span>
-                </a>
-
-                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
-                    <a href="#" id="terms-link" class="footer-link" style="margin-top: 0; font-size:12px;">Terms &amp; Privacy</a>
-                    <a href="#" id="conditions-link" class="footer-link" style="margin-top: 0; font-size:12px;">Conditions</a>
-                </div>
-
-                <div class="copyright-footer">
-                    © 2026 LMS. All rights reserved.
-                </div>
-            </div>
-
-            <section class="login-legal-panel" id="terms-panel" aria-hidden="true" hidden>
-                <button type="button" class="legal-back-btn" data-close-legal>
-                    <i class="fas fa-arrow-left"></i> Back to Login
-                </button>
-                <h2>Terms &amp; Privacy</h2>
-                <div class="terms-meta">Last updated: May 18, 2026</div>
-                <div class="terms-content">
-                    <p>Welcome to LMS. By signing in or signing up, you agree to use the platform responsibly and protect your account.</p>
-                    <h3>1. Account Protection</h3>
-                    <p>Keep your login details private. Sharing account access may violate platform security rules.</p>
-                    <h3>2. Content Guidelines</h3>
-                    <p>Do not upload harmful files, scripts, spam, or any content that disrupts the learning experience.</p>
-                    <h3>3. Privacy</h3>
-                    <p>Your account information is used to provide access to courses, attendance, certificates, and learning progress features.</p>
-                </div>
-            </section>
-
-            <section class="login-legal-panel" id="conditions-panel" aria-hidden="true" hidden>
-                <button type="button" class="legal-back-btn" data-close-legal>
-                    <i class="fas fa-arrow-left"></i> Back to Login
-                </button>
-                <h2>Conditions</h2>
-                <div class="terms-meta">Last updated: May 18, 2026</div>
-                <div class="terms-content">
-                    <h3>1. Payment Terms</h3>
-                    <p>All payments for courses are processed through the platform and are subject to these conditions.</p>
-                    <h3>2. Refund Policy</h3>
-                    <ul>
-                        <li>Refund requests must be submitted within 7 days of purchase.</li>
-                        <li>Refunds are processed within 5-7 business days.</li>
-                        <li>Partial refunds may be offered for completed course access.</li>
-                    </ul>
-                    <h3>3. Course Access</h3>
-                    <p>Course access is granted after successful payment and remains active for the duration specified in the course details.</p>
-                    <h3>4. Content Usage</h3>
-                    <ul>
-                        <li>Course materials are for personal use only.</li>
-                        <li>Sharing or redistributing content is prohibited.</li>
-                        <li>Downloading content may be restricted.</li>
-                    </ul>
-                    <h3>5. Termination</h3>
-                    <p>We may terminate access when these conditions are violated.</p>
-                </div>
-            </section>
-
-        </div>
+<div class="auth-container">
+    <div class="auth-left">
+        <h3>Welcome Back!</h3>
+        <p>Sign in to continue your path</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/4183/4183315.png" alt="Illustration" class="auth-illustration">
     </div>
 
-    <script>
-        // Modern 3D Card tilt calculation script based on real mouse positions
-        const card = document.getElementById('interactiveCard');
-        document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 45;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 45;
-            if (window.innerWidth > 768) {
-                card.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
-            }
-        });
+    <div class="auth-right">
+        <h2>Sign In</h2>
+        <p class="card-subtitle">Access your courses, track progress, and continue your learning journey.</p>
 
-        document.addEventListener('mouseleave', () => {
-            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        });
+        <div class="login-panel">
+            <form method="POST">
+                {% csrf_token %}
 
-        // Password Visual View Toggle Loop
-        const togglePassword = document.querySelector(".toggle-password");
-        togglePassword.addEventListener("click", function () {
-            const passwordInput = this.parentElement.querySelector("input");
-            const type = passwordInput.type === "password" ? "text" : "password";
-            passwordInput.type = type;
-            this.classList.toggle("fa-eye");
-            this.classList.toggle("fa-eye-slash");
-        });
+                {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
 
-        // Mobile Navbar Handler
-        const menuToggle = document.getElementById("menuToggle");
-        const navMenu = document.getElementById("navMenu");
-        menuToggle.addEventListener("click", () => {
-            navMenu.classList.toggle("active");
-        });
+                <div class="form-group">
+                    <label>Email / Username</label>
+                    <div class="field-container">
+                        <i class="fas fa-envelope prefix-icon"></i>
+                        {{ form.username }}
+                    </div>
+                    {{ form.username.errors }}
+                </div>
 
-        const termsLink = document.getElementById('terms-link');
-        const conditionsLink = document.getElementById('conditions-link');
-        const loginPanel = document.getElementById('login-panel');
-        const termsPanel = document.getElementById('terms-panel');
-        const conditionsPanel = document.getElementById('conditions-panel');
-        const legalPanels = [termsPanel, conditionsPanel];
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="field-container">
+                        <i class="fas fa-lock prefix-icon"></i>
+                        {{ form.password }}
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    {{ form.password.errors }}
+                </div>
 
-        const showLegalPanel = (panel) => {
-            loginPanel.hidden = true;
-            legalPanels.forEach(item => {
-                item.hidden = item !== panel;
-                item.classList.toggle('active', item === panel);
-                item.setAttribute('aria-hidden', item === panel ? 'false' : 'true');
-            });
-        };
+                <a href="{% url 'forgot_password' %}" class="forgot-password-link">Forgot Password?</a>
 
-        const hideLegalPanels = () => {
-            loginPanel.hidden = false;
-            legalPanels.forEach(item => {
-                item.hidden = true;
-                item.classList.remove('active');
-                item.setAttribute('aria-hidden', 'true');
-            });
-        };
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a href="{% url 'terms_page' %}">Terms & Conditions</a> and <a href="{% url 'privacy_page' %}">Privacy Policy</a>.</label>
+                </div>
 
-        if (termsLink) {
-            termsLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showLegalPanel(termsPanel);
-            });
-        }
+                <button type="submit" class="login-btn">
+                    Login <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
 
-        if (conditionsLink) {
-            conditionsLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showLegalPanel(conditionsPanel);
-            });
-        }
-
-        document.querySelectorAll('[data-close-legal]').forEach(button => {
-            button.addEventListener('click', hideLegalPanels);
-        });
-
-    </script>
-
-</body>
+            <a href="{% url 'register' %}" class="footer-link">
+                Don't have an account? <span class="highlight">Register</span>
+            </a>
+        </div>
+    </div>
+</div>
 
 
-</html>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const togglePassword = document.querySelector(".toggle-password");
+    togglePassword.addEventListener("click", function () {
+        const passwordInput = this.parentElement.querySelector("input");
+        const type = passwordInput.type === "password" ? "text" : "password";
+        passwordInput.type = type;
+        this.classList.toggle("fa-eye");
+        this.classList.toggle("fa-eye-slash");
+    });
+</script>
+{% endblock %}

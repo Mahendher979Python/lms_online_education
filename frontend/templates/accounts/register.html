@@ -1,279 +1,119 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account | LMS</title>
+{% block title %}Create Account | LMS{% endblock %}
 
-    <!-- Unified 3D Framework Stylesheet -->
-    <link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
-    <!-- FontAwesome Elements -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock %}
 
-<body>
+{% block footer %}{% endblock %}
 
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
+{% block content %}
+<div class="shape shape1"></div>
+<div class="shape shape2"></div>
 
-    <header class="landing-header">
-        <div class="nav-container">
-            <a href="{% url 'index' %}" class="nav-logo">
-                <img src="{% static 'accounts/images/spylogo.png' %}" class="logo-img" alt="Logo">
-                <span class="logo-text">LMS</span>
-            </a>
-
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-
-            <nav class="nav-menu" id="navMenu">
-                <a href="{% url 'index' %}" class="nav-link">Home</a>
-                <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-                <a href="{% url 'about' %}" class="nav-link">About Us</a>
-                <a href="{% url 'services' %}" class="nav-link">Services</a>
-                <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
-                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <div class="auth-wrapper">
-        <div class="card" id="interactiveCard">
-
-            <h2>Create Account</h2>
-            <div class="card-subtitle">Sign up for immediate student access</div>
-
-            <div class="login-panel" id="register-panel">
-                <form method="post">
-                    {% csrf_token %}
-
-                    {% if form.non_field_errors %}
-                    <div class="non-field-errors">
-                        {{ form.non_field_errors }}
-                    </div>
-                    {% endif %}
-
-                    <!-- Username -->
-                    <div class="form-group">
-                        <label>Username</label>
-                        <div class="field-container">
-                            <i class="fas fa-user prefix-icon"></i>
-                            {{ form.username }}
-                        </div>
-                        {{ form.username.errors }}
-                    </div>
-
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <div class="field-container">
-                            <i class="fas fa-envelope prefix-icon"></i>
-                            {{ form.email }}
-                        </div>
-                        {{ form.email.errors }}
-                    </div>
-
-                    <!-- Phone -->
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <div class="field-container">
-                            <i class="fas fa-phone prefix-icon"></i>
-                            {{ form.phone }}
-                        </div>
-                        {{ form.phone.errors }}
-                    </div>
-
-                    <!-- Password -->
-                    <div class="form-group">
-                        <label>Password</label>
-                        <div class="field-container">
-                            <i class="fas fa-lock prefix-icon"></i>
-                            {{ form.password1 }}
-                            <i class="fas fa-eye toggle-password"></i>
-                        </div>
-                        {{ form.password1.errors }}
-                    </div>
-
-                    <!-- Confirm Password -->
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <div class="field-container">
-                            <i class="fas fa-lock prefix-icon"></i>
-                            {{ form.password2 }}
-                            <i class="fas fa-eye toggle-password"></i>
-                        </div>
-                        {{ form.password2.errors }}
-                    </div>
-
-                    <button type="submit" class="login-btn">
-                        Sign Up <i class="fas fa-arrow-right"></i>
-                    </button>
-                </form>
-
-                <a href="{% url 'login' %}" class="footer-link">
-                    Already have an account? <span class="highlight">Sign in</span>
-                </a>
-
-                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
-                    <a href="#" id="terms-link" class="footer-link" style="margin-top: 0; font-size:12px;">Terms &amp;
-                        Privacy</a>
-                    <a href="#" id="conditions-link" class="footer-link"
-                        style="margin-top: 0; font-size:12px;">Conditions</a>
-                </div>
-
-                <div class="copyright-footer">
-                    © 2026 LMS. All rights reserved.
-                </div>
-            </div>
-
-            <section class="login-legal-panel" id="terms-panel" aria-hidden="true" hidden>
-                <button type="button" class="legal-back-btn" data-close-legal>
-                    <i class="fas fa-arrow-left"></i> Back to Register
-                </button>
-                <h2>Terms &amp; Privacy</h2>
-                <div class="terms-meta">Last updated: May 18, 2026</div>
-                <div class="terms-content">
-                    <p>Welcome to LMS. By signing in or signing up, you agree to use the platform responsibly and protect your account.</p>
-                    <h3>1. Account Protection</h3>
-                    <p>Keep your login details private. Sharing account access may violate platform security rules.</p>
-                    <h3>2. Content Guidelines</h3>
-                    <p>Do not upload harmful files, scripts, spam, or any content that disrupts the learning experience.</p>
-                    <h3>3. Privacy</h3>
-                    <p>Your account information is used to provide access to courses, attendance, certificates, and learning progress features.</p>
-                </div>
-            </section>
-
-            <section class="login-legal-panel" id="conditions-panel" aria-hidden="true" hidden>
-                <button type="button" class="legal-back-btn" data-close-legal>
-                    <i class="fas fa-arrow-left"></i> Back to Register
-                </button>
-                <h2>Conditions</h2>
-                <div class="terms-meta">Last updated: May 18, 2026</div>
-                <div class="terms-content">
-                    <h3>1. Payment Terms</h3>
-                    <p>All payments for courses are processed through the platform and are subject to these conditions.</p>
-                    <h3>2. Refund Policy</h3>
-                    <ul>
-                        <li>Refund requests must be submitted within 7 days of purchase.</li>
-                        <li>Refunds are processed within 5-7 business days.</li>
-                        <li>Partial refunds may be offered for completed course access.</li>
-                    </ul>
-                    <h3>3. Course Access</h3>
-                    <p>Course access is granted after successful payment and remains active for the duration specified in the course details.</p>
-                    <h3>4. Content Usage</h3>
-                    <ul>
-                        <li>Course materials are for personal use only.</li>
-                        <li>Sharing or redistributing content is prohibited.</li>
-                        <li>Downloading content may be restricted.</li>
-                    </ul>
-                    <h3>5. Termination</h3>
-                    <p>We may terminate access when these conditions are violated.</p>
-                </div>
-            </section>
-
-        </div>
+<div class="auth-container">
+    <div class="auth-left">
+        <h3>Join Us Today!</h3>
+        <p>Create your account and start learning from expert instructors today.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Illustration" class="auth-illustration">
     </div>
 
-    <script>
+    <div class="auth-right">
+        <h2>Sign Up</h2>
+        <p class="card-subtitle">Let's get you set up with an account to access all courses.</p>
+
+        <div class="login-panel">
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <div class="field-container">
+                        <i class="fas fa-user prefix-icon"></i>
+                        {{ form.username }}
+                    </div>
+                    {{ form.username.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div class="field-container">
+                        <i class="fas fa-envelope prefix-icon"></i>
+                        {{ form.email }}
+                    </div>
+                    {{ form.email.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <div class="field-container">
+                        <i class="fas fa-phone prefix-icon"></i>
+                        {{ form.phone }}
+                    </div>
+                    {{ form.phone.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="field-container">
+                        <i class="fas fa-lock prefix-icon"></i>
+                        {{ form.password1 }}
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    {{ form.password1.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <div class="field-container">
+                        <i class="fas fa-lock prefix-icon"></i>
+                        {{ form.password2 }}
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    {{ form.password2.errors }}
+                </div>
+
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a href="{% url 'terms_page' %}">Terms & Conditions</a> and <a href="{% url 'privacy_page' %}">Privacy Policy</a>.</label>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Sign Up <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <a href="{% url 'login' %}" class="footer-link">
+                Already have an account? <span class="highlight">Sign In</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
 document.addEventListener("DOMContentLoaded", () => {
-
-    // =========================
-    // 3D Card Interaction
-    // =========================
-    const card = document.getElementById('interactiveCard');
-
-    if (card) {
-        document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 45;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 45;
-
-            if (window.innerWidth > 768) {
-                card.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
-            }
-        });
-
-        document.addEventListener('mouseleave', () => {
-            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        });
-    }
-
-    // =========================
-    // Password Toggle
-    // =========================
-    document.querySelectorAll('.toggle-password').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const input = this.parentElement.querySelector('input');
+    const toggleBtns = document.querySelectorAll(".toggle-password");
+    toggleBtns.forEach(function(toggleBtn) {
+        toggleBtn.addEventListener("click", function () {
+            const input = this.parentElement.querySelector("input");
             if (!input) return;
-
-            input.type = input.type === 'password' ? 'text' : 'password';
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
+            input.type = input.type === "password" ? "text" : "password";
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
         });
     });
-
-    // =========================
-    // Mobile Menu
-    // =========================
-    const menuToggle = document.getElementById("menuToggle");
-    const navMenu = document.getElementById("navMenu");
-
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener("click", () => {
-            navMenu.classList.toggle("active");
-        });
-    }
-
-    const termsLink = document.getElementById('terms-link');
-    const conditionsLink = document.getElementById('conditions-link');
-    const registerPanel = document.getElementById('register-panel');
-    const termsPanel = document.getElementById('terms-panel');
-    const conditionsPanel = document.getElementById('conditions-panel');
-    const legalPanels = [termsPanel, conditionsPanel];
-
-    const showLegalPanel = (panel) => {
-        registerPanel.hidden = true;
-        legalPanels.forEach(item => {
-            item.hidden = item !== panel;
-            item.classList.toggle('active', item === panel);
-            item.setAttribute('aria-hidden', item === panel ? 'false' : 'true');
-        });
-    };
-
-    const hideLegalPanels = () => {
-        registerPanel.hidden = false;
-        legalPanels.forEach(item => {
-            item.hidden = true;
-            item.classList.remove('active');
-            item.setAttribute('aria-hidden', 'true');
-        });
-    };
-
-    if (termsLink) {
-        termsLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showLegalPanel(termsPanel);
-        });
-    }
-
-    if (conditionsLink) {
-        conditionsLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showLegalPanel(conditionsPanel);
-        });
-    }
-
-    document.querySelectorAll('[data-close-legal]').forEach(button => {
-        button.addEventListener('click', hideLegalPanels);
-    });
-
 });
 </script>
-</body>
-
-
-</html>
+{% endblock %}

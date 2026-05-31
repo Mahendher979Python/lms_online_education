@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LMS eLearning{% endblock %}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="#3b82f6">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <a class="logo" href="{% url 'index' %}" aria-label="LMS home">
+            <img src="{% static 'accounts/images/spylogo.png' %}"
+                class="logo-img"
+                style="height: 55px; width: auto;"
+                alt="LMS eLearning Logo">
+        </a>
+
+        <nav class="nav-links" id="mainNavbarLinks" aria-label="Main navigation">
+            <a href="{% url 'index' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
+            <a href="{% url 'courses' %}" class="nav-link {% if request.path == '/courses/' %}active{% endif %}">Courses</a>
+            <a href="{% url 'about' %}" class="nav-link {% if request.path == '/about/' %}active{% endif %}">About Us</a>
+            <a href="{% url 'services' %}" class="nav-link {% if request.path == '/services/' %}active{% endif %}">Services</a>
+            <a href="{% url 'faq' %}" class="nav-link {% if request.path == '/faq/' %}active{% endif %}">FAQs</a>
+            <a href="{% url 'contact' %}" class="nav-link {% if request.path == '/contact/' %}active{% endif %}">Contact</a>
+        </nav>
+
+        <form class="searchbar" role="search" action="{% url 'courses' %}" method="GET">
+            <input type="search"
+                name="search"
+                placeholder="Search courses..."
+                aria-label="Search courses">
+        </form>
+
+        <div class="nav-actions">
+            <a class="button-secondary" href="{% url 'login' %}">Sign in</a>
+        </div>
+
+        <button class="hamburger-btn" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay"></div>
+
+    <aside class="sidebar">
+
+        <div class="sidebar-close">
+            <button class="close-btn" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Mobile navigation">
+            <a href="{% url 'index' %}" class="sidebar-link {% if request.path == '/' %}active{% endif %}">Home</a>
+            <a href="{% url 'courses' %}" class="sidebar-link {% if request.path == '/courses/' %}active{% endif %}">Courses</a>
+            <a href="{% url 'about' %}" class="sidebar-link {% if request.path == '/about/' %}active{% endif %}">About Us</a>
+            <a href="{% url 'services' %}" class="sidebar-link {% if request.path == '/services/' %}active{% endif %}">Services</a>
+            <a href="{% url 'faq' %}" class="sidebar-link {% if request.path == '/faq/' %}active{% endif %}">FAQs</a>
+            <a href="{% url 'contact' %}" class="sidebar-link {% if request.path == '/contact/' %}active{% endif %}">Contact</a>
+        </nav>
+
+        <form class="sidebar-searchbar"
+            role="search"
+            action="{% url 'courses' %}"
+            method="GET">
+
+            <input type="search"
+                name="search"
+                placeholder="Search courses..."
+                aria-label="Search courses">
+        </form>
+
+        <div class="sidebar-actions">
+            <a class="button-secondary" href="{% url 'login' %}">Sign in</a>
+        </div>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% block footer %}
+        {% include "accounts/partials/footer.html" %}
+    {% endblock %}
+
+    <!-- Sidebar Script -->
+    <script>
+        const hamburgerBtn = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarOverlay = document.querySelector('.sidebar-overlay');
+        const closeBtn = document.querySelector('.close-btn');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+        }
+
+        hamburgerBtn.addEventListener('click', toggleSidebar);
+        closeBtn.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', toggleSidebar);
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>

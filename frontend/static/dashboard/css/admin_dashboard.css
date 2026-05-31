@@ -45,8 +45,15 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     padding: 28px;
-    transition: .4s ease;
+    transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.premium-stat-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(-3deg) scale(1.02);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
 }
 
 .premium-stat-card-icon {
@@ -103,6 +110,13 @@
     padding: 28px;
     margin: 0 32px 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.premium-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
 .premium-section h3 {
@@ -130,8 +144,14 @@
     border-radius: 24px;
     padding: 24px;
     overflow: hidden !important;
-    transition: .4s ease;
+    transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transform-style: preserve-3d;
+}
+
+.premium-chart-card:hover {
+    transform: translateY(-8px) rotateX(3deg) scale(1.01);
+    box-shadow: 0 18px 38px rgba(139, 92, 246, 0.3);
 }
 
 .premium-chart-card h3 {
@@ -150,41 +170,41 @@
    LIGHT THEME OVERRIDES
    ========================================== */
 
-body:not(.dark) .premium-header h2 {
+body.light .premium-header h2 {
     background: linear-gradient(135deg, #1e293b, #3b82f6);
 }
 
-body:not(.dark) .premium-stat-card {
+body.light .premium-stat-card {
     background: linear-gradient(145deg, #ffffff, #f8fafc);
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-body:not(.dark) .premium-stat-card-value {
+body.light .premium-stat-card-value {
     color: #1e293b;
 }
 
-body:not(.dark) .premium-stat-card-label {
+body.light .premium-stat-card-label {
     color: #64748b;
 }
 
-body:not(.dark) .premium-section {
+body.light .premium-section {
     background: linear-gradient(145deg, #ffffff, #f8fafc);
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-body:not(.dark) .premium-section h3 {
+body.light .premium-section h3 {
     color: #1e293b;
 }
 
-body:not(.dark) .premium-chart-card {
+body.light .premium-chart-card {
     background: linear-gradient(145deg, #ffffff, #f8fafc);
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-body:not(.dark) .premium-chart-card h3 {
+body.light .premium-chart-card h3 {
     color: #1e293b;
 }
 

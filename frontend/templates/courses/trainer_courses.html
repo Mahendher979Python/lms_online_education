@@ -140,6 +140,7 @@
 </div>
 
 <!-- PAGINATION -->
+{% if courses.paginator.num_pages > 1 %}
 <div class="pagination">
 
     {% if courses.has_previous %}
@@ -159,6 +160,7 @@
     {% endif %}
 
 </div>
+{% endif %}
 
 <script src="{% static 'courses/js/trainer_courses.js' %}"></script>
 

@@ -2,13 +2,22 @@
 {% block content %}
 {% load static %}
 
-<link rel="stylesheet"
-href="{% static 'courses/css/course_form.css' %}">
-<div class="form-container">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{% static 'courses/css/course_form.css' %}">
 
-  <h2 class="form-title">
-    Create Course
-</h2>
+<!-- Background gradient orbs -->
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+<div class="bg-blob blob-3"></div>
+
+<!-- Page wrapper -->
+<div class="page-wrapper">
+
+  <div class="form-container">
+
+    <h2 class="form-title">
+      <i class="fas fa-book"></i> Create Course
+    </h2>
 
     <!-- GLOBAL ERRORS -->
     {% if form.errors %}
@@ -22,19 +31,19 @@ href="{% static 'courses/css/course_form.css' %}">
 
         <!-- TITLE -->
         <div class="form-group">
-            <label>Course Title</label>
+            <label><i class="fas fa-heading"></i> Course Title</label>
             {{ form.title }}
         </div>
 
         <!-- DESCRIPTION -->
         <div class="form-group">
-            <label>Description</label>
+            <label><i class="fas fa-align-left"></i> Description</label>
             {{ form.description }}
         </div>
 
         <!-- COURSE TYPE -->
         <div class="form-group">
-            <label>Course Type</label>
+            <label><i class="fas fa-tags"></i> Course Type</label>
 
             <div class="course-type-box">
 
@@ -45,7 +54,7 @@ href="{% static 'courses/css/course_form.css' %}">
                         value="free"
                         checked
                     >
-                    🆓 Free Course
+                    <i class="fas fa-free-code-camp"></i> Free Course
                 </label>
 
                 <label class="course-type-option" id="paidOption">
@@ -54,7 +63,7 @@ href="{% static 'courses/css/course_form.css' %}">
                         name="course_type"
                         value="paid"
                     >
-                    💰 Paid Course
+                    <i class="fas fa-rupee-sign"></i> Paid Course
                 </label>
 
             </div>
@@ -62,7 +71,7 @@ href="{% static 'courses/css/course_form.css' %}">
 
         <!-- PRICE -->
         <div class="form-group hidden" id="priceField">
-            <label>Course Price</label>
+            <label><i class="fas fa-money-bill-wave"></i> Course Price</label>
 
             <div class="price-wrapper">
                 <span>₹</span>
@@ -74,6 +83,7 @@ href="{% static 'courses/css/course_form.css' %}">
                     value="{{ form.price.value|default:'0' }}"
                     step="0.01"
                     min="0"
+                    placeholder="Enter course price"
                 >
             </div>
 
@@ -90,13 +100,13 @@ href="{% static 'courses/css/course_form.css' %}">
 
         <!-- THUMBNAIL -->
         <div class="form-group">
-            <label>Thumbnail</label>
+            <label><i class="fas fa-image"></i> Thumbnail</label>
             {{ form.thumbnail }}
         </div>
 
         <!-- DEMO VIDEO -->
         <div class="form-group">
-            <label>Demo Video (Free Preview)</label>
+            <label><i class="fas fa-video"></i> Demo Video (Free Preview)</label>
             {{ form.demo_video }}
 
             <div class="help-text">
@@ -106,7 +116,7 @@ href="{% static 'courses/css/course_form.css' %}">
 
         <!-- FULL VIDEO -->
         <div class="form-group">
-            <label>Full Course Video</label>
+            <label><i class="fas fa-film"></i> Full Course Video</label>
             {{ form.video }}
 
             <div class="help-text">
@@ -116,7 +126,7 @@ href="{% static 'courses/css/course_form.css' %}">
 
         <!-- PDF MATERIAL -->
         <div class="form-group">
-            <label>Material</label>
+            <label><i class="fas fa-file-pdf"></i> Material</label>
             {{ form.material }}
         </div>
 
@@ -124,12 +134,12 @@ href="{% static 'courses/css/course_form.css' %}">
         {% if request.user.role == 'admin' %}
 
         <div class="form-group">
-            <label>Assign Trainer</label>
+            <label><i class="fas fa-user-tie"></i> Assign Trainer</label>
             {{ form.trainer }}
         </div>
 
         <div class="form-group">
-            <label>Assign Students</label>
+            <label><i class="fas fa-users"></i> Assign Students</label>
             {{ form.students }}
 
             <div class="help-text">
@@ -141,10 +151,12 @@ href="{% static 'courses/css/course_form.css' %}">
 
         <!-- SUBMIT BUTTON -->
         <button type="submit" class="btn">
-            💾 Create Course
+            <i class="fas fa-save"></i> Create Course
         </button>
 
     </form>
+
+  </div>
 
 </div>
 

@@ -4,60 +4,86 @@
 
 {% load static %}
 
-<link rel="stylesheet"
-href="{% static 'courses/css/edit_topic.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{% static 'courses/css/edit_topic.css' %}">
 
-<div class="form-container">
+<!-- Background gradient orbs -->
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+<div class="bg-blob blob-3"></div>
 
-    <h2>✏️ Edit Topic</h2>
+<!-- Page wrapper -->
+<div class="page-wrapper">
 
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+    <div class="form-container">
 
-        <!-- TOPIC NAME -->
-        <label>Topic Name</label>
-        <input type="text" name="name" value="{{ topic.name }}" required>
+            <div class="header-buttons">
+                {% if request.user.role == 'admin' %}
+                    <a href="{% url 'admin_create_topic' %}" class="back-btn">
+                {% else %}
+                    <a href="{% url 'trainer_courses' %}" class="back-btn">
+                {% endif %}
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+            </div>
 
-        <!-- THUMBNAIL -->
-        <label>Thumbnail</label>
-        <input type="file" name="thumbnail">
+            <h2><i class="fas fa-edit"></i> Edit Topic</h2>
 
-        {% if topic.thumbnail %}
-        <div class="preview-box">
-            <b>Current Thumbnail:</b><br>
-            <img src="{{ topic.thumbnail.url }}" width="150">
-        </div>
-        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
 
-        <!-- VIDEO -->
-        <label>Video</label>
-        <input type="file" name="video">
+            <!-- TOPIC NAME -->
+            <div class="form-group">
+                <label><i class="fas fa-tag"></i> Topic Name</label>
+                <input type="text" name="name" value="{{ topic.name }}" placeholder="Enter topic name" required>
+            </div>
 
-        {% if topic.video %}
-        <div class="preview-box">
-            <b>Current Video:</b>
-            <p>🎥 Video already uploaded</p>
-        </div>
-        {% endif %}
+            <!-- THUMBNAIL -->
+            <div class="form-group">
+                <label><i class="fas fa-image"></i> Thumbnail</label>
+                <input type="file" name="thumbnail">
+                {% if topic.thumbnail %}
+                <div class="preview-box">
+                    <b>Current Thumbnail:</b><br>
+                    <img src="{{ topic.thumbnail.url }}">
+                </div>
+                {% endif %}
+            </div>
 
-        <!-- PDF -->
-        <label>PDF Material</label>
-        <input type="file" name="pdf">
+            <!-- VIDEO -->
+            <div class="form-group">
+                <label><i class="fas fa-video"></i> Video</label>
+                <input type="file" name="video">
+                {% if topic.video %}
+                <div class="preview-box">
+                    <b>Current Video:</b>
+                    <p><i class="fas fa-video"></i> Video already uploaded</p>
+                </div>
+                {% endif %}
+            </div>
 
-        {% if topic.pdf %}
-        <div class="preview-box">
-            <b>Current PDF:</b>
-            <p>📄 PDF already uploaded</p>
-        </div>
-        {% endif %}
+            <!-- PDF -->
+            <div class="form-group">
+                <label><i class="fas fa-file-pdf"></i> PDF Material</label>
+                <input type="file" name="pdf">
+                {% if topic.pdf %}
+                <div class="preview-box">
+                    <b>Current PDF:</b>
+                    <p><i class="fas fa-file-pdf"></i> PDF already uploaded</p>
+                </div>
+                {% endif %}
+            </div>
 
-        <!-- SUBMIT -->
-        <button type="submit">
-            💾 Update Topic
-        </button>
+            <!-- SUBMIT -->
+            <button type="submit">
+                <i class="fas fa-save"></i> Update Topic
+            </button>
 
-    </form>
+        </form>
+
+    </div>
 
 </div>
+
 <script src="{% static 'courses/js/edit_topic.js' %}"></script>
 {% endblock %}

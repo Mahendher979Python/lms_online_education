@@ -68,3 +68,8 @@ urlpatterns += i18n_patterns(
 urlpatterns += [
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
 ]
+
+# Custom error handlers
+handler404 = 'accounts.views.custom_404'
+handler403 = 'accounts.views.custom_403'
+handler500 = 'accounts.views.custom_500'

@@ -1,385 +1,386 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frequently Asked Questions | LMS eLearning</title>
+{% block title %}Frequently Asked Questions | LMS eLearning{% endblock %}
 
-    <!-- CSS Dependencies -->
-    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/pages.css' %}">
+{% endblock %}
 
-<body>
+{% block content %}
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="page-hero-content">
+        <p class="eyebrow">Learning Support Center</p>
+        <h1>
+            LMS
+            <span>Frequently Asked Questions</span>
+        </h1>
+        <p>
+            Find answers about account registration, course enrollment,
+            live classes, assignments, certificates, payments, student
+            dashboards, instructor support, and learning resources.
+            Everything you need to succeed in your LMS journey.
+        </p>
+    </div>
+</section>
 
-    <!-- Premium Global Header Navbar -->
-    <header class="navbar">
-
-        <a class="logo" href="{% url 'index' %}" aria-label="LMS home">
-            <img src="{% static 'accounts/images/spylogo.png' %}"
-                class="logo-img"
-                style="height: 38px; width: auto;"
-                alt="Logo">
-
-            <span class="logo-text">LMS</span>
-        </a>
-
-        <nav class="nav-links" id="mainNavbarLinks" aria-label="Main navigation">
-            <a href="{% url 'index' %}" class="nav-link">Home</a>
-            <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-            <a href="{% url 'about' %}" class="nav-link">About Us</a>
-            <a href="{% url 'services' %}" class="nav-link">Services</a>
-            <a href="{% url 'faq' %}" class="nav-link active">FAQs</a>
-            <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-        </nav>
-
-        <form class="searchbar"
-            role="search"
-            action="{% url 'courses' %}"
-            method="GET">
-
-            <input type="search"
-                name="search"
-                placeholder="Search courses..."
-                aria-label="Search courses">
-        </form>
-
-        <div class="nav-actions">
-
-            {% if user.is_authenticated %}
-
-                {% if user.role == 'student' %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'student_view' %}">
-                        Dashboard
-                    </a>
-
-                {% elif user.role == 'trainer' %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'trainer_view' %}">
-                        Dashboard
-                    </a>
-
-                {% else %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'manage_users' %}">
-                        Admin Portal
-                    </a>
-
-                {% endif %}
-
-                <a class="button-secondary button-secondary-outline"
-                    href="{% url 'logout' %}">
-                    Logout
-                </a>
-
-            {% endif %}
-
+<!-- FAQ Browser -->
+<section class="faq-browser">
+    <!-- FAQ Grid with 3D Cards -->
+    <div class="faq-grid-container">
+        <!-- Category 1: Account & Registration -->
+        <h2 class="faq-category-title">Account & Registration</h2>
+        <div class="faq-3d-grid">
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3>How do I create a student account?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Click Sign Up, enter your details, verify your email, and start learning instantly.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3>Can I reset my password?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Yes, use the Forgot Password option and follow the OTP verification process.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <h3>Can I update my profile information?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Yes, you can update your profile, photo, and contact details anytime.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <button class="hamburger-btn" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-
-    </header>
-
-    <!-- Sidebar -->
-    <div class="sidebar-overlay"></div>
-
-    <aside class="sidebar">
-
-        <div class="sidebar-close">
-            <button class="close-btn" aria-label="Close menu">
-                <i class="fas fa-times"></i>
-            </button>
+        <!-- Category 2: Courses & Learning -->
+        <h2 class="faq-category-title">Courses & Learning</h2>
+        <div class="faq-3d-grid">
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>How do I enroll in a course?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Browse available courses and click Enroll Now.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Can I access courses on mobile devices?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Yes, LMS is fully responsive and works on mobile, tablet, and desktop devices.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3>Will I receive course materials?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Yes, downloadable notes, resources, and recordings are provided.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Can I learn at my own pace?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Yes, most courses offer self-paced learning.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <nav class="sidebar-nav" aria-label="Mobile navigation">
-            <a href="{% url 'index' %}" class="sidebar-link">Home</a>
-            <a href="{% url 'courses' %}" class="sidebar-link">Courses</a>
-            <a href="{% url 'about' %}" class="sidebar-link">About Us</a>
-            <a href="{% url 'services' %}" class="sidebar-link">Services</a>
-            <a href="{% url 'faq' %}" class="sidebar-link active">FAQs</a>
-            <a href="{% url 'contact' %}" class="sidebar-link">Contact</a>
-        </nav>
-
-        <form class="sidebar-searchbar"
-            role="search"
-            action="{% url 'courses' %}"
-            method="GET">
-
-            <input type="search"
-                name="search"
-                placeholder="Search courses..."
-                aria-label="Search courses">
-        </form>
-
-        <div class="sidebar-actions">
-
-            {% if user.is_authenticated %}
-
-                {% if user.role == 'student' %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'student_view' %}">
-                        Dashboard
-                    </a>
-
-                {% elif user.role == 'trainer' %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'trainer_view' %}">
-                        Dashboard
-                    </a>
-
-                {% else %}
-                    <a class="button-secondary button-secondary-solid"
-                        href="{% url 'manage_users' %}">
-                        Admin Portal
-                    </a>
-
-                {% endif %}
-
-                <a class="button-secondary button-secondary-outline"
-                    href="{% url 'logout' %}">
-                    Logout
-                </a>
-
-            {% endif %}
-
+        <!-- Category 3: Live Classes & Assignments -->
+        <h2 class="faq-category-title">Live Classes & Assignments</h2>
+        <div class="faq-3d-grid">
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>How do I join live classes?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Visit your dashboard and click Join Live Class.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3>What if I miss a live session?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Recorded sessions will be available in your course section.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <h3>How do I submit assignments?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Upload assignments directly from the course dashboard.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Can instructors review my work?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Yes, instructors can provide feedback and grades.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-    </aside>
-
-    <!-- Main -->
-    <main>
-
-        <!-- Hero Section -->
-        <section class="page-hero">
-
-            <div class="page-hero-content">
-
-                <p class="eyebrow">Support Hub</p>
-
-                <h1>
-                    Frequently Asked
-                    <span>Questions</span>
-                </h1>
-
-                <p>
-                    Have questions about registration, dynamic classrooms,
-                    assignments, or billing? Find immediate answers below
-                    or search our knowledge database.
-                </p>
-
+        <!-- Category 4: Certificates & Progress -->
+        <h2 class="faq-category-title">Certificates & Progress</h2>
+        <div class="faq-3d-grid">
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>How can I track my progress?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Your dashboard displays course completion percentages and achievements.
+                        </div>
+                    </div>
+                </div>
             </div>
-
-        </section>
-
-        <!-- FAQ Browser -->
-        <section class="faq-browser">
-
-            <!-- Search -->
-            <div class="faq-search-box">
-                <i class="fas fa-search"></i>
-
-                <input type="text"
-                    id="faqSearch"
-                    placeholder="Type your question or topic...">
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Will I receive a certificate?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Yes, certificates are generated after successful course completion.
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Category 1 -->
-            <h2 class="faq-category-title">General Platform</h2>
-
-            <div class="faq-accordion-group">
-
-                <div class="accordion-item">
-
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
                     <button class="accordion-header">
-                        <h3>What is LMS eLearning and how does it work?</h3>
-
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>Can I download my certificate?</h3>
                         <span class="accordion-icon">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </button>
-
                     <div class="accordion-collapse">
                         <div class="accordion-body">
-                            LMS eLearning is a modern educational management
-                            platform that allows students to access rich
-                            pre-recorded lessons, attend interactive live
-                            webinars with trainers, attempt comprehensive
-                            tests, collaborate in project squads, and obtain
-                            verified completions.
+                            Yes, certificates can be downloaded as PDF files.
                         </div>
                     </div>
-
                 </div>
-
-                <div class="accordion-item">
-
-                    <button class="accordion-header">
-                        <h3>Is the learning platform mobile-friendly?</h3>
-
-                        <span class="accordion-icon">
-                            <i class="fas fa-chevron-down"></i>
-                        </span>
-                    </button>
-
-                    <div class="accordion-collapse">
-                        <div class="accordion-body">
-                            Yes! Our platform is fully responsive and works
-                            smoothly on tablets, smartphones, laptops,
-                            and desktops.
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
+        </div>
 
-            <!-- Category 2 -->
-            <h2 class="faq-category-title">
-                Live Classes &amp; Learning
-            </h2>
-
-            <div class="faq-accordion-group">
-
-                <div class="accordion-item">
-
+        <!-- Category 5: Payments & Support -->
+        <h2 class="faq-category-title">Payments & Support</h2>
+        <div class="faq-3d-grid">
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
                     <button class="accordion-header">
-                        <h3>
-                            How do I join a scheduled live class session?
-                        </h3>
-
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Which payment methods are supported?</h3>
                         <span class="accordion-icon">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </button>
-
                     <div class="accordion-collapse">
                         <div class="accordion-body">
-                            Login to your Student Dashboard and click
-                            "Join Live Session" from the Active Classes section.
+                            UPI, Credit Cards, Debit Cards, Net Banking, and Wallets.
                         </div>
                     </div>
-
                 </div>
-
-                <div class="accordion-item">
-
-                    <button class="accordion-header">
-                        <h3>
-                            What happens if I miss a live webinar?
-                        </h3>
-
-                        <span class="accordion-icon">
-                            <i class="fas fa-chevron-down"></i>
-                        </span>
-                    </button>
-
-                    <div class="accordion-collapse">
-                        <div class="accordion-body">
-                            All live sessions are automatically recorded
-                            and uploaded to the course within a few hours.
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
-
-            <!-- Category 3 -->
-            <h2 class="faq-category-title">
-                Access &amp; Billing
-            </h2>
-
-            <div class="faq-accordion-group">
-
-                <div class="accordion-item">
-
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
                     <button class="accordion-header">
-                        <h3>
-                            How long do I keep access to purchased courses?
-                        </h3>
-
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Are payments secure?</h3>
                         <span class="accordion-icon">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </button>
-
                     <div class="accordion-collapse">
                         <div class="accordion-body">
-                            You receive lifetime access to purchased courses,
-                            including future updates and downloadable resources.
+                            Yes, all transactions are processed through secure payment gateways.
                         </div>
                     </div>
-
                 </div>
-
-                <div class="accordion-item">
-
-                    <button class="accordion-header">
-                        <h3>
-                            What payment options are supported?
-                        </h3>
-
-                        <span class="accordion-icon">
-                            <i class="fas fa-chevron-down"></i>
-                        </span>
-                    </button>
-
-                    <div class="accordion-collapse">
-                        <div class="accordion-body">
-                            We support UPI, credit cards, debit cards,
-                            net banking, and digital wallets via Razorpay.
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>How can I contact support?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Use the Contact page or raise a support ticket from your dashboard.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-3d-card">
+                <div class="faq-card-inner">
+                    <button class="accordion-header">
+                        <div class="faq-icon-wrapper">
+                            <i class="fas fa-undo-alt"></i>
+                        </div>
+                        <h3>Do you offer refunds?</h3>
+                        <span class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-collapse">
+                        <div class="accordion-body">
+                            Refund policies depend on the selected course and terms.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
 
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    {% include "accounts/partials/footer.html" %}
-
-    <!-- JS -->
-    <script src="{% static 'accounts/js/pages.js' %}"></script>
-
-    <script>
-
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarOverlay = document.querySelector('.sidebar-overlay');
-        const closeBtn = document.querySelector('.close-btn');
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
-
-            document.body.style.overflow =
-                sidebar.classList.contains('active')
-                    ? 'hidden'
-                    : '';
-        }
-
-        hamburgerBtn.addEventListener('click', toggleSidebar);
-        closeBtn.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', toggleSidebar);
-        });
-
-    </script>
-
-</body>
-
-</html>
+{% block extra_js %}
+<script src="{% static 'accounts/js/pages.js' %}"></script>
+{% endblock %}

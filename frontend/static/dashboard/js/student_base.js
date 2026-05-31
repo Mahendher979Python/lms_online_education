@@ -1,4 +1,5 @@
-// Shared student dashboard helpers (sidebar, theme, notifications, logout)
+// Shared student dashboard helpers - now identical to base.js
+// Purpose: unify sidebar/theme/notifications/logout behaviour
 
 function syncSidebarLayout() {
     const sidebar = document.getElementById("sidebar");
@@ -10,39 +11,37 @@ function syncSidebarLayout() {
     const isMobile = window.innerWidth <= 768;
     const isClosed = sidebar.classList.contains("closed");
 
+    // Overlay only matters on mobile.
     if (overlay) {
         if (isMobile && !isClosed) overlay.classList.add("active");
         else overlay.classList.remove("active");
     }
 
+    // Force navbar flush-left on mobile.
     if (navbar && isMobile) navbar.style.left = "0px";
     else if (navbar) navbar.style.left = "";
 }
 
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
-    const main = document.getElementById("main");
     if (!sidebar) return;
 
     sidebar.classList.toggle("closed");
-    if (main) main.classList.toggle("full");
     syncSidebarLayout();
 }
 
 function closeSidebar() {
     const sidebar = document.getElementById("sidebar");
-    const main = document.getElementById("main");
     const overlay = document.getElementById("sidebar-overlay");
 
     if (sidebar) sidebar.classList.add("closed");
-    if (main) main.classList.add("full");
     if (overlay) overlay.classList.remove("active");
     syncSidebarLayout();
 }
 
 function toggleDark() {
-    const isDark = document.body.classList.toggle("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    const isLight = document.body.classList.toggle("light");
+    localStorage.setItem("theme", isLight ? "light" : "dark");
 }
 
 function loadNotifications() {

@@ -1,102 +1,65 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify OTP | LMS</title>
 
-    <link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% block title %}Verify OTP | LMS{% endblock %}
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock %}
 
-<body class="otp-page">
+{% block footer %}{% endblock %}
 
-    <!-- Animated background blobs -->
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-    <div class="bg-blob blob-3"></div>
+{% block content %}
+<div class="shape shape1"></div>
+<div class="shape shape2"></div>
 
-    <div class="overlay"></div>
+<div class="auth-container">
+    <div class="auth-left">
+        <h3>Verify Your Email</h3>
+        <p>Enter the OTP we sent to your email to reset your password.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/4896/4896578.png" alt="Illustration" class="auth-illustration">
+    </div>
 
-    <!-- Beautiful Header Navbar -->
-    <header class="landing-header">
-        <div class="nav-container">
-            <a href="{% url 'index' %}" class="nav-logo">
-                <img src="{% static 'accounts/images/spylogo.png' %}" alt="LMS Logo" class="logo-img">
-                <span class="logo-text">LMS</span>
-            </a>
-            
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
+    <div class="auth-right">
+        <h2>Verify Access</h2>
+        <p class="card-subtitle">OTP has been sent to your email</p>
 
-            <nav class="nav-menu" id="navMenu">
-                <a href="{% url 'index' %}" class="nav-link">Home</a>
-                <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-                <a href="{% url 'about' %}" class="nav-link">About Us</a>
-                <a href="{% url 'services' %}" class="nav-link">Services</a>
-                <a href="{% url 'faq' %}" class="nav-link">FAQs</a>
-                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-                <div class="mobile-nav-buttons">
-                    <a href="{% url 'login' %}" class="nav-btn-link">Login</a>
-                    <a href="{% url 'register' %}" class="nav-btn-pill">Get Started</a>
-                </div>
-            </nav>
-
-            <div class="nav-buttons">
-                <a href="{% url 'login' %}" class="nav-btn-link">Login</a>
-                <a href="{% url 'register' %}" class="nav-btn-pill">Get Started</a>
-            </div>
-        </div>
-    </header>
-
-    <div class="auth-wrapper">
-        <div class="card">
-
-            <h2>Verify Access</h2>
-            <div class="card-subtitle">OTP has been sent to your email</div>
-
+        <div class="login-panel">
             <p style="text-align: center; margin-top: 0; margin-bottom: 25px; color: #64748b; font-size: 14px; font-weight: 500; line-height: 1.5;">
                 For demo testing, please check your server's backend console output to retrieve the active verification code.
             </p>
 
             {% if form.non_field_errors %}
-                <div class="non-field-errors">
-                    {{ form.non_field_errors }}
-                </div>
+            <div class="non-field-errors">
+                {{ form.non_field_errors }}
+            </div>
             {% endif %}
 
             <form method="post">
                 {% csrf_token %}
 
                 {% for field in form %}
-                    <div class="form-group">
-                        <label for="{{ field.id_for_label }}">
-                            {{ field.label }}
-                        </label>
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
 
-                        <!-- NORMAL FIELD (OTP CODE) -->
-                        <div class="field-container">
-                            <i class="fas fa-key prefix-icon"></i>
-                            {{ field }}
-                        </div>
-
-                        {% if field.errors %}
-                            <ul class="errorlist">
-                                {% for error in field.errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
+                    <div class="field-container">
+                        <i class="fas fa-key prefix-icon"></i>
+                        {{ field }}
                     </div>
+
+                    {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
                 {% endfor %}
 
-                <button type="submit" class="submit-btn">
+                <button type="submit" class="login-btn">
                     Verify Code <i class="fas fa-arrow-right"></i>
                 </button>
             </form>
@@ -105,122 +68,14 @@
                 <a href="{% url 'forgot_password' %}" class="footer-link" style="margin-top: 0;">
                     Didn't get the code? <span class="highlight">Resend OTP</span>
                 </a>
-                
-
-
-                        // Terms Modal handlers (OTP page)
-                        const termsLink = document.getElementById('terms-link');
-                        const termsModalOverlay = document.getElementById('terms-modal-overlay');
-                        const termsCloseBtn = document.getElementById('terms-close-btn');
-                        const termsCloseBtnBottom = document.getElementById('terms-close-btn-bottom');
-
-                        if (termsLink) {
-                            termsLink.addEventListener('click', (e) => {
-                                e.preventDefault();
-                                termsModalOverlay.classList.add('active');
-                            });
-                        }
-
-                        const dropModal = () => {
-                            termsModalOverlay.classList.remove('active');
-                        };
-
-                        [termsCloseBtn, termsCloseBtnBottom].forEach(el => el && el.addEventListener('click', dropModal));
 
                 <a href="{% url 'login' %}" class="footer-link" style="margin-top: 0;">
                     Back to <span class="highlight">Sign in</span>
                 </a>
-
-                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 10px;">
-
-                    <a href="{% url 'terms_page' %}" class="footer-link" style="margin-top: 0;">
-
-                    <a href="{% url 'terms_page' %}" class="footer-link" style="margin-top: 0;">
-
-                    <a href="#" id="terms-link" class="footer-link" style="margin-top: 0;">
-
-                    <a href="#" id="terms-link" class="footer-link" style="margin-top: 0;">
-
-                        Terms of Service
-                    </a>
-                    <a href="{% url 'conditions_page' %}" class="footer-link" style="margin-top: 0;">
-                        Conditions
-                    </a>
-                </div>
-            </div>
-
-        </div> <!-- End of Card -->
-
-        <div class="copyright-footer">
-            © 2026 LMS. All rights reserved.
-        </div>
-    </div> <!-- End of Auth Wrapper -->
-
-    <!-- JavaScript Interactions -->
-
-    <!-- Terms Modal (inline for OTP page) -->
-    <div class="terms-modal-overlay" id="terms-modal-overlay">
-        <div class="terms-modal">
-            <button class="terms-close-btn" id="terms-close-btn"><i class="fas fa-times"></i></button>
-            <h2>Terms &amp; Conditions</h2>
-            <div class="terms-meta" style="color:var(--text-muted); font-size:12px; text-align:center;">Last updated: May 18, 2026</div>
-            <div class="terms-content">
-                <p>Welcome to LMS. By signing up, you explicitly agree to the usage layout frameworks established below:</p>
-                <h3 style="margin-top:15px; font-size:14px; color:var(--text-main);">1. Account Protection</h3>
-                <p style="font-size:13px; color:var(--text-muted);">Keep your security passkeys guarded. Sharing login attributes violates system security rules.</p>
-                <h3 style="margin-top:15px; font-size:14px; color:var(--text-main);">2. Content Guidelines</h3>
-                <p style="font-size:13px; color:var(--text-muted);">Abuse filters will remove any corrupted components, scripts, or malicious content payloads.</p>
-            </div>
-            <div class="terms-modal-footer" style="text-align:right;">
-                <button class="login-btn" id="terms-close-btn-bottom" style="width:auto; display:inline-flex; padding:8px 20px;">Close</button>
             </div>
         </div>
     </div>
+</div>
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-
-            // CAPTCHA REFRESH
-            const refreshBtn = document.querySelector('.captcha-refresh-btn');
-            if (refreshBtn) {
-                refreshBtn.addEventListener('click', function() {
-                    fetch('/captcha/refresh/', {
-                        method: 'GET',
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        const captchaImg = document.querySelector('img.captcha');
-                        if (captchaImg) {
-                            captchaImg.src = data.image_url;
-                        }
-                        const captchaHash = document.getElementById('id_captcha_0');
-                        const captchaInput = document.getElementById('id_captcha_1');
-                        if (captchaHash) captchaHash.value = data.key;
-                        if (captchaInput) captchaInput.value = '';
-                    })
-                    .catch(err => console.log(err));
-                });
-            }
-
-        });
-
-        // Mobile Menu Toggle
-        document.addEventListener("DOMContentLoaded", function() {
-            const menuToggle = document.getElementById("menuToggle");
-            const navMenu = document.getElementById("navMenu");
-
-            if (menuToggle && navMenu) {
-                menuToggle.addEventListener("click", function() {
-                    menuToggle.classList.toggle("active");
-                    navMenu.classList.toggle("active");
-                });
-            }
-        });
-    </script>
-
-</body>
-</html>
+{% endblock %}

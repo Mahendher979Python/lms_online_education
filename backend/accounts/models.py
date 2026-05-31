@@ -7,11 +7,9 @@ import random
 class User(AbstractUser):
 
     ROLE_CHOICES = (
-
+        ('superadmin', 'Super Admin'),
         ('admin', 'Admin'),
-
         ('trainer', 'Trainer'),
-
         ('student', 'Student'),
     )
 
