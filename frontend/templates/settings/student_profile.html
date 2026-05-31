@@ -7,7 +7,6 @@
 <style>
 
 body{
-    background:#f4f7fc;
     font-family:Arial,sans-serif;
 }
 
@@ -15,10 +14,11 @@ body{
 .settings-box{
     max-width:950px;
     margin:40px auto;
-    background:#fff;
+    background:rgba(30,41,59,0.8);
+    backdrop-filter: blur(10px);
     padding:35px;
     border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 /* HEADER */
@@ -29,12 +29,12 @@ body{
 .settings-header h2{
     font-size:30px;
     font-weight:700;
-    color:#111827;
+    color:#ffffff;
     margin-bottom:10px;
 }
 
 .settings-header p{
-    color:#6b7280;
+    color:#94a3b8;
     font-size:15px;
 }
 
@@ -52,24 +52,24 @@ body{
     height:120px;
     border-radius:50%;
     object-fit:cover;
-    border:4px solid #2563eb;
-    box-shadow:0 5px 15px rgba(37,99,235,0.2);
+    border:4px solid #f59e0b;
+    box-shadow:0 5px 15px rgba(245,158,11,0.3);
 }
 
 .upload-btn{
-    background:#eff6ff;
-    color:#2563eb;
+    background:rgba(245,158,11,0.1);
+    color:#fbbf24;
     padding:12px 18px;
     border-radius:10px;
     cursor:pointer;
     font-weight:600;
-    border:1px solid #bfdbfe;
+    border:1px solid rgba(245,158,11,0.3);
     transition:0.3s;
     display:inline-block;
 }
 
 .upload-btn:hover{
-    background:#dbeafe;
+    background:rgba(245,158,11,0.2);
 }
 
 /* FORM */
@@ -87,7 +87,7 @@ body{
 .form-group label{
     margin-bottom:8px;
     font-weight:600;
-    color:#111827;
+    color:#e2e8f0;
     font-size:14px;
 }
 
@@ -96,19 +96,20 @@ body{
 .form-group select{
     width:100%;
     padding:14px;
-    border:1px solid #d1d5db;
+    border:1px solid rgba(255,255,255,0.1);
     border-radius:12px;
     outline:none;
     font-size:14px;
     transition:0.3s;
-    background:white;
+    background:rgba(15,23,42,0.6);
+    color:#e2e8f0;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 0 4px rgba(37,99,235,0.1);
+    border-color:#f59e0b;
+    box-shadow:0 0 0 4px rgba(245,158,11,0.2);
 }
 
 /* FULL WIDTH */
@@ -118,7 +119,7 @@ body{
 
 /* BUTTON */
 .save-btn{
-    background:#2563eb;
+    background:linear-gradient(135deg, #f59e0b, #d97706);
     color:white;
     border:none;
     padding:15px 28px;
@@ -128,31 +129,35 @@ body{
     font-weight:600;
     margin-top:30px;
     transition:0.3s;
+    box-shadow:0 4px 15px rgba(245,158,11,0.3);
 }
 
 .save-btn:hover{
-    background:#1d4ed8;
+    background:linear-gradient(135deg, #d97706, #b45309);
     transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(245,158,11,0.4);
 }
 
 /* SUCCESS */
 .success-msg{
-    background:#dcfce7;
-    color:#166534;
+    background:rgba(34,197,94,0.15);
+    color:#4ade80;
     padding:14px;
     border-radius:10px;
     margin-bottom:20px;
     font-weight:600;
+    border:1px solid rgba(34,197,94,0.3);
 }
 
 /* ERROR */
 .error-msg{
-    background:#fee2e2;
-    color:#b91c1c;
+    background:rgba(239,68,68,0.15);
+    color:#f87171;
     padding:14px;
     border-radius:10px;
     margin-bottom:20px;
     font-weight:600;
+    border:1px solid rgba(239,68,68,0.3);
 }
 
 /* MOBILE */
