@@ -8,10 +8,11 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    // Basic fetch handling for PWA
+    // Basic fetch handling for PWAhbchbhchhbhchbhbchehchcehbcehcehb
     event.respondWith(
         caches.match(event.request).then((response) => {
             return response || fetch(event.request);
         })
     );
 });
+//charan
