@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 body {
     --card-bg: rgba(30, 41, 59, 0.85);
@@ -40,8 +40,6 @@ body.light {
     --counter-text: #475569;
 }
 
-400;500;600;700;800&display=swap');
-
 /* ==========================================================================
    PROFESSIONAL ADD STUDENT PAGE STYLING
    ========================================================================== */
@@ -53,22 +51,9 @@ body.light {
     box-sizing: border-box;
 }
 
-/* Full page */
-html, body {
-    width: 100%;
-    min-height: 100vh;
-}
-
-/* Background */
-body {
+/* Full page / container typography */
+.page-wrapper, .form-container {
     font-family: 'Poppins', sans-serif !important;
-    position: relative;
-    font-family: 'Poppins', sans-serif !important;
-    position: relative;
-    overflow: hidden !important;
-    height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
 /* Background gradient orbs */
@@ -120,13 +105,10 @@ body {
     position: relative;
     z-index: 2;
     width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding: 40px 20px;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 /* Form container */
@@ -221,7 +203,10 @@ body {
 }
 
 /* Inputs */
-.form-container input,
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="tel"],
 .form-container select {
     width: 100%;
     padding: 16px 18px;
@@ -236,11 +221,60 @@ body {
 }
 
 /* Input focus */
-.form-container input:focus,
+.form-container input[type="text"]:focus,
+.form-container input[type="email"]:focus,
+.form-container input[type="password"]:focus,
+.form-container input[type="tel"]:focus,
 .form-container select:focus {
     background: rgba(15, 23, 42, 0.8);
     border-color: rgba(59, 130, 246, 0.7);
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Django Checkbox Select Multiple list styling */
+.form-group div[id^="id_"], .form-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group div[id^="id_"] div, .form-group ul li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--course-item-bg, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--course-box-border, rgba(255, 255, 255, 0.08));
+    color: var(--course-item-text, #f1f5f9);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.form-group div[id^="id_"] div:hover, .form-group ul li:hover {
+    background: rgba(59, 130, 246, 0.15);
+    transform: translateY(-2px);
+}
+
+.form-group div[id^="id_"] input[type="checkbox"], .form-group ul li input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #3b82f6;
+    cursor: pointer;
+}
+
+.form-group div[id^="id_"] label, .form-group ul li label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--course-item-text, #f1f5f9);
 }
 
 /* Course box */

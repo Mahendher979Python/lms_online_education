@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 body {
     --card-bg: rgba(30, 41, 59, 0.85);
@@ -40,8 +40,6 @@ body.light {
     --counter-text: #475569;
 }
 
-400;500;600;700;800&display=swap');
-
 /* ==========================================================================
    PROFESSIONAL EDIT USER PAGE STYLING
    ========================================================================== */
@@ -53,22 +51,9 @@ body.light {
     box-sizing: border-box;
 }
 
-/* Full page */
-html, body {
-    width: 100%;
-    min-height: 100vh;
-}
-
-/* Background */
-body {
+/* Full page / container typography */
+.page-wrapper, .form-container {
     font-family: 'Poppins', sans-serif !important;
-    position: relative;
-    font-family: 'Poppins', sans-serif !important;
-    position: relative;
-    overflow: hidden !important;
-    height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
 /* Background gradient orbs */
@@ -120,13 +105,10 @@ body {
     position: relative;
     z-index: 2;
     width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding: 40px 20px;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 /* Form container */
@@ -214,7 +196,10 @@ body {
 
 /* Inputs */
 .form-container input[type="text"],
-.form-container input[type="file"] {
+.form-container input[type="email"],
+.form-container input[type="tel"],
+.form-container input[type="file"],
+.form-container select {
     width: 100%;
     padding: 16px 18px;
     border-radius: 14px;
@@ -229,7 +214,10 @@ body {
 
 /* Input focus */
 .form-container input[type="text"]:focus,
-.form-container input[type="file"]:focus {
+.form-container input[type="email"]:focus,
+.form-container input[type="tel"]:focus,
+.form-container input[type="file"]:focus,
+.form-container select:focus {
     background: rgba(15, 23, 42, 0.8);
     border-color: rgba(59, 130, 246, 0.7);
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
