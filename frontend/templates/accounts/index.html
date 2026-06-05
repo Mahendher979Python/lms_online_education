@@ -4,268 +4,27 @@
 
 {% block extra_css %}
     <style>
-        /* 3D Hero Section */
         .hero {
             position: relative;
-            overflow: hidden;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
         }
 
         .hero-content h1 {
             color: #ffffff;
-            text-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
+            font-size: clamp(28px, 4.5vw, 48px);
         }
 
         .hero-text {
             color: #cbd5e1;
         }
 
-        .hero-3d-scene {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        /* Floating 3D Elements */
-        .floating-element {
-            position: absolute;
-            transform-style: preserve-3d;
-            animation: floatAnimation 6s ease-in-out infinite;
-        }
-
-        .floating-1 {
-            top: 15%;
-            right: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-2 {
-            top: 60%;
-            right: 5%;
-            animation-delay: 1.5s;
-        }
-
-        .floating-3 {
-            top: 35%;
-            right: 20%;
-            animation-delay: 3s;
-        }
-
-        .floating-book {
-            width: 80px;
-            height: 100px;
-            transform-style: preserve-3d;
-            animation: rotate3d 10s linear infinite;
-        }
-
-        .book-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            border-radius: 8px;
-            backface-visibility: visible;
-        }
-
-        .book-front {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            transform: translateZ(20px);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
-        }
-
-        .book-back {
-            background: linear-gradient(135deg, #1d4ed8, #1e40af);
-            transform: rotateY(180deg) translateZ(20px);
-        }
-
-        .book-right {
-            width: 40px;
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
-            transform: rotateY(90deg) translateZ(40px);
-        }
-
-        .book-left {
-            width: 40px;
-            background: linear-gradient(135deg, #1e40af, #1d4ed8);
-            transform: rotateY(-90deg) translateZ(40px);
-        }
-
-        .book-top {
-            height: 40px;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            transform: rotateX(90deg) translateZ(50px);
-        }
-
-        .book-bottom {
-            height: 40px;
-            background: linear-gradient(135deg, #1d4ed8, #1e40af);
-            transform: rotateX(-90deg) translateZ(50px);
-        }
-
-        /* Floating Gradient Orb */
-        .gradient-orb {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed, #4c1d95);
-            box-shadow: 
-                0 0 60px rgba(124, 58, 237, 0.6),
-                inset 0 0 30px rgba(255, 255, 255, 0.2);
-            animation: orbPulse 4s ease-in-out infinite;
-        }
-
-        /* Floating Code Cube */
-        .code-cube {
-            width: 60px;
-            height: 60px;
-            transform-style: preserve-3d;
-            animation: spinSlow 15s linear infinite;
-        }
-
-        .cube-side {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: rgba(16, 185, 129, 0.9);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            backface-visibility: visible;
-        }
-
-        .code-front { transform: translateZ(30px); }
-        .code-back { transform: rotateY(180deg) translateZ(30px); }
-        .code-right { transform: rotateY(90deg) translateZ(30px); }
-        .code-left { transform: rotateY(-90deg) translateZ(30px); }
-        .code-top { transform: rotateX(90deg) translateZ(30px); }
-        .code-bottom { transform: rotateX(-90deg) translateZ(30px); }
-
-        /* Particles Container */
-        .particles-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: particleFloat 8s linear infinite;
-        }
-
-        @keyframes floatAnimation {
-            0%, 100% {
-                transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+        @media (max-width: 980px) {
+            .hero {
+                height: auto !important;
+                min-height: auto !important;
+                padding-top: 100px;
+                padding-bottom: 60px;
             }
-            50% {
-                transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
-            }
-        }
-
-        @keyframes rotate3d {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
-        }
-
-        @keyframes spinSlow {
-            from { transform: rotateX(0deg) rotateY(0deg); }
-            to { transform: rotateX(360deg) rotateY(360deg); }
-        }
-
-        @keyframes orbPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 
-                    0 0 60px rgba(124, 58, 237, 0.6),
-                    inset 0 0 30px rgba(255, 255, 255, 0.2);
-            }
-            50% {
-                transform: scale(1.1);
-                box-shadow: 
-                    0 0 80px rgba(124, 58, 237, 0.8),
-                    inset 0 0 40px rgba(255, 255, 255, 0.3);
-            }
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* 3D Course Cards */
-        .course-card {
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s ease;
-        }
-
-        .course-card:hover {
-            transform: translateY(-10px) rotateX(5deg) rotateY(-5deg) scale(1.02);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.2),
-                0 0 30px rgba(56, 189, 248, 0.2);
-        }
-
-        /* Button 3D Effects */
-        .button-secondary {
-            transform-style: preserve-3d;
-            transition: all 0.3s ease;
-        }
-
-        .button-secondary:hover {
-            transform: translateY(-3px) translateZ(10px);
-            box-shadow: 
-                0 10px 25px rgba(37, 99, 235, 0.4),
-                0 0 20px rgba(56, 189, 248, 0.3);
         }
     </style>
 {% endblock %}
@@ -273,35 +32,6 @@
 {% block content %}
     <!-- Hero Section with 3D Elements -->
     <section class="hero" id="home">
-        <!-- Particles -->
-        <div class="particles-container" id="particles"></div>
-
-        <!-- Floating 3D Elements -->
-        <div class="floating-element floating-1">
-            <div class="floating-book">
-                <div class="book-face book-front">📚</div>
-                <div class="book-face book-back">📖</div>
-                <div class="book-face book-right"></div>
-                <div class="book-face book-left"></div>
-                <div class="book-face book-top"></div>
-                <div class="book-face book-bottom"></div>
-            </div>
-        </div>
-
-        <div class="floating-element floating-2">
-            <div class="gradient-orb"></div>
-        </div>
-
-        <div class="floating-element floating-3">
-            <div class="code-cube">
-                <div class="cube-side code-front">&lt;/&gt;</div>
-                <div class="cube-side code-back">{ }</div>
-                <div class="cube-side code-right">++</div>
-                <div class="cube-side code-left">//</div>
-                <div class="cube-side code-top">&lt;?&gt;</div>
-                <div class="cube-side code-bottom">##</div>
-            </div>
-        </div>
 
         <div class="hero-content">
             <p class="eyebrow" style="color: #38bdf8;">🚀 LMS eLearning Platform</p>
@@ -559,71 +289,4 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    // Create floating particles
-    function createParticles() {
-        const container = document.getElementById('particles');
-        if (!container) return;
-
-        const particleCount = 50;
-        const colors = ['#38bdf8', '#a78bfa', '#10b981', '#f472b6', '#fbbf24'];
-
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            
-            // Random properties
-            const size = Math.random() * 6 + 2;
-            const left = Math.random() * 100;
-            const delay = Math.random() * 8;
-            const duration = Math.random() * 4 + 6;
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.left = left + '%';
-            particle.style.animationDelay = delay + 's';
-            particle.style.animationDuration = duration + 's';
-            particle.style.background = color;
-            particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
-            
-            container.appendChild(particle);
-        }
-    }
-
-    // Mouse parallax effect for 3D elements
-    document.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX / window.innerWidth - 0.5;
-        const mouseY = e.clientY / window.innerHeight - 0.5;
-        
-        const floatingElements = document.querySelectorAll('.floating-element');
-        floatingElements.forEach((el, index) => {
-            const speed = (index + 1) * 10;
-            el.style.transform = `translateY(-20px) translateX(${mouseX * speed}px) rotateX(${mouseY * 10}deg) rotateY(${mouseX * 10}deg)`;
-        });
-    });
-
-    // 3D tilt effect for course cards
-    const courseCards = document.querySelectorAll('.course-card');
-    courseCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-        });
-    });
-
-    // Initialize particles on load
-    document.addEventListener('DOMContentLoaded', createParticles);
-</script>
 {% endblock %}

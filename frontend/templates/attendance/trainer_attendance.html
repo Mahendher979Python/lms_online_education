@@ -12,6 +12,24 @@
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
   :root {
+    --primary:        #3b82f6;
+    --primary-light:  rgba(59, 130, 246, 0.15);
+    --success:        #10b981;
+    --success-light:  rgba(16, 185, 129, 0.15);
+    --danger:         #ef4444;
+    --danger-light:   rgba(239, 68, 68, 0.15);
+    --warning:        #f59e0b;
+    --warning-light:  rgba(245, 158, 11, 0.15);
+    --surface:        #0b1220;
+    --bg:             #0f172a;
+    --border:         rgba(255, 255, 255, 0.12);
+    --text:           #f8fafc;
+    --muted:          #94a3b8;
+    --radius:         14px;
+    --shadow:         0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  body.light {
     --primary:        #2563eb;
     --primary-light:  #eff6ff;
     --success:        #16a34a;
@@ -25,7 +43,6 @@
     --border:         #e2e8f0;
     --text:           #0f172a;
     --muted:          #64748b;
-    --radius:         14px;
     --shadow:         0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.07);
   }
 
@@ -36,6 +53,7 @@
     font-family: 'DM Sans', sans-serif;
     color: var(--text);
     min-height: 100vh;
+    transition: background var(--transition, 0.3s), color var(--transition, 0.3s);
   }
 
   .page-header {
@@ -178,7 +196,7 @@
   .location-pill {
     background: var(--success-light); border-left: 4px solid var(--success);
     padding: 9px 14px; border-radius: 8px; font-size: .82rem;
-    color: #166534; margin-bottom: 4px; min-height: 36px;
+    color: var(--success); margin-bottom: 4px; min-height: 36px;
   }
 
   /* login btn style now inherited from .btn.btn-green */

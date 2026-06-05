@@ -158,15 +158,9 @@ ROOT_URLCONF = 'lms.urls'
 
 # RAZORPAY SETTINGS 💳
 # -----------------------
-RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', 'rzp_test_SlwV9Vy26UoaY6')
-RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET', 'VKNQeiPnBuL82ZCdrrnnYVq7')
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', '')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET', '')
 RAZORPAY_WEBHOOK_SECRET = os.getenv('RAZORPAY_WEBHOOK_SECRET', '')
-
-# # IMPORTANT for prod
-# DEBUG = False
-# ALLOWED_HOSTS = ["E-learing.com"]
-
-# CSRF_TRUSTED_ORIGINS = ["https://E-learing.com"]
 
 # TEMPLATES
 TEMPLATES = [
@@ -188,17 +182,20 @@ TEMPLATES = [
 # WSGI
 WSGI_APPLICATION = 'lms.wsgi.application'
 ASGI_APPLICATION = "lms.asgi.application"
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', 'AIzaSyA8j5dfLgPnJZygG-Urlo5gMWrOEm6WedE')
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
 
 # DATABASE
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite3'),
-        'USER': os.getenv('DB_USER', ''),
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
+        'NAME': os.getenv('DB_NAME', 'lms_db'),
+        'USER': os.getenv('DB_USER', 'lms_user'),
         'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', ''),
-        'PORT': os.getenv('DB_PORT', ''),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '3306'),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
@@ -257,12 +254,12 @@ LOGOUT_REDIRECT_URL = '/login/'
 # -----------------------
 # EMAIL SETTINGS (for OTP)
 # -----------------------
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'mahibanavath979@gmail.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'txlg yyed uvxi scvg')
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
 # -----------------------
 # SECURITY SETTINGS
@@ -293,16 +290,6 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
-# Content Security Policy (CSP) - Basic setup
-SECURE_CSP = {
-    'default-src': "'self'",
-    'script-src': "'self' 'unsafe-inline'",
-    'style-src': "'self' 'unsafe-inline'",
-    'img-src': "'self' data:",
-}
-
 # File upload security
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
-
-# Rate limiting for login/register (basic, can enhance with django-ratelimit later)

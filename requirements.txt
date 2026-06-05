@@ -9,7 +9,7 @@ channels
 whitenoise
 Pillow
 reportlab
-psycopg2-binary
+mysqlclient
 gunicorn
 requests
 django-channels

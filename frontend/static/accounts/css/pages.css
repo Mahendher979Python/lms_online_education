@@ -100,7 +100,7 @@ body {
 /* Modern Statistics Section */
 .stats-strip {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 24px;
     padding: 40px 6%;
     background: #ffffff;
@@ -230,7 +230,7 @@ body {
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 30px;
     margin-top: 40px;
 }
@@ -396,7 +396,7 @@ body {
 /* Course Grid and Beautiful Cards */
 .courses-page-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
@@ -560,7 +560,7 @@ body {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
@@ -1143,18 +1143,6 @@ body {
    RESPONSIVE DESIGN BREAKPOINTS
 
 @media (max-width: 1024px) {
-    .team-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .courses-page-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .contact-layout-split {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -1207,25 +1195,6 @@ body {
     }
 }
 
-@media (max-width: 480px) {
-    .stats-strip {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    .team-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .courses-page-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* ==========================================================================
    3D FAQ CARD STYLES
    ========================================================================== */
@@ -1236,7 +1205,7 @@ body {
 
 .faq-3d-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
     gap: 30px;
     margin-bottom: 50px;
 }

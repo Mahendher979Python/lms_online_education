@@ -6,12 +6,43 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body {
-    background: #f4f6f9;
-    font-family: 'Segoe UI', Arial, sans-serif;
+:root {
+    --card: #0b1220;
+    --bg: #0f172a;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.12);
+    --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --hover: rgba(255, 255, 255, 0.06);
+    --text-dark: #f8fafc;
+    --input-bg: rgba(15, 23, 42, 0.6);
+    --input-border: rgba(255, 255, 255, 0.1);
+    --accent-gradient: linear-gradient(135deg, var(--accent), var(--accent-2, #8b5cf6));
+    --modal-bg: #0f172a;
+}
+body.light {
+    --card: #ffffff;
+    --bg: #f4f6f9;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --shadow-light: 0 4px 10px rgba(0,0,0,0.1);
+    --hover: #f1f7ff;
+    --text-dark: #0f172a;
+    --input-bg: #ffffff;
+    --input-border: #ccc;
+    --accent-gradient: #007bff;
+    --modal-bg: #ffffff;
 }
 
-.dashboard-title { margin-bottom: 20px; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    transition: background var(--transition, 0.3s), color var(--transition, 0.3s);
+}
+
+.dashboard-title { margin-bottom: 20px; color: var(--text); }
 
 /* ── Stat Cards ── */
 .stats {
@@ -24,21 +55,27 @@ body {
 .card {
     flex: 1;
     min-width: 220px;
-    background: white;
+    background: var(--card);
     padding: 25px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: background var(--transition, 0.3s), color var(--transition, 0.3s);
 }
 
-.card h2 { color: #007bff; }
+.card h2 { color: var(--accent); }
 
 /* ── Filter ── */
 .filter-box {
-    background: white;
+    background: var(--card);
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 20px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: background var(--transition, 0.3s), color var(--transition, 0.3s);
 }
 
 .filter-box form {
@@ -49,14 +86,16 @@ body {
 
 .filter-box input {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text);
     border-radius: 8px;
 }
 
 .filter-box button {
     padding: 10px 20px;
     border: none;
-    background: #007bff;
+    background: var(--accent);
     color: white;
     border-radius: 8px;
     cursor: pointer;
@@ -67,14 +106,17 @@ body {
 
 .table {
     width: 100%;
-    background: white;
+    background: var(--card);
+    color: var(--text);
     border-radius: 15px;
     overflow: hidden;
     border-collapse: collapse;
+    border: 1px solid var(--border);
+    transition: background var(--transition, 0.3s), color var(--transition, 0.3s);
 }
 
 .table th {
-    background: #007bff;
+    background: var(--accent-gradient);
     color: white;
     padding: 12px;
     text-align: center;
@@ -83,10 +125,10 @@ body {
 .table td {
     padding: 12px;
     text-align: center;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
 }
 
-.table tr:hover { background: #f1f7ff; }
+.table tr:hover { background: var(--hover); }
 
 /* ── View Button ── */
 .view-btn {
@@ -120,10 +162,13 @@ body {
 }
 
 .chart-box, .map-box {
-    background: white;
+    background: var(--card);
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: background var(--transition, 0.3s), color var(--transition, 0.3s);
 }
 
 .chart-box { height: 450px; }
@@ -153,13 +198,15 @@ body {
 }
 
 .modal {
-    background: white;
+    background: var(--modal-bg);
     border-radius: 16px;
     width: 680px;
     max-width: 95vw;
     padding: 24px;
     position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border);
+    color: var(--text);
     animation: slideUp .25s ease;
 }
 
@@ -175,9 +222,9 @@ body {
     border: none;
     font-size: 22px;
     cursor: pointer;
-    color: #666;
+    color: var(--text-muted);
 }
-.modal-close:hover { color: #000; }
+.modal-close:hover { color: var(--text); }
 
 .modal-title {
     font-size: 17px;
@@ -191,7 +238,8 @@ body {
 /* Location address bar inside modal */
 .modal-address {
     border-left: 4px solid #28a745;
-    background: #f8f9fa;
+    background: var(--bg);
+    color: var(--text);
     border-radius: 6px;
     padding: 8px 12px;
     font-size: 13px;

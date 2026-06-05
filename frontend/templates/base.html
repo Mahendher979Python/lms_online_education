@@ -8,6 +8,7 @@
     <title>{% block title %}LMS eLearning{% endblock %}</title>
 
     <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
     <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- PWA Manifest -->
@@ -90,7 +91,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main>
+    <main style="max-width: 100vw; overflow-x: hidden;">
         {% block content %}{% endblock %}
     </main>
 
@@ -100,27 +101,7 @@
     {% endblock %}
 
     <!-- Sidebar Script -->
-    <script>
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarOverlay = document.querySelector('.sidebar-overlay');
-        const closeBtn = document.querySelector('.close-btn');
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
-            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-        }
-
-        hamburgerBtn.addEventListener('click', toggleSidebar);
-        closeBtn.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', toggleSidebar);
-        });
-    </script>
+    <script src="{% static 'accounts/js/base.js' %}"></script>
 
     {% block extra_js %}{% endblock %}
 

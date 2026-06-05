@@ -10,8 +10,6 @@
 
 body{
     font-family:Arial, sans-serif;
-    background:#f1f5f9;
-    color:#1e293b;
 }
 
 /* PAGE TITLE */
@@ -20,7 +18,7 @@ h2{
     font-size:28px;
     font-weight:700;
     margin-bottom:20px;
-    color:#0f172a;
+    color:var(--text);
 }
 
 /* TABLE WRAPPER */
@@ -35,10 +33,11 @@ h2{
     width:100%;
     min-width:650px;
     border-collapse:collapse;
-    background:#ffffff;
+    background:var(--card);
     border-radius:16px;
     overflow:hidden;
-    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow-light);
+    border:1px solid var(--border);
 }
 
 /* HEADER */
@@ -54,14 +53,14 @@ h2{
 /* BODY */
 .table td{
     padding:15px;
-    border-bottom:1px solid #e2e8f0;
+    border-bottom:1px solid var(--border);
     font-size:14px;
-    color:#334155;
+    color:var(--text);
 }
 
 /* ROW HOVER */
 .table tbody tr:hover{
-    background:#eff6ff;
+    background:var(--hover);
     transition:0.3s;
 }
 
@@ -80,13 +79,14 @@ h2{
 
 /* TABLE BADGES */
 .time-badge{
-    background:#dbeafe;
-    color:#1d4ed8;
+    background:var(--bg);
+    color:var(--accent);
     padding:6px 10px;
     border-radius:20px;
     font-size:12px;
     font-weight:600;
     display:inline-block;
+    border:1px solid var(--border);
 }
 
 /* MOBILE */

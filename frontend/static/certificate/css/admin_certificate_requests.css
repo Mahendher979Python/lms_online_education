@@ -5,7 +5,6 @@
 }
 
 body{
-    background:#f4f7fb;
     font-family:Arial, sans-serif;
     overflow-x:hidden;
 }
@@ -15,17 +14,18 @@ body{
     width:100%;
     max-width:1200px;
     margin:30px auto;
-    background:#ffffff;
+    background:var(--card);
     padding:25px;
     border-radius:18px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow-light);
+    border:1px solid var(--border);
 }
 
 /* TITLE */
 .title{
     font-size:30px;
     font-weight:700;
-    color:#0f172a;
+    color:var(--text);
     margin-bottom:25px;
 }
 
@@ -41,7 +41,7 @@ table{
     width:100%;
     border-collapse:collapse;
     min-width:700px;
-    background:#fff;
+    background:var(--card);
 }
 
 table th{
@@ -55,9 +55,9 @@ table th{
 
 table td{
     padding:15px;
-    border-bottom:1px solid #e5e7eb;
+    border-bottom:1px solid var(--border);
     font-size:14px;
-    color:#334155;
+    color:var(--text);
 }
 
 /* ROW HOVER */
@@ -66,7 +66,7 @@ table tbody tr{
 }
 
 table tbody tr:hover{
-    background:#f8fafc;
+    background:var(--hover);
 }
 
 /* BADGE */

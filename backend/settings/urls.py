@@ -12,6 +12,12 @@ urlpatterns = [
     ),
 
     path(
+        'toggle-theme/',
+        views.toggle_theme,
+        name='toggle_theme'
+    ),
+
+    path(
         'admin/profile/',
         views.admin_profile,
         name='admin_profile'

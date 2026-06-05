@@ -6,83 +6,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Trainer Dashboard{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'dashboard/css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboard/css/trainer_base.css' %}">
-    <script>
-        (function () {
-            const theme = localStorage.getItem('theme') || 'dark';
-            if (theme === 'light') {
-                document.body.classList.add('light');
-            }
-        })();
-    </script>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/css/base.css' %}?v=1.4">
+    <link rel="stylesheet" href="{% static 'dashboard/css/trainer_base.css' %}?v=1.4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-        // Used by dashboard JS to call the correct i18n-prefixed endpoint
         window.NOTIFICATIONS_API = "{% url 'get_notifications' %}";
+        window.TOGGLE_THEME_API = "{% url 'toggle_theme' %}";
     </script>
 </head>
 
 <body>
-
+    <!-- Theme init (prevents FOUC) -->
+    <script>
+        (function () {
+            let theme = '';
+            {% if request.user.is_authenticated %}
+                {% if request.user.user_settings %}
+                    theme = "{{ request.user.user_settings.dark_mode|yesno:'dark,light' }}";
+                {% endif %}
+            {% endif %}
+            if (!theme) {
+                theme = localStorage.getItem('theme') || 'dark';
+            }
+            localStorage.setItem('theme', theme);
+            if (theme === 'light') {
+                document.body.classList.add('light');
+            } else {
+                document.body.classList.remove('light');
+            }
+        })();
+    </script>
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
-        <div style="margin-bottom: 30px; padding: 8px 12px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <span style="font-size: 20px; font-weight: 800; color: white;">LMS TRAINER</span>
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-logo" style="background: none;">
+                <img src="{% static 'accounts/images/spylogo.png' %}" alt="LMS Logo" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
+            <span>LMS TRAINER</span>
         </div>
 
-        <a href="{% url 'trainer_dashboard' %}" class="{% if request.resolver_match.url_name == 'trainer_dashboard' %}active{% endif %}">
+        <a href="{% url 'trainer_dashboard' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_dashboard' %}active{% endif %}">
             <i class="fas fa-home"></i><span>Dashboard</span>
         </a>
-        <a href="{% url 'trainer_create_topic' %}" class="{% if request.resolver_match.url_name == 'trainer_create_topic' %}active{% endif %}">
+        <a href="{% url 'trainer_create_topic' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_create_topic' %}active{% endif %}">
             <i class="fas fa-plus-circle"></i><span>Create Topic</span>
         </a>
-        <a href="{% url 'trainer_courses' %}" class="{% if request.resolver_match.url_name == 'trainer_courses' %}active{% endif %}">
+        <a href="{% url 'trainer_courses' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_courses' %}active{% endif %}">
             <i class="fas fa-graduation-cap"></i><span>Your Courses</span>
         </a>
-        <a href="{% url 'teams:trainer_course_slides' %}" class="{% if request.resolver_match.url_name == 'trainer_course_slides' %}active{% endif %}">
+        <a href="{% url 'teams:trainer_course_slides' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_course_slides' %}active{% endif %}">
             <i class="fas fa-users"></i><span>Classes</span>
         </a>
-        <a href="{% url 'assignments:trainer_assignments' %}" class="{% if request.resolver_match.url_name == 'trainer_assignments' %}active{% endif %}">
+        <a href="{% url 'assignments:trainer_assignments' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_assignments' %}active{% endif %}">
             <i class="fas fa-file-alt"></i><span>Assignments</span>
         </a>
-        <a href="{% url 'trainer_progress' %}" class="{% if request.resolver_match.url_name == 'trainer_progress' %}active{% endif %}">
+        <a href="{% url 'trainer_progress' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_progress' %}active{% endif %}">
             <i class="fas fa-chart-line"></i><span>Student Progress</span>
         </a>
-        <a href="{% url 'coding_tasks:create_task' %}" class="{% if request.resolver_match.url_name == 'create_task' %}active{% endif %}">
+        <a href="{% url 'coding_tasks:create_task' %}" class="sidebar-link {% if request.resolver_match.url_name == 'create_task' %}active{% endif %}">
             <i class="fas fa-code"></i><span>Coding Tasks</span>
         </a>
-        <a href="{% url 'trainer_attendance' %}" class="{% if request.resolver_match.url_name == 'trainer_attendance' %}active{% endif %}">
+        <a href="{% url 'trainer_attendance' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_attendance' %}active{% endif %}">
             <i class="fas fa-calendar-alt"></i><span>Attendance</span>
         </a>
-        <a href="{% url 'trainer_profile' %}" class="{% if request.resolver_match.url_name == 'trainer_profile' %}active{% endif %}">
+        <a href="{% url 'trainer_profile' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_profile' %}active{% endif %}">
             <i class="fas fa-user-circle"></i><span>Profile</span>
         </a>
-        <a href="{% url 'trainer_settings' %}" class="{% if request.resolver_match.url_name == 'trainer_settings' %}active{% endif %}">
+        <a href="{% url 'trainer_settings' %}" class="sidebar-link {% if request.resolver_match.url_name == 'trainer_settings' %}active{% endif %}">
             <i class="fas fa-cog"></i><span>Settings</span>
         </a>
     </div>
 
     <!-- NAVBAR -->
     <div class="navbar" id="navbar">
-        <div style="display:flex; align-items:center; gap:10px;">
-            <div onclick="toggleSidebar()" style="cursor:pointer; font-size:22px;">☰</div>
-            <div style="display:flex; align-items:center; gap:8px;">
-                <div style="width: 45px; height: 45px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <strong>LMS TRAINER</strong>
+        <div class="navbar-left">
+            <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="navbar-title">
+                LMS TRAINER
             </div>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <div class="notification-wrapper" style="position: relative;">
-                <a href="{% url 'trainer_notifications' %}" class="notif-btn-3d" title="Notifications" style="width: 48px; height: 48px; border-radius: 50%; background: var(--card); border: none; box-shadow: var(--shadow-light); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #f59e0b; transition: all 0.3s ease; text-decoration: none;">
+        <div class="navbar-right">
+            <div class="notification-wrapper">
+                <a href="{% url 'trainer_notifications' %}" class="notif-btn-3d" title="Notifications">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -91,11 +100,11 @@
                 </a>
             </div>
 
-            <a href="{% url 'teams:trainer_course_slides' %}" class="notif-btn-3d" title="Messages" style="width: 48px; height: 48px; border-radius: 50%; background: var(--card); border: none; box-shadow: var(--shadow-light); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #3b82f6; transition: all 0.3s ease; text-decoration: none;">
-                <span style="font-weight: 900;">💬</span>
+            <a href="{% url 'teams:trainer_course_slides' %}" class="notif-btn-3d" title="Messages" style="color: #3b82f6;">
+                <i class="fas fa-comments"></i>
             </a>
 
-            <button class="theme-btn-3d" onclick="toggleDark()" title="Toggle Dark/Light Mode">
+            <button class="theme-btn-3d" onclick="toggleDark()" title="Toggle Theme">
                 <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -112,38 +121,39 @@
                 </svg>
             </button>
 
-            <div style="display: flex; align-items: center; gap: 12px; background: var(--card); padding: 10px 18px; border-radius: 50px; box-shadow: var(--shadow-light);">
-                {% if request.user.profile_image %}
-                    <img src="{{ request.user.profile_image.url }}" alt="Profile" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
-                {% else %}
-                    <div style="width: 38px; height: 38px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    {% if request.user.profile_image %}
+                        <img src="{{ request.user.profile_image.url }}" alt="Profile">
+                    {% else %}
                         <i class="fas fa-user"></i>
-                    </div>
-                {% endif %}
-                <span class="username" style="font-weight: 700; color: var(--text);">{{ request.user.username }}</span>
-                <i class="fas fa-chevron-down" style="color: var(--text-muted); font-size: 12px;"></i>
+                    {% endif %}
+                </div>
+                <span class="user-name">{{ request.user.username }}</span>
             </div>
 
             <form id="logout-post-form" action="{% url 'logout' %}" method="POST" style="display: none;">
                 {% csrf_token %}
             </form>
-            <button class="logout-btn-3d" onclick="showLogoutModal(event)" style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; box-shadow: var(--shadow-light); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: all 0.3s ease;">
+            <button class="logout-btn-3d" onclick="showLogoutModal(event)" title="Logout">
                 <i class="fas fa-power-off"></i>
             </button>
         </div>
     </div>
 
-    <!-- Sidebar Overlay for Mobile -->
+    <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 
     <!-- MAIN -->
-    <div class="main" id="main">
-        {% block content %}{% endblock %}
+    <div class="main" style="max-width: 100vw; overflow-x: hidden;">
+        <div class="main-content">
+            {% block content %}{% endblock %}
+        </div>
     </div>
 
-    <script src="{% static 'dashboard/js/trainer_base.js' %}"></script>
+    <script src="{% static 'dashboard/js/trainer_base.js' %}?v=1.5"></script>
 
-    <!-- 3D LOGOUT CONFIRMATION MODAL -->
+    <!-- LOGOUT MODAL -->
     <div id="logout-confirm-modal" class="modal-overlay-3d" onclick="closeLogoutModal()">
         <div class="modal-card-3d" onclick="event.stopPropagation()">
             <div class="modal-icon-3d">
@@ -156,7 +166,7 @@
             <p class="modal-text-3d">Do you really want to sign out of your LMS session?</p>
             <div class="modal-buttons-3d">
                 <button class="modal-btn-cancel-3d" onclick="closeLogoutModal()">Cancel</button>
-                <button class="modal-btn-confirm-3d" onclick="confirmLogout()">Yes, Logout</button>
+                <button class="modal-btn-confirm-3d" onclick="confirmLogout()">Logout</button>
             </div>
         </div>
     </div>

@@ -9,7 +9,6 @@
 }
 
 body{
-    background:#f1f5f9;
     font-family:Arial, Helvetica, sans-serif;
 }
 
@@ -29,7 +28,7 @@ body{
 .top-bar h2{
     font-size:30px;
     font-weight:800;
-    color:#0f172a;
+    color:var(--text);
 }
 
 /* ===================================
@@ -76,10 +75,11 @@ body{
     max-width:100%;
     padding:12px 15px;
     border-radius:14px;
-    border:1px solid #dbeafe;
+    border:1px solid var(--border);
     outline:none;
     font-size:14px;
-    background:white;
+    background:var(--card);
+    color:var(--text);
     transition:0.3s;
 }
 
@@ -110,11 +110,11 @@ body{
 =================================== */
 
 .table-box{
-    background:white;
+    background:var(--card);
     border-radius:22px;
     overflow-x:auto;
-    box-shadow:0 10px 30px rgba(0,0,0,0.06);
-    border:1px solid #e2e8f0;
+    box-shadow:var(--shadow-light);
+    border:1px solid var(--border);
 }
 
 /* ===================================
@@ -138,8 +138,8 @@ th{
 
 td{
     padding:18px 14px;
-    border-bottom:1px solid #eef2f7;
-    color:#334155;
+    border-bottom:1px solid var(--border);
+    color:var(--text);
     font-size:14px;
 }
 
@@ -148,7 +148,7 @@ tbody tr{
 }
 
 tbody tr:hover{
-    background:#f8fbff;
+    background:var(--hover);
 }
 
 /* ===================================
@@ -200,10 +200,11 @@ tbody tr:hover{
     text-decoration:none;
     padding:12px 18px;
     border-radius:12px;
-    background:white;
-    color:#2563eb;
+    background:var(--card);
+    color:var(--accent);
     font-weight:700;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow-light);
+    border:1px solid var(--border);
     transition:0.3s;
 }
 
@@ -214,7 +215,7 @@ tbody tr:hover{
 
 .pagination span{
     font-weight:700;
-    color:#334155;
+    color:var(--text);
 }
 
 /* ===================================
@@ -289,12 +290,12 @@ tbody tr:hover{
     }
 
     tr{
-        background:white;
+        background:var(--card);
         margin-bottom:18px;
         border-radius:20px;
         padding:14px;
-        box-shadow:0 8px 22px rgba(0,0,0,0.08);
-        border:1px solid #e2e8f0;
+        box-shadow:var(--shadow-light);
+        border:1px solid var(--border);
     }
 
     td{
@@ -311,7 +312,7 @@ tbody tr:hover{
         left:12px;
         top:12px;
         font-weight:700;
-        color:#0f172a;
+        color:var(--text-muted);
     }
 
     td:nth-child(1)::before{

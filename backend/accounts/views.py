@@ -74,13 +74,14 @@ def contact_view(request):
         if form.is_valid():
             contact = form.save()
             
-            admins = User.objects.filter(role='admin')
+            # Send notifications to both admin/superadmin roles and superusers
+            admins = User.objects.filter(Q(role__in=['admin', 'superadmin']) | Q(is_superuser=True))
             for admin in admins:
                 Notification.objects.create(
                     recipient=admin,
                     type='admin',
                     title=f'New Contact Message from {contact.name}',
-                    message=f'Subject: {contact.subject}\nFrom: {contact.email}\n\n{contact.message}'
+                    message=f'New Contact Message from {contact.name}\nSubject: {contact.subject}\nFrom: {contact.email}\n\n{contact.message}'
                 )
             
             messages.success(request, 'Your message has been sent successfully! We will get back to you soon.')

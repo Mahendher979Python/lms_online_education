@@ -1,4 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;
+
+body {
+    --card-bg: rgba(30, 41, 59, 0.85);
+    --card-border: rgba(148, 163, 184, 0.25);
+    --form-text: #ffffff;
+    --label-text: #e2e8f0;
+    --input-bg: rgba(15, 23, 42, 0.6);
+    --input-color: var(--input-color);
+    --input-border: rgba(148, 163, 184, 0.3);
+    --back-btn-bg: rgba(51, 65, 85, 0.7);
+    --back-btn-text: #ffffff;
+    --back-btn-border: rgba(148, 163, 184, 0.3);
+    --preview-bg: rgba(15, 23, 42, 0.6);
+    --preview-text: #ffffff;
+    --course-box-bg: rgba(15, 23, 42, 0.5);
+    --course-box-border: rgba(255, 255, 255, 0.08);
+    --course-item-bg: rgba(255, 255, 255, 0.05);
+    --course-item-text: #f1f5f9;
+    --counter-text: #cbd5e1;
+}
+
+body.light {
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --form-text: #1e293b;
+    --label-text: #475569;
+    --input-bg: #ffffff;
+    --input-color: #1e293b;
+    --input-border: #cbd5e1;
+    --back-btn-bg: rgba(0, 0, 0, 0.04);
+    --back-btn-text: #1e293b;
+    --back-btn-border: rgba(0, 0, 0, 0.12);
+    --preview-bg: rgba(0, 0, 0, 0.02);
+    --preview-text: #1e293b;
+    --course-box-bg: rgba(0, 0, 0, 0.02);
+    --course-box-border: rgba(0, 0, 0, 0.08);
+    --course-item-bg: rgba(0, 0, 0, 0.03);
+    --course-item-text: #1e293b;
+    --counter-text: #475569;
+}
+
+400;500;600;700;800&display=swap');
 
 /* ==========================================================================
    PROFESSIONAL ADD USER PAGE STYLING
@@ -19,8 +61,8 @@ html, body {
 
 /* Background */
 body {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
-    color: #f1f5f9 !important;
+    font-family: 'Poppins', sans-serif !important;
+    position: relative;
     font-family: 'Poppins', sans-serif !important;
     position: relative;
     overflow: hidden !important;
@@ -95,10 +137,10 @@ body {
     max-width: 650px;
     margin: auto;
     padding: 50px 45px;
-    background: rgba(30, 41, 59, 0.85);
+    background: var(--card-bg);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(148, 163, 184, 0.25);
+    border: 1px solid var(--card-border);
     border-radius: 24px;
     box-shadow: 
         0 30px 60px rgba(0, 0, 0, 0.4),
@@ -122,7 +164,7 @@ body {
     margin-bottom: 40px;
     font-size: 32px;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--form-text);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -141,14 +183,14 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background: rgba(51, 65, 85, 0.7);
-    color: white;
+    background: var(--back-btn-bg);
+    color: var(--back-btn-text);
     border-radius: 12px;
     font-weight: 600;
     font-size: 15px;
     text-decoration: none;
     transition: all 0.3s ease;
-    border: 1px solid rgba(148, 163, 184, 0.3);
+    border: 1px solid var(--input-border);
 }
 
 .back-btn:hover {
@@ -169,7 +211,7 @@ body {
     margin-bottom: 12px;
     font-size: 16px;
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--label-text);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -184,11 +226,11 @@ body {
     width: 100%;
     padding: 16px 18px;
     border-radius: 14px;
-    border: 1px solid rgba(148, 163, 184, 0.3);
+    border: 1px solid var(--input-border);
     outline: none;
     font-size: 15px;
-    background: rgba(15, 23, 42, 0.6);
-    color: #f8fafc;
+    background: var(--input-bg);
+    color: var(--input-color);
     font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease;
 }
@@ -207,7 +249,7 @@ body {
     padding: 18px;
     margin-top: 15px;
     background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    color: white;
+    color: var(--back-btn-text);
     border: none;
     border-radius: 14px;
     font-size: 16px;

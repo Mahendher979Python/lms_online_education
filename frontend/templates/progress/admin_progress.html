@@ -27,10 +27,13 @@
 }
 
 .card{
-    background:white;
+    background:var(--card);
+    color:var(--text);
     padding:22px;
     border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow-light);
+    border:1px solid var(--border);
+    transition:background var(--transition), color var(--transition);
 }
 
 .card h3{
@@ -40,28 +43,40 @@
 .card p{
     font-size:30px;
     font-weight:800;
-    color:#2563eb;
+    color:var(--accent);
 }
 
 /* TABLE */
 .progress-table{
     width:100%;
     border-collapse:collapse;
-    background:white;
+    background:var(--card);
+    color:var(--text);
     border-radius:20px;
     overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow-light);
+    border:1px solid var(--border);
+    transition:background var(--transition), color var(--transition);
 }
 
 .progress-table th{
-    background:#111827;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2, #7c3aed));
     color:white;
     padding:16px;
 }
 
 .progress-table td{
     padding:16px;
-    border-bottom:1px solid #e5e7eb;
+    border-bottom:1px solid var(--border);
+    color:var(--text);
+}
+
+.progress-table tbody tr {
+    transition: background var(--transition);
+}
+
+.progress-table tbody tr:hover {
+    background: var(--hover);
 }
 
 .badge{

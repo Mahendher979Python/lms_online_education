@@ -33,7 +33,7 @@ class UserSettings(models.Model):
     )
 
     dark_mode = models.BooleanField(
-        default=False
+        default=True
     )
 
     email_notifications = models.BooleanField(
@@ -83,3 +83,12 @@ class UserSettings(models.Model):
     def __str__(self):
 
         return f"{self.user.username} Settings"
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_user_settings(sender, instance, created, **kwargs):
+    if created:
+        UserSettings.objects.get_or_create(user=instance)

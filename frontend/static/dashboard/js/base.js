@@ -1,60 +1,97 @@
-// Shared dashboard helpers
+// Shared dashboard JS - Fully Responsive
+let sidebarState = localStorage.getItem('sidebarState') || 'expanded';
+
+function initSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+    
+    if (window.innerWidth >= 768 && sidebarState === 'collapsed') {
+        sidebar.classList.add('collapsed');
+    } else if (window.innerWidth < 768) {
+        // On mobile, start with closed sidebar
+        sidebar.classList.add('closed');
+    }
+}
+
 function syncSidebarLayout() {
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("sidebar-overlay");
-    const navbar = document.querySelector(".navbar");
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const navbar = document.querySelector('.navbar');
 
     if (!sidebar) return;
 
-    const isMobile = window.innerWidth <= 768;
-    const isClosed = sidebar.classList.contains("closed");
+    const isMobile = window.innerWidth < 768;
 
-    // Overlay only matters on mobile.
-    if (overlay) {
-        if (isMobile && !isClosed) overlay.classList.add("active");
-        else overlay.classList.remove("active");
+    if (isMobile) {
+        // Mobile behavior
+        if (!sidebar.classList.contains('closed')) {
+            overlay.classList.add('active');
+        } else {
+            overlay.classList.remove('active');
+        }
+    } else {
+        // Desktop behavior
+        overlay.classList.remove('active');
     }
-
-    // Force navbar flush-left on mobile.
-    if (navbar && isMobile) navbar.style.left = "0px";
-    else if (navbar) navbar.style.left = "";
 }
 
 function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
+    const sidebar = document.getElementById('sidebar');
     if (!sidebar) return;
 
-    sidebar.classList.toggle("closed");
+    if (window.innerWidth < 768) {
+        // On mobile, toggle open/closed
+        sidebar.classList.toggle('closed');
+    } else {
+        // On desktop, toggle expanded/collapsed
+        sidebar.classList.toggle('collapsed');
+        
+        // Save state
+        sidebarState = sidebar.classList.contains('collapsed') ? 'collapsed' : 'expanded';
+        localStorage.setItem('sidebarState', sidebarState);
+    }
+    
     syncSidebarLayout();
 }
 
 function closeSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("sidebar-overlay");
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
 
-    if (sidebar) sidebar.classList.add("closed");
-    if (overlay) overlay.classList.remove("active");
+    if (sidebar) sidebar.classList.add('closed');
+    if (overlay) overlay.classList.remove('active');
     syncSidebarLayout();
 }
 
 function toggleDark() {
-    const isLight = document.body.classList.toggle("light");
-    localStorage.setItem("theme", isLight ? "light" : "dark");
+    const isLight = document.body.classList.toggle('light');
+    const newTheme = isLight ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+
+    const darkModeCheckbox = document.querySelector('input[name="dark_mode"]');
+    if (darkModeCheckbox) {
+        darkModeCheckbox.checked = (newTheme === 'dark');
+    }
+
+    if (window.TOGGLE_THEME_API) {
+        fetch(`${window.TOGGLE_THEME_API}?theme=${newTheme}`)
+            .catch(err => console.error('Theme sync error:', err));
+    }
 }
 
 function loadNotifications() {
-    const url = (window.NOTIFICATIONS_API || "/notifications/");
+    const url = window.NOTIFICATIONS_API || '/notifications/';
     fetch(url)
         .then(res => res.json())
         .then(data => {
-            const badge = document.getElementById("notif-count");
+            const badge = document.getElementById('notif-count');
             if (!badge) return;
 
-            const unread = data && typeof data.unread_count === "number" ? data.unread_count : 0;
+            const unread = data && typeof data.unread_count === 'number' ? data.unread_count : 0;
             badge.innerText = unread;
-            badge.style.display = unread > 0 ? "flex" : "none";
+            badge.style.display = unread > 0 ? 'flex' : 'none';
         })
-        .catch(() => {});
+        .catch(err => console.error('Notification load error:', err));
 }
 
 function showLogoutModal(e) {
@@ -62,25 +99,73 @@ function showLogoutModal(e) {
         e.preventDefault();
         e.stopPropagation();
     }
-    const modal = document.getElementById("logout-confirm-modal");
-    if (modal) modal.classList.add("active");
+    const modal = document.getElementById('logout-confirm-modal');
+    if (modal) modal.classList.add('active');
 }
 
 function closeLogoutModal() {
-    const modal = document.getElementById("logout-confirm-modal");
-    if (modal) modal.classList.remove("active");
+    const modal = document.getElementById('logout-confirm-modal');
+    if (modal) modal.classList.remove('active');
 }
 
 function confirmLogout() {
-    const form = document.getElementById("logout-post-form");
-    if (form) form.submit();
-    else window.location.href = "/en/logout/";
+    const form = document.getElementById('logout-post-form');
+    if (form) {
+        form.submit();
+    } else {
+        window.location.href = '/en/logout/';
+    }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
+    initSidebar();
     syncSidebarLayout();
     loadNotifications();
     setInterval(loadNotifications, 5000);
+    
+    // Close modal with escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeLogoutModal();
+            if (window.innerWidth < 768) {
+                closeSidebar();
+            }
+        }
+    });
+
+    const darkModeCheckbox = document.querySelector('input[name="dark_mode"]');
+    if (darkModeCheckbox) {
+        darkModeCheckbox.addEventListener('change', () => {
+            const currentThemeIsLight = document.body.classList.contains('light');
+            const checkboxIsChecked = darkModeCheckbox.checked;
+            if ((checkboxIsChecked && currentThemeIsLight) || (!checkboxIsChecked && !currentThemeIsLight)) {
+                toggleDark();
+            }
+        });
+    }
 });
 
-window.addEventListener("resize", syncSidebarLayout);
+window.addEventListener('resize', () => {
+    syncSidebarLayout();
+    
+    if (window.innerWidth >= 768) {
+        // Ensure desktop sidebar state is restored
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            if (sidebarState === 'collapsed') {
+                sidebar.classList.add('collapsed');
+                sidebar.classList.remove('closed');
+            } else {
+                sidebar.classList.remove('collapsed');
+                sidebar.classList.remove('closed');
+            }
+        }
+    } else {
+        // On mobile, always reset to closed state
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.classList.add('closed');
+            sidebar.classList.remove('collapsed');
+        }
+    }
+});

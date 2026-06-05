@@ -62,7 +62,7 @@ def trainer_notifications(request):
 @login_required
 def admin_notifications(request):
 
-    if request.user.role != "admin":
+    if request.user.role not in ["admin", "superadmin"] and not request.user.is_superuser:
         return redirect("login")
 
     notifications = Notification.objects.filter(

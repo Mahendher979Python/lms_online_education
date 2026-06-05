@@ -6,9 +6,38 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+:root {
+    --card: #0b1220;
+    --bg: #0f172a;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.12);
+    --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --hover: rgba(255, 255, 255, 0.06);
+    --circle-bg: rgba(15, 23, 42, 0.6);
+    --table-header-bg: var(--accent);
+    --break-box-bg: rgba(15, 23, 42, 0.6);
+    --location-address-bg: rgba(15, 23, 42, 0.6);
+}
+body.light {
+    --card: #ffffff;
+    --bg: #f4f6f9;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: #edebe9;
+    --shadow-light: 0 4px 12px rgba(0,0,0,0.08);
+    --hover: #f0f8ff;
+    --circle-bg: #f0fff4;
+    --table-header-bg: #007bff;
+    --break-box-bg: #f8f9fa;
+    --location-address-bg: #f8f9fa;
+}
+
 body {
-    background: #f4f6f9;
+    background: var(--bg);
+    color: var(--text);
     font-family: 'Segoe UI', Arial, sans-serif;
+    transition: background var(--transition, 0.3s), color var(--transition, 0.3s);
 }
 
 .dashboard {
@@ -18,11 +47,14 @@ body {
 }
 
 .card {
-    background: #fff;
+    background: var(--card);
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border);
     margin-bottom: 20px;
+    color: var(--text);
+    transition: background var(--transition, 0.3s), color var(--transition, 0.3s);
 }
 
 /* ── Timer Circle ── */
@@ -43,7 +75,7 @@ body {
     font-size: 22px;
     font-weight: bold;
     color: #28a745;
-    background: #f0fff4;
+    background: var(--circle-bg);
 }
 
 /* ── Status dot ── */
@@ -97,14 +129,15 @@ body {
 }
 
 .break-box {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 6px 14px;
     font-size: 15px;
     font-weight: 600;
     min-width: 100px;
     text-align: center;
-    background: #f8f9fa;
+    background: var(--break-box-bg);
+    color: var(--text);
 }
 
 /* ── Table ── */
@@ -113,10 +146,11 @@ body {
     border-collapse: collapse;
     margin-top: 14px;
     font-size: 14px;
+    color: var(--text);
 }
 
 .table th {
-    background: #007bff;
+    background: var(--table-header-bg);
     color: white;
     padding: 10px;
     text-align: center;
@@ -124,11 +158,11 @@ body {
 
 .table td {
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
     text-align: center;
 }
 
-.table tr[data-date]:hover { background: #f0f8ff; cursor: pointer; }
+.table tr[data-date]:hover { background: var(--hover); cursor: pointer; }
 
 .status-present { color: #28a745; font-weight: 700; }
 .status-absent  { color: #dc3545; font-weight: 700; }
@@ -144,11 +178,11 @@ body {
 /* ── Location address box ── */
 .location-address {
     border-left: 4px solid #28a745;
-    background: #f8f9fa;
+    background: var(--location-address-bg);
     border-radius: 6px;
     padding: 8px 12px;
     font-size: 13px;
-    color: #333;
+    color: var(--text);
     margin-bottom: 10px;
     display: flex;
     align-items: flex-start;

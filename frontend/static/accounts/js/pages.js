@@ -205,35 +205,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Form Submit Handler
         contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            if (checkFormValidity()) {
-                // Disable submit button and show loading state
-                if (submitBtn) {
-                    submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
-                }
-
-                // Simulate API call delay (1.2s)
-                setTimeout(() => {
-                    // Reset Form
-                    contactForm.reset();
-
-                    // Re-enable submit button
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
-                    }
-
-                    // Show success toast notification
-                    if (toast) {
-                        toast.classList.add('show');
-                        setTimeout(() => {
-                            toast.classList.remove('show');
-                        }, 5000); // Hide after 5 seconds
-                    }
-                }, 1200);
-            } else {
+            if (!checkFormValidity()) {
+                e.preventDefault();
                 // Show errors for empty fields
                 inputs.forEach(input => {
                     if (!input.value.trim()) {
@@ -245,6 +218,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         input.style.borderColor = '#ef4444';
                     }
                 });
+            } else {
+                // Disable submit button and show loading state
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
+                }
             }
         });
     }

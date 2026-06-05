@@ -6,22 +6,44 @@
 {% block content %}
 
 <style>
+body {
+    --box-bg: rgba(30, 41, 59, 0.85);
+    --box-border: rgba(255, 255, 255, 0.1);
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    --label-color: #cbd5e1;
+    --input-bg: rgba(15, 23, 42, 0.6);
+    --input-color: #f8fafc;
+    --input-border: rgba(255, 255, 255, 0.15);
+    --header-text: #ffffff;
+}
+
+body.light {
+    --box-bg: rgba(255, 255, 255, 0.95);
+    --box-border: rgba(0, 0, 0, 0.08);
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --label-color: #475569;
+    --input-bg: #ffffff;
+    --input-color: #1e293b;
+    --input-border: #cbd5e1;
+    --header-text: #0f172a;
+}
+
 
 .settings-container{
     max-width:700px;
     margin:40px auto;
-    background:rgba(30,41,59,0.8);
+    background:var(--box-bg); border:1px solid var(--box-border);
     backdrop-filter: blur(10px);
     padding:35px;
     border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    box-shadow:var(--box-shadow);
 }
 
 .settings-title{
     font-size:30px;
     font-weight:700;
     margin-bottom:30px;
-    color:#ffffff;
+    color:var(--header-text);
 }
 
 .switch-row{
@@ -29,15 +51,15 @@
     justify-content:space-between;
     align-items:center;
     padding:18px;
-    border:1px solid rgba(255,255,255,0.1);
+    border:1px solid var(--input-border);
     border-radius:14px;
     margin-bottom:18px;
-    background:rgba(15,23,42,0.4);
+    background:var(--input-bg);
 }
 
 .switch-row label{
     font-weight:600;
-    color:#e2e8f0;
+    color:var(--label-color);
 }
 
 .switch-row input{
@@ -49,11 +71,11 @@
 .select-box{
     width:100%;
     padding:14px;
-    border:1px solid rgba(255,255,255,0.1);
+    border:1px solid var(--input-border);
     border-radius:12px;
     margin-bottom:20px;
-    background:rgba(15,23,42,0.6);
-    color:#e2e8f0;
+    background:var(--input-bg);
+    color:var(--input-color);
 }
 
 .save-btn{

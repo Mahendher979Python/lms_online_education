@@ -4,7 +4,7 @@
 {% block title %}Login | LMS{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}?v=1.2">
 {% endblock %}
 
 {% block footer %}{% endblock %}
@@ -78,14 +78,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    const togglePassword = document.querySelector(".toggle-password");
-    togglePassword.addEventListener("click", function () {
-        const passwordInput = this.parentElement.querySelector("input");
-        const type = passwordInput.type === "password" ? "text" : "password";
-        passwordInput.type = type;
-        this.classList.toggle("fa-eye");
-        this.classList.toggle("fa-eye-slash");
-    });
-</script>
+<script src="{% static 'accounts/js/auth.js' %}"></script>
 {% endblock %}

@@ -348,3 +348,24 @@ def student_settings(request):
         "settings_obj": settings_obj,
         "languages": UserSettings.LANGUAGE_CHOICES
     })
+
+
+@login_required
+def toggle_theme(request):
+    from django.http import JsonResponse
+    import json
+    
+    theme = request.GET.get("theme")
+    if not theme and request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            theme = data.get("theme")
+        except json.JSONDecodeError:
+            theme = request.POST.get("theme")
+
+    if theme in ["light", "dark"]:
+        settings_obj, created = UserSettings.objects.get_or_create(user=request.user)
+        settings_obj.dark_mode = (theme == "dark")
+        settings_obj.save()
+        return JsonResponse({"status": "success", "dark_mode": settings_obj.dark_mode})
+    return JsonResponse({"status": "error"}, status=400)

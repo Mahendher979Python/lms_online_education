@@ -1,5 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
+body {
+    --card-bg: rgba(30, 41, 59, 0.6);
+    --card-border: rgba(148, 163, 184, 0.15);
+    --card-text-title: #ffffff;
+    --card-text-muted: #94a3b8;
+    --title-gradient: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+    --secondary-btn-bg: rgba(255, 255, 255, 0.05);
+    --secondary-btn-text: #ffffff;
+    --secondary-btn-border: rgba(148, 163, 184, 0.3);
+    --global-btn-bg: rgba(255, 255, 255, 0.03);
+    --global-btn-text: #ffffff;
+    --global-btn-border: rgba(148, 163, 184, 0.2);
+}
+
+body.light {
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --card-text-title: #0f172a;
+    --card-text-muted: #475569;
+    --title-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    --secondary-btn-bg: rgba(0, 0, 0, 0.04);
+    --secondary-btn-text: #0f172a;
+    --secondary-btn-border: rgba(0, 0, 0, 0.12);
+    --global-btn-bg: rgba(0, 0, 0, 0.03);
+    --global-btn-text: #0f172a;
+    --global-btn-border: rgba(0, 0, 0, 0.1);
+}
+
 /* ==========================================================================
    PAGE-SPECIFIC STYLES (NO OVERRIDES FOR DASHBOARD BASE)
    ========================================================================== */
@@ -69,7 +97,7 @@ body {
 .page-title span {
     font-size: 38px;
     font-weight: 800;
-    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+    background: var(--title-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -111,10 +139,10 @@ body {
     overflow: hidden;
     border-radius: 20px;
     padding: 50px 40px;
-    background: rgba(30, 41, 59, 0.6);
+    background: var(--card-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    border: 1px solid var(--card-border);
     box-shadow: 
         0 25px 50px rgba(0, 0, 0, 0.3),
         0 0 0 1px rgba(255, 255, 255, 0.03);
@@ -175,13 +203,13 @@ body {
     text-align: center;
     font-size: 28px;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--card-text-title);
     margin: 0 0 12px;
     font-family: 'Poppins', sans-serif;
 }
 
 .user-card p {
-    color: #94a3b8;
+    color: var(--card-text-muted);
     text-align: center;
     line-height: 1.8;
     font-size: 15px;
@@ -233,9 +261,9 @@ body {
 }
 
 .secondary-btn {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(148, 163, 184, 0.3);
+    color: var(--secondary-btn-text);
+    background: var(--secondary-btn-bg);
+    border: 1px solid var(--secondary-btn-border);
     backdrop-filter: blur(10px);
 }
 
@@ -264,7 +292,7 @@ body {
     border: none;
     padding: 18px 45px;
     border-radius: 14px;
-    color: #ffffff;
+    color: var(--global-btn-text);
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
@@ -272,8 +300,8 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: var(--global-btn-bg);
+    border: 1px solid var(--global-btn-border);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     transition: all 0.4s ease;
