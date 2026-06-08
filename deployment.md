@@ -55,24 +55,25 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 ## 5. Step 4: Install Required Software
 ```bash
-sudo apt install python3-pip python3-venv nginx git postgresql postgresql-contrib certbot python3-certbot-nginx -y
+sudo apt install python3-pip python3-venv nginx git mysql-server mysql-client libmysqlclient-dev certbot python3-certbot-nginx -y
 ```
 
 ---
 
-## 6. Step 5: Configure PostgreSQL
+## 6. Step 5: Configure MySQL
 ```bash
-# Switch to postgres user
-sudo -u postgres psql
+# Secure MySQL installation
+sudo mysql_secure_installation
 
-# Run these SQL commands inside psql:
-CREATE DATABASE lms_db;
-CREATE USER lms_user WITH PASSWORD 'your_strong_password';
-ALTER ROLE lms_user SET client_encoding TO 'utf8';
-ALTER ROLE lms_user SET default_transaction_isolation TO 'read committed';
-ALTER ROLE lms_user SET timezone TO 'Asia/Kolkata';
-GRANT ALL PRIVILEGES ON DATABASE lms_db TO lms_user;
-\q
+# Connect to MySQL
+sudo mysql -u root -p
+
+# Run these SQL commands inside MySQL:
+CREATE DATABASE lms_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'lms_user'@'localhost' IDENTIFIED BY 'your_strong_password';
+GRANT ALL PRIVILEGES ON lms_db.* TO 'lms_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
 ```
 
 ---
@@ -80,7 +81,7 @@ GRANT ALL PRIVILEGES ON DATABASE lms_db TO lms_user;
 ## 7. Step 6: Clone or Upload Project
 ```bash
 cd /home/ubuntu
-git clone https://github.com/your-username/your-repo.git online-learning-system
+git clone https://github.com/Mahendher979Python/lms_online_education.git online-learning-system
 cd online-learning-system
 ```
 

@@ -14,7 +14,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Step 2: Install Required Software
 echo "Step 2: Installing required software..."
-sudo apt install python3-pip python3-venv nginx git postgresql postgresql-contrib certbot python3-certbot-nginx -y
+sudo apt install python3-pip python3-venv nginx git mysql-server mysql-client libmysqlclient-dev certbot python3-certbot-nginx -y
 
 # Step 3: Create Swap File (if needed)
 echo "Step 3: Creating swap file..."
@@ -31,7 +31,7 @@ PROJECT_DIR="/home/ubuntu/online-learning-system"
 if [ ! -d "$PROJECT_DIR" ]; then
     echo "Step 4: Cloning project repository..."
     cd /home/ubuntu
-    git clone https://github.com/Mahendher979Python/online-learning-system.git
+    git clone https://github.com/Mahendher979Python/lms_online_education.git online-learning-system
 else
     echo "Step 4: Project directory already exists. Pulling latest changes..."
     cd $PROJECT_DIR
